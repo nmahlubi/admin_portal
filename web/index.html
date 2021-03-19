@@ -44,20 +44,26 @@
   ...
   <body>
   <!-- Add this line -->
-  <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+
   <script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyDFo0q3JAoF3C22SvpHkuHbs3XnObQad0A",
-    authDomain: "flutterlogin-5785d.firebaseapp.com",
-    projectId: "flutterlogin-5785d",
-    storageBucket: "flutterlogin-5785d.appspot.com",
-    messagingSenderId: "947440138479",
-    appId: "1:947440138479:web:5d2ac85db7e25da7a8431a"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-</script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+          apiKey: "AIzaSyAqDgYMXp9AnX7MxBVmuUibe8yMhNX6UhE",
+          authDomain: "connected-life-a3c11.firebaseapp.com",
+          databaseURL: "https://connected-life-a3c11.firebaseio.com",
+          projectId: "connected-life-a3c11",
+          storageBucket: "connected-life-a3c11.appspot.com",
+          messagingSenderId: "440269080724",
+          appId: "1:440269080724:web:686074e5967c8b89a3cc81"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+  </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
