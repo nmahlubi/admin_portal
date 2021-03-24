@@ -11,6 +11,7 @@ import 'core/service/connected_api.dart';
 GetIt locator = GetIt.instance;
 
 void setupLocator({SharedPreferences sharedPreferences, FirebaseAuth firebaseAuth}) {
+  locator.registerLazySingleton(() => sharedPreferences);
   locator.registerLazySingleton(() => AuthenticationService());
   locator.registerLazySingleton(() => ConnectedApi());
   locator.registerLazySingleton(() => FirebaseRepo());

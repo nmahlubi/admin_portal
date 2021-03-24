@@ -12,8 +12,12 @@ class CoreHelpers {
   static const String fbId = "2365251450450860";
 
   static void setupLanguage() {
-    initializeDateFormatting('en', null);
-    initializeDateFormatting('en_US,', null);
+    try {
+      initializeDateFormatting('en', null);
+      initializeDateFormatting('en_US,', null);
+    } catch(error, stackTrace) {
+      print("Error: ${error.toString()}");
+    }
   }
 
   static String getDeviceType() {

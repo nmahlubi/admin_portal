@@ -13,16 +13,16 @@ class NotificationHelper {
   static void init(BuildContext context) {
     print("NotificationHelper init");
     _requestIOSPermissions();
-    _configureDidReceiveLocalNotificationSubject(context);
+    //_configureDidReceiveLocalNotificationSubject(context);
     _configureSelectNotificationSubject(context);
 
-    NotificationService messageService = locator<NotificationService>();
+    /*NotificationService messageService = locator<NotificationService>();
     messageService.init((message) {
       print("NotificationHelper Message received");
       onMessageReceived(message);
     }, (message) {
       navigateToScreen(message, context);
-    });
+    });*/
   }
 
   static void destroy() {
@@ -30,7 +30,7 @@ class NotificationHelper {
     selectNotificationSubject.close();
   }
 
-  static Future<void> _showNotification(String title, String body) async {
+  /*static Future<void> _showNotification(String title, String body) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'myChannelId', 'myChannelName', 'myChannelDescription',
         importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
@@ -40,7 +40,7 @@ class NotificationHelper {
 
     await flutterLocalNotificationsPlugin
         .show(0, title, body, platformChannelSpecifics, payload: '/');
-  }
+  }*/
 
   static void _requestIOSPermissions() {
     flutterLocalNotificationsPlugin
@@ -53,12 +53,12 @@ class NotificationHelper {
         );
   }
 
-  static void _configureDidReceiveLocalNotificationSubject(
+  /*static void _configureDidReceiveLocalNotificationSubject(
       BuildContext context) {
     try {
       didReceiveLocalNotificationSubject.stream
           .listen((ReceivedNotification receivedNotification) async {
-        /*await showDialog(
+        *//*await showDialog(
           context: context,
           builder: (BuildContext context) =>
               CupertinoAlertDialog(
@@ -78,13 +78,13 @@ class NotificationHelper {
                   )
                 ],
               ),
-        );*/
+        );*//*
         _showNotification(receivedNotification?.title ?? "New Notification", receivedNotification?.body ?? "Open App");
       });
     }catch(e) {
       print("Stream Already listening");
     }
-  }
+  }*/
 
   static void _configureSelectNotificationSubject(BuildContext context) {
     try {
@@ -105,7 +105,7 @@ class NotificationHelper {
         arguments: "messages");
   }
 
-  static Future<dynamic> onMessageReceived(
+  /*static Future<dynamic> onMessageReceived(
       Map<String, dynamic> message,) async {
 
     if(CoreHelpers.getDeviceType() == "IOS") {
@@ -121,5 +121,5 @@ class NotificationHelper {
 
       _showNotification(message['data']['title'], message['data']['body']);
     }
-  }
+  }*/
 }

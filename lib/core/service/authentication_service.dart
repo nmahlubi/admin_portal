@@ -21,7 +21,7 @@ class AuthenticationService {
   SharedPreferences sharedPreferences = locator<SharedPreferences>();
   StreamController<ClientUserDto> userController =
       StreamController<ClientUserDto>();
-  NotificationService _notificationService = locator<NotificationService>();
+  //NotificationService _notificationService = locator<NotificationService>();
 
   FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
 
@@ -42,7 +42,7 @@ class AuthenticationService {
     if (uid != null) {
       NewUserDto newUserDto = NewUserDto(uid: uid, emailAddress: email);
       var uuid = Uuid();
-      String deviceToken = await _notificationService.getMessagingToken();
+      String deviceToken = "-";
       Device device = Device(
           CoreHelpers.getDeviceType(), deviceToken, uuid.v4().toString(), null);
       newUserDto.device = device;
@@ -79,7 +79,7 @@ class AuthenticationService {
     var uuid = Uuid();
     ClientUserDto fetchedUser;
     if (uid != null) {
-      String deviceToken = await _notificationService.getMessagingToken();
+      String deviceToken = "-";
       Device device = Device(
           CoreHelpers.getDeviceType(), deviceToken, uuid.v4().toString(), null);
       NewUserDto newUserDto = NewUserDto(
@@ -104,7 +104,7 @@ class AuthenticationService {
     var userExists = false;
     String savedUser = sharedPreferences.getString(CoreHelpers.savedUserKey);
     var uuid = Uuid();
-    String deviceToken = await _notificationService.getMessagingToken();
+    String deviceToken = "-";
     User firebaseUser = await _firebaseAuth.authStateChanges().first;
     String deviceType = CoreHelpers.getDeviceType();
     Device newDevice =

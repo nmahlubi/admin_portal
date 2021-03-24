@@ -1,8 +1,8 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:nomah/core/shared/core_helpers.dart';
 import 'package:nomah/ui/shared/notification_helper.dart';
 
-class NotificationService {
+/*class NotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   String localToken;
 
@@ -45,4 +45,4 @@ class NotificationService {
 
     return token;
   }
-}
+}*/
