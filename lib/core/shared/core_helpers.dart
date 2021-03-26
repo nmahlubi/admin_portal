@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:intl/date_symbol_data_file.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -21,16 +22,18 @@ class CoreHelpers {
   }
 
   static String getDeviceType() {
-    if (Platform.isIOS) {
+    if (kIsWeb) {
+      return "WEB";
+    } else if (Platform.isIOS) {
       return "IOS";
     } else if (Platform.isAndroid) {
       return "ANDROID";
     } else {
-      return "WEB";
+      return "UNKNOWN";
     }
   }
 
-  static Future<void> openLink(link) async {
+      static Future<void> openLink(link) async {
     if (await canLaunch(link)) {
       await launch(link);
     } else {

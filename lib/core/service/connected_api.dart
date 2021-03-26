@@ -15,19 +15,27 @@ class ConnectedApi {
 
   var client = new http.Client();
 
-  Future<ClientUserDto> register(NewUserDto newUserDto) async{
+  Future<ClientUserDto> register(NewUserDto newUserDto) async {
     Map<String, String> requestHeaders = {
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.acceptHeader: "application/json",
     };
-    Uri uri = authorityType == "http" ? Uri.http(endpoint, "/api/v1/user/open/register") : Uri.https(endpoint, "/api/v1/user/open/register");
-    final response = await client.put(uri, headers: requestHeaders, body: json.encode(newUserDto.toJson()));
-    if (response.statusCode == 200 || response.statusCode == 201 || response.statusCode == 203 || response.statusCode == 204) {
+    Uri uri = authorityType == "http"
+        ? Uri.http(endpoint, "/api/v1/user/$endpointType/registerAdmin")
+        : Uri.https(endpoint, "/api/v1/user/$endpointType/registerAdmin");
+    final response = await client.put(uri,
+        headers: requestHeaders, body: json.encode(newUserDto.toJson()));
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
       return ClientUserDto.fromJson(json.decode(response.body));
-    }else if(response.body != null) {
+    } else if (response.body != null) {
+      print(response.body);
       return Future.error(response.body);
     } else {
-      return Future.error('Failed to Register ${response.toString()}');
+      print('${response.toString()}');
+      return Future.error('${response.toString()}');
     }
   }
 

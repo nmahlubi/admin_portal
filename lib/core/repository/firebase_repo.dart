@@ -10,7 +10,7 @@ class FirebaseRepo {
     User user = _firebaseAuth.currentUser;
     return user;
   }
-  
+
   Future<bool> isEmailVerified() async{
 
     User user = _firebaseAuth.currentUser;
@@ -28,13 +28,13 @@ class FirebaseRepo {
 
     UserCredential authResult;
     try {
-    authResult = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-    return authResult.user.uid;
+      authResult = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      return authResult.user.uid;
     } catch(error) {
       return Future.error(getError(error));
     }
   }
-  
+
   Future<void> signOut() {
 
     return _firebaseAuth.signOut();
@@ -44,8 +44,8 @@ class FirebaseRepo {
 
     UserCredential authResult;
     try {
-    authResult = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password,);
-    return authResult.user.uid;
+      authResult = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password,);
+      return authResult.user.uid;
     } catch(error) {
       return Future.error(getError(error));
     }
@@ -55,8 +55,8 @@ class FirebaseRepo {
 
     UserCredential authResult;
     try {
-    authResult = await _firebaseAuth.signInWithCredential(credential);
-    return authResult.user;
+      authResult = await _firebaseAuth.signInWithCredential(credential);
+      return authResult.user;
     } catch(error) {
       return Future.error(getError(error));
     }

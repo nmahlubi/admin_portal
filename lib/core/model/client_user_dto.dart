@@ -27,8 +27,10 @@ class ClientUserDto {
   String doctorNumber;
   Device device;
   bool loggedIn;
+  String idToken;
 
   ClientUserDto(
+      this.idToken,
       this._id,
       this.familyId,
       this.doctorName,
@@ -118,6 +120,7 @@ class ClientUserDto {
     device = json.containsKey('device') && json['device'] != null
         ? Device.fromJson(json['device'])
         : null;
+    idToken = json['idToken'];
   }
 
   Map<String, dynamic> toJson() {
@@ -186,6 +189,9 @@ class ClientUserDto {
     }
     if (this.accessRights != null) {
       data['accessRights'] = this.accessRights;
+    }
+    if (this.idToken != null) {
+      data['idToken'] = this.idToken;
     }
     return data;
   }

@@ -9,7 +9,7 @@ import 'base_model.dart';
 
 class RegisterModel extends BaseModel {
   final AuthenticationService _authenticationService =
-      locator<AuthenticationService>();
+  locator<AuthenticationService>();
 
   String errorMessage;
   bool skipEnabled = false;
@@ -21,9 +21,9 @@ class RegisterModel extends BaseModel {
   final TextEditingController cellNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController verifyPasswordController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController termsController =
-      TextEditingController(text: "false");
+  TextEditingController(text: "false");
 
   void init() {
     errorMessage = "";
@@ -53,11 +53,11 @@ class RegisterModel extends BaseModel {
     } else {
       _authenticationService
           .register(
-              emailController.text,
-              cellNumberController.text,
-              passwordController.text,
-              firstNameController.text,
-              lastNameController.text)
+          emailController.text,
+          cellNumberController.text,
+          passwordController.text,
+          firstNameController.text,
+          lastNameController.text)
           .then((createdUser) {
         if (createdUser == null) {
           errorMessage = "Something went wrong. Please try again.";

@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nomah/core/model/client_user_dto.dart';
 import 'package:nomah/core/model/device.dart';
 import 'package:nomah/core/model/new_user_dto.dart';
 import 'package:nomah/core/repository/firebase_repo.dart';
-import 'package:nomah/core/service/notification_service.dart';
 import 'package:nomah/core/shared/core_helpers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -20,8 +18,7 @@ class AuthenticationService {
   FirebaseRepo _firebaseRepo = locator<FirebaseRepo>();
   SharedPreferences sharedPreferences = locator<SharedPreferences>();
   StreamController<ClientUserDto> userController =
-      StreamController<ClientUserDto>();
-  //NotificationService _notificationService = locator<NotificationService>();
+  StreamController<ClientUserDto>();
 
   FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
 
@@ -58,6 +55,7 @@ class AuthenticationService {
     }
     return user;
   }
+
   Future<String> getUserToken() async {
     var idToken = await _firebaseRepo.getUserToken();
     if (idToken != null) {
@@ -68,12 +66,12 @@ class AuthenticationService {
   }
 
   Future<ClientUserDto> register(
-    String email,
-    String cellNumber,
-    String password,
-    String firstName,
-    String lastName,
-  ) async {
+      String email,
+      String cellNumber,
+      String password,
+      String firstName,
+      String lastName,
+      ) async {
     var hasUser = false;
     var uid = await _firebaseRepo.signUp(email, password);
     var uuid = Uuid();
@@ -108,10 +106,10 @@ class AuthenticationService {
     User firebaseUser = await _firebaseAuth.authStateChanges().first;
     String deviceType = CoreHelpers.getDeviceType();
     Device newDevice =
-        Device(deviceType, deviceToken, uuid.v4().toString(), null);
+    Device(deviceType, deviceToken, uuid.v4().toString(), null);
     if (savedUser != null && firebaseUser != null) {
       ClientUserDto clientUserDto =
-          ClientUserDto.fromJson(json.decode(savedUser));
+      ClientUserDto.fromJson(json.decode(savedUser));
       //print("AuthenticationService User Obj: ${json.encode(clientUserDto.toJson())}");
       var device = clientUserDto.device;
       if (device != null) {
@@ -124,7 +122,7 @@ class AuthenticationService {
       await sharedPreferences.setString(
           CoreHelpers.savedUserKey, json.encode(clientUserDto.toJson()));
       userExists =
-          await _connectedApi.checkUserExists(clientUserDto.uid, device);
+      await _connectedApi.checkUserExists(clientUserDto.uid, device);
       print("Checking if user exists $userExists");
       return userExists;
     } else {
