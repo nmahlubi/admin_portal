@@ -8,7 +8,7 @@ class MyRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case "/":
-       // var clientUserDto = settings.arguments as ClientUserDto;
+        // var clientUserDto = settings.arguments as ClientUserDto;
         return MaterialPageRoute(builder: (_) => HomeView());
       case "login":
         return MaterialPageRoute(builder: (_) => LoginView());
@@ -17,10 +17,10 @@ class MyRouter {
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
-              body: Center(
-                child: Text('No route defined for ${settings.name}'),
-              ),
-            ));
+                  body: Center(
+                    child: Text('No route defined for ${settings.name}'),
+                  ),
+                ));
     }
   }
 }

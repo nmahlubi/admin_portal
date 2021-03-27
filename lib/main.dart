@@ -20,13 +20,13 @@ import 'ui/shared/received_notification.dart';
 final debug = false;
 
 final StreamController<ReceivedNotification>
-didReceiveLocalNotificationSubject =
-StreamController<ReceivedNotification>();
+    didReceiveLocalNotificationSubject =
+    StreamController<ReceivedNotification>();
 
 final StreamController<String> selectNotificationSubject =
-StreamController<String>();
+    StreamController<String>();
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -34,8 +34,9 @@ void main() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
   setupLocator(
-      sharedPreferences: sharedPreferences,
-      firebaseAuth: firebaseAuth,);
+    sharedPreferences: sharedPreferences,
+    firebaseAuth: firebaseAuth,
+  );
 
   runApp(MyApp());
 }
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<ClientUserDto>(
         initialData: locator<AuthenticationService>().getClientUserDto(),
         create: (context) =>
-        locator<AuthenticationService>().userController.stream,
+            locator<AuthenticationService>().userController.stream,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Live Connected',
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
             primaryColor: primaryColor,
             canvasColor: lightShadowColor,
           ),
-          initialRoute: '/',
+          initialRoute: 'login',
           onGenerateRoute: MyRouter.generateRoute,
         ));
   }

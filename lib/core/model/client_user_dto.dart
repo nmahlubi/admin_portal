@@ -1,5 +1,3 @@
-
-
 import 'package:nomah/core/shared/date_formats.dart';
 
 import 'device.dart';
@@ -62,7 +60,6 @@ class ClientUserDto {
 
   String get cellNumber => _cellNumber ?? "";
 
-
   set firstName(String value) {
     _firstName = value;
   }
@@ -81,10 +78,7 @@ class ClientUserDto {
         emailAddress = '',
         uid = '';
 
-  ClientUserDto.newInstance(
-      this._firstName,
-      this._lastName,
-      this._cellNumber,
+  ClientUserDto.newInstance(this._firstName, this._lastName, this._cellNumber,
       {this.emailAddress,
       this.emergencyContactNumber,
       this.relationship,

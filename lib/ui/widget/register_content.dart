@@ -5,12 +5,14 @@ import 'package:nomah/core/shared/core_helpers.dart';
 import 'package:nomah/ui/shared/app_colors.dart';
 import 'package:nomah/ui/shared/text_styles.dart';
 import 'package:nomah/ui/shared/ui_helpers.dart';
+import 'package:nomah/ui/view/login_view.dart';
 import 'package:nomah/ui/widget/cell_text_field.dart';
 import 'package:nomah/ui/widget/padded_divider.dart';
 import 'package:nomah/ui/widget/plain_text_field.dart';
 import 'email_text_field.dart';
 import 'labelled_check_box_widget.dart';
 import 'password_text_field.dart';
+import 'package:flutter/src/material/page.dart';
 
 class RegisterContent extends StatelessWidget {
   final TextEditingController firstNameController;
@@ -90,8 +92,7 @@ class RegisterContent extends StatelessWidget {
           color: Colors.black26,
         ),
         FlatButton(
-            child: Text('View T\'s & C\'s',
-                style: textStyleSecondary),
+            child: Text('View T\'s & C\'s', style: textStyleSecondary),
             onPressed: () async {
               await CoreHelpers.openLink(
                   "${ConnectedApi.authorityType}://${ConnectedApi.endpoint}/ConnectedLifeStayApplication_TermsofUseService.html");
@@ -122,17 +123,21 @@ class RegisterContent extends StatelessWidget {
                 width: 300,
                 height: 50,
                 child: Container(
-                  child: RaisedButton(
-                      color: primaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Text(
-                        'Continue',
-                        style: titleStyleWhite,
-                      ),
-                      onPressed: onClickSignUp),
+                    child: RaisedButton(
+                  color: primaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Text(
+                    'Continue',
+                    style: titleStyleWhite,
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginView()));
+                  },
                 )),
-        UIHelper.verticalSpaceLarge(),
+                // UIHelper.verticalSpaceLarge(),
+              )
       ],
     );
   }

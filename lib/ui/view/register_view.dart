@@ -9,11 +9,12 @@ import 'base_view.dart';
 class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return BaseView<RegisterModel>(onModelReady: (model) {
       model.init();
       model.navigateToHome = (userObj) {
-        Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false, arguments: userObj);
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/', (Route<dynamic> route) => false,
+            arguments: userObj);
       };
     }, builder: (BuildContext context, RegisterModel model, Widget child) {
       return Scaffold(
