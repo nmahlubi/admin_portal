@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nomah/core/model/client_user_dto.dart';
-import 'package:nomah/ui/view/register_view.dart';
-
-import 'login_view.dart';
-
+import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 class HomeView extends StatelessWidget {
 //  final ClientUserDto clientUserDto;
 //
@@ -11,7 +7,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('nothing to show...'),
+      child: Text("Nothing to show for now"),
     );
   }
 }

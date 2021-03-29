@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nomah/core/model/client_user_dto.dart';
-import 'package:nomah/core/shared/core_helpers.dart';
-import 'package:nomah/core/viewmodel/login_model.dart';
-import 'package:nomah/ui/shared/app_colors.dart';
-import 'package:nomah/ui/shared/text_styles.dart';
-import 'package:nomah/ui/shared/ui_helpers.dart';
-import 'package:nomah/ui/view/base_view.dart';
-import 'package:nomah/ui/widget/login_content.dart';
+import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
+import 'package:Live_Connected_Admin/core/shared/core_helpers.dart';
+import 'package:Live_Connected_Admin/core/viewmodel/login_model.dart';
+import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
+import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
+import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
+import 'package:Live_Connected_Admin/ui/view/base_view.dart';
+import 'package:Live_Connected_Admin/ui/widget/login_content.dart';
 
 
 class LoginView extends StatelessWidget {

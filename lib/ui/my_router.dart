@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nomah/ui/view/home_view.dart';
-import 'package:nomah/ui/view/login_view.dart';
-import 'package:nomah/ui/view/register_view.dart';
+import 'package:Live_Connected_Admin/ui/view/home_view.dart';
+import 'package:Live_Connected_Admin/ui/view/login_view.dart';
+import 'package:Live_Connected_Admin/ui/view/register_view.dart';
 
 class MyRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {

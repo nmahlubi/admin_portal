@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nomah/core/viewmodel/register_model.dart';
-import 'package:nomah/ui/shared/app_colors.dart';
-import 'package:nomah/ui/shared/ui_helpers.dart';
-import 'package:nomah/ui/widget/register_content.dart';
+import 'package:Live_Connected_Admin/core/viewmodel/register_model.dart';
+import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
+import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
+import 'package:Live_Connected_Admin/ui/widget/register_content.dart';
 
 import 'base_view.dart';
 

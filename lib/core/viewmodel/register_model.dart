@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nomah/core/enums/viewstate.dart';
-import 'package:nomah/core/model/client_user_dto.dart';
-import 'package:nomah/core/service/authentication_service.dart';
-import 'package:nomah/core/shared/core_helpers.dart';
+import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
+import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
+import 'package:Live_Connected_Admin/core/service/authentication_service.dart';
+import 'package:Live_Connected_Admin/core/shared/core_helpers.dart';
 
 import '../../locator.dart';
 import 'base_model.dart';

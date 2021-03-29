@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:nomah/core/enums/viewstate.dart';
-import 'package:nomah/ui/shared/app_colors.dart';
-import 'package:nomah/ui/shared/text_styles.dart';
-import 'package:nomah/ui/shared/ui_helpers.dart';
-import 'package:nomah/ui/widget/email_text_field.dart';
-import 'package:nomah/ui/widget/image_widget.dart';
-import 'package:nomah/ui/widget/password_text_field.dart';
+import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
+import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
+import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
+import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
+import 'package:Live_Connected_Admin/ui/widget/email_text_field.dart';
+import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
+import 'package:Live_Connected_Admin/ui/widget/password_text_field.dart';
 
 class LoginContent extends StatelessWidget {
   final TextEditingController emailController;
@@ -48,10 +48,11 @@ class LoginContent extends StatelessWidget {
         ),
         UIHelper.verticalSpaceLarge(),
         EmailTextField(
-            controller: emailController,
-            boarder: true,
-            horizontalPadding: 0,
-            horizontalContentPadding: 16),
+          controller: emailController,
+          boarder: true,
+          horizontalPadding: 0,
+          horizontalContentPadding: 16
+        ),
         UIHelper.verticalSpaceMedium(),
         PasswordTextField(
           controller: passwordController,
@@ -91,11 +92,8 @@ class LoginContent extends StatelessWidget {
                       ),
                       onPressed: onClickLogin),
                 )),
-        UIHelper.verticalSpaceXSmall(),
-        FlatButton(
-            child: Text('Sign Up', style: textStylePrimary),
-            onPressed: onClickSignUp),
-        UIHelper.verticalSpaceSmall(),
+
+        UIHelper.verticalSpaceLarge(),
       ],
     );
   }

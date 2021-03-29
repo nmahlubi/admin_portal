@@ -1,4 +1,6 @@
-import 'package:nomah/core/shared/date_formats.dart';
+
+
+import 'package:Live_Connected_Admin/core/shared/date_formats.dart';
 
 import 'device.dart';
 
@@ -25,8 +27,10 @@ class ClientUserDto {
   String doctorNumber;
   Device device;
   bool loggedIn;
+  String idToken;
 
   ClientUserDto(
+      this.idToken,
       this._id,
       this.familyId,
       this.doctorName,
@@ -60,6 +64,7 @@ class ClientUserDto {
 
   String get cellNumber => _cellNumber ?? "";
 
+
   set firstName(String value) {
     _firstName = value;
   }
@@ -78,7 +83,10 @@ class ClientUserDto {
         emailAddress = '',
         uid = '';
 
-  ClientUserDto.newInstance(this._firstName, this._lastName, this._cellNumber,
+  ClientUserDto.newInstance(
+      this._firstName,
+      this._lastName,
+      this._cellNumber,
       {this.emailAddress,
       this.emergencyContactNumber,
       this.relationship,
@@ -112,6 +120,7 @@ class ClientUserDto {
     device = json.containsKey('device') && json['device'] != null
         ? Device.fromJson(json['device'])
         : null;
+    idToken = json['idToken'];
   }
 
   Map<String, dynamic> toJson() {
@@ -180,6 +189,9 @@ class ClientUserDto {
     }
     if (this.accessRights != null) {
       data['accessRights'] = this.accessRights;
+    }
+    if (this.idToken != null) {
+      data['idToken'] = this.idToken;
     }
     return data;
   }

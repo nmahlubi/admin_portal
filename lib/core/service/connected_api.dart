@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:nomah/core/model/client_user_dto.dart';
-import 'package:nomah/core/model/device.dart';
-import 'package:nomah/core/model/new_user_dto.dart';
+import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
+import 'package:Live_Connected_Admin/core/model/device.dart';
+import 'package:Live_Connected_Admin/core/model/new_user_dto.dart';
 import 'package:http/http.dart' as http;
 import '../../main.dart';
 
@@ -15,19 +15,28 @@ class ConnectedApi {
 
   var client = new http.Client();
 
-  Future<ClientUserDto> register(NewUserDto newUserDto) async{
+  Future<ClientUserDto> register({String authToken, Device device}) async {
     Map<String, String> requestHeaders = {
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.acceptHeader: "application/json",
+      "X-Authorization-Firebase": authToken
     };
-    Uri uri = authorityType == "http" ? Uri.http(endpoint, "/api/v1/user/open/register") : Uri.https(endpoint, "/api/v1/user/open/register");
-    final response = await client.put(uri, headers: requestHeaders, body: json.encode(newUserDto.toJson()));
-    if (response.statusCode == 200 || response.statusCode == 201 || response.statusCode == 203 || response.statusCode == 204) {
+    Uri uri = authorityType == "http"
+        ? Uri.http(endpoint, "/api/v1/user/open/registerAdmin")
+        : Uri.https(endpoint, "/api/v1/user/open/registerAdmin");
+    final response = await client.post(uri,
+        headers: requestHeaders, body: json.encode(device.toJson()));
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
       return ClientUserDto.fromJson(json.decode(response.body));
-    }else if(response.body != null) {
+    } else if (response.body != null) {
+      print(response.body);
       return Future.error(response.body);
     } else {
-      return Future.error('Failed to Register ${response.toString()}');
+      print('${response.toString()}');
+      return Future.error('${response.toString()}');
     }
   }
 
