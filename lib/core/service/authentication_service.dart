@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nomah/core/model/client_user_dto.dart';
-import 'package:nomah/core/model/device.dart';
-import 'package:nomah/core/model/new_user_dto.dart';
-import 'package:nomah/core/repository/firebase_repo.dart';
-import 'package:nomah/core/shared/core_helpers.dart';
+import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
+import 'package:Live_Connected_Admin/core/model/device.dart';
+import 'package:Live_Connected_Admin/core/model/new_user_dto.dart';
+import 'package:Live_Connected_Admin/core/repository/firebase_repo.dart';
+import 'package:Live_Connected_Admin/core/shared/core_helpers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
@@ -43,7 +43,8 @@ class AuthenticationService {
       Device device = Device(
           CoreHelpers.getDeviceType(), deviceToken, uuid.v4().toString(), null);
       newUserDto.device = device;
-      var fetchedUser = await _connectedApi.register(newUserDto);
+      String token = await getUserToken();
+      var fetchedUser = await _connectedApi.register(authToken: token, device: device);
       hasUser = fetchedUser != null;
       if (hasUser) {
         fetchedUser.device = device;
@@ -87,7 +88,7 @@ class AuthenticationService {
           firstName: firstName,
           lastName: lastName);
       newUserDto.device = device;
-      fetchedUser = await _connectedApi.register(newUserDto);
+      fetchedUser = null;
       hasUser = fetchedUser != null;
       if (hasUser) {
         userController.add(fetchedUser);

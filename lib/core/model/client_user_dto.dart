@@ -1,6 +1,6 @@
 
 
-import 'package:nomah/core/shared/date_formats.dart';
+import 'package:Live_Connected_Admin/core/shared/date_formats.dart';
 
 import 'device.dart';
 

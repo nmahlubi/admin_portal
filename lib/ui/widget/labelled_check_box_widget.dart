@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nomah/ui/shared/app_colors.dart';
-import 'package:nomah/ui/shared/text_styles.dart';
+import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
+import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 
 class LabelledCheckboxWidget extends StatefulWidget {
   final TextEditingController controller;

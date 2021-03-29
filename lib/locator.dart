@@ -2,9 +2,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nomah/core/repository/firebase_repo.dart';
-import 'package:nomah/core/viewmodel/login_model.dart';
-import 'package:nomah/core/viewmodel/register_model.dart';
+import 'package:Live_Connected_Admin/core/repository/firebase_repo.dart';
+import 'package:Live_Connected_Admin/core/viewmodel/login_model.dart';
+import 'package:Live_Connected_Admin/core/viewmodel/register_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/service/authentication_service.dart';

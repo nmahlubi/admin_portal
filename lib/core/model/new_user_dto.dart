@@ -1,5 +1,5 @@
 
-import 'package:nomah/core/model/device.dart';
+import 'package:Live_Connected_Admin/core/model/device.dart';
 
 class NewUserDto {
   Device device;

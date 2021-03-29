@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:nomah/core/service/notification_service.dart';
-import 'package:nomah/core/shared/core_helpers.dart';
+import 'package:Live_Connected_Admin/core/service/notification_service.dart';
+import 'package:Live_Connected_Admin/core/shared/core_helpers.dart';
 
 import '../../locator.dart';
 import '../../main.dart';
