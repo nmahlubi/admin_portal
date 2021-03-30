@@ -34,6 +34,7 @@ class LoginView extends StatelessWidget {
                       Navigator.pushNamed(context, 'resetPassword');
                     },
                     onClickLogin: () {
+
                       model.login(emailController.text, passwordController.text,
                               (userObj) {
                             Navigator.pushNamedAndRemoveUntil(

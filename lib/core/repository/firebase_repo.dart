@@ -124,13 +124,13 @@ class FirebaseRepo {
           break;
 
         default:
-          errorMessage = error.message != null
-              ? error.message
+          errorMessage = error?.message != null
+              ? error?.message?.toString()
               : "An undefined Error happened.";
       }
     } else {
-      errorMessage = error.message != null
-          ? error.message
+      errorMessage = error?.message != null
+          ? error?.message?.toString()
           : "${error.toString()}";
     }
     return errorMessage;

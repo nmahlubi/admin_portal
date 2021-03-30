@@ -29,7 +29,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
