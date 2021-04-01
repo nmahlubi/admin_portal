@@ -1,3 +1,5 @@
+import 'package:Live_Connected_Admin/ui/view/user_details_view.dart';
+import 'package:Live_Connected_Admin/ui/view/users_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Live_Connected_Admin/ui/view/home_view.dart';
@@ -14,6 +16,10 @@ class MyRouter {
         return MaterialPageRoute(builder: (_) => LoginView());
       case "register":
         return MaterialPageRoute(builder: (_) => RegisterView());
+      case "usersView":
+        return MaterialPageRoute(builder: (_) => UsersView());
+      case "userDetailsView":
+        return MaterialPageRoute(builder: (_) => UserDetailsView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

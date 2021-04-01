@@ -1,5 +1,4 @@
-
-
+import 'package:Live_Connected_Admin/core/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:Live_Connected_Admin/core/repository/firebase_repo.dart';
@@ -9,16 +8,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/service/authentication_service.dart';
 import 'core/service/connected_api.dart';
+import 'core/viewmodel/home_model.dart';
+import 'core/viewmodel/user_model.dart';
 
 GetIt locator = GetIt.instance;
 
-void setupLocator({SharedPreferences sharedPreferences, FirebaseAuth firebaseAuth}) {
+void setupLocator(
+    {SharedPreferences sharedPreferences, FirebaseAuth firebaseAuth}) {
   locator.registerLazySingleton(() => sharedPreferences);
   locator.registerLazySingleton(() => AuthenticationService());
   locator.registerLazySingleton(() => ConnectedApi());
   locator.registerLazySingleton(() => LoginModel());
   locator.registerLazySingleton(() => RegisterModel());
   locator.registerLazySingleton(() => FirebaseRepo());
-  locator.registerFactory(() => firebaseAuth);
+  locator.registerLazySingleton(() => HomeModel());
+  locator.registerLazySingleton(() => UserModel());
 
+  locator.registerFactory(() => firebaseAuth);
 }

@@ -51,12 +51,12 @@ class MenuItemState extends State<MenuItem> {
             horizontal: 16, vertical: widget.verticalPadding),
         child: Row(
           children: [
-            ImageWidget(
-              marginTop: 0,
-              height: 40,
-              path: widget.imagePath,
-            ),
-            UIHelper.horizontalSpaceMedium(),
+            // ImageWidget(
+            //   marginTop: 0,
+            //   height: 40,
+            //   path: widget.imagePath,
+            // ),
+            UIHelper.horizontalSpaceSmall(),
             Flexible(
               child: Text(
                 widget.title,

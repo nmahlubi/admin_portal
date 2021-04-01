@@ -23,7 +23,7 @@ class CustomDrawer extends StatelessWidget {
               children: <Widget>[
                 MenuItem(
                   title: "Home",
-                  imagePath: "assets/images/home.png",
+                  imagePath: "",
                   press: () {
                     _onClickHome(context);
                   },
@@ -32,7 +32,7 @@ class CustomDrawer extends StatelessWidget {
                 UIHelper.verticalSpaceMedium(),
                 MenuItem(
                   title: "Users",
-                  imagePath: "assets/images/profile.png",
+                  imagePath: "",
                   press: () {
                     _onClickUsers(context);
                   },
@@ -41,7 +41,7 @@ class CustomDrawer extends StatelessWidget {
                 UIHelper.verticalSpaceMedium(),
                 MenuItem(
                   title: "Subscriptions",
-                  imagePath: "assets/images/orders.png",
+                  imagePath: "",
                   press: () {
                     _onClickSubscription(context);
                   },

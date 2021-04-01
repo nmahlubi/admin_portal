@@ -18,18 +18,20 @@ class AuthenticationService {
   FirebaseRepo _firebaseRepo = locator<FirebaseRepo>();
   SharedPreferences sharedPreferences = locator<SharedPreferences>();
   StreamController<ClientUserDto> userController =
-  StreamController<ClientUserDto>();
+      StreamController<ClientUserDto>();
 
   FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
 
   ClientUserDto getClientUserDto() {
-    final String savedUser = sharedPreferences.getString(CoreHelpers.savedUserKey);
-    if (savedUser != null ) {
-      ClientUserDto clientUserDto = ClientUserDto.fromJson(json.decode(savedUser));
+    final String savedUser =
+        sharedPreferences.getString(CoreHelpers.savedUserKey);
+    if (savedUser != null) {
+      ClientUserDto clientUserDto =
+          ClientUserDto.fromJson(json.decode(savedUser));
       return clientUserDto;
-    } else{
-      return ClientUserDto.initial();
-    }
+    } else {}
+
+    return ClientUserDto.initial();
   }
 
   Future<ClientUserDto> login(String email, String password) async {
@@ -44,7 +46,8 @@ class AuthenticationService {
           CoreHelpers.getDeviceType(), deviceToken, uuid.v4().toString(), null);
       newUserDto.device = device;
       String token = await getUserToken();
-      var fetchedUser = await _connectedApi.register(authToken: token, device: device);
+      var fetchedUser = await _connectedApi.getStoresByOwnerId(
+          authToken: token, device: device);
       hasUser = fetchedUser != null;
       if (hasUser) {
         fetchedUser.device = device;
@@ -67,12 +70,12 @@ class AuthenticationService {
   }
 
   Future<ClientUserDto> register(
-      String email,
-      String cellNumber,
-      String password,
-      String firstName,
-      String lastName,
-      ) async {
+    String email,
+    String cellNumber,
+    String password,
+    String firstName,
+    String lastName,
+  ) async {
     var hasUser = false;
     var uid = await _firebaseRepo.signUp(email, password);
     var uuid = Uuid();
@@ -107,10 +110,10 @@ class AuthenticationService {
     User firebaseUser = await _firebaseAuth.authStateChanges().first;
     String deviceType = CoreHelpers.getDeviceType();
     Device newDevice =
-    Device(deviceType, deviceToken, uuid.v4().toString(), null);
+        Device(deviceType, deviceToken, uuid.v4().toString(), null);
     if (savedUser != null && firebaseUser != null) {
       ClientUserDto clientUserDto =
-      ClientUserDto.fromJson(json.decode(savedUser));
+          ClientUserDto.fromJson(json.decode(savedUser));
       //print("AuthenticationService User Obj: ${json.encode(clientUserDto.toJson())}");
       var device = clientUserDto.device;
       if (device != null) {
@@ -123,7 +126,7 @@ class AuthenticationService {
       await sharedPreferences.setString(
           CoreHelpers.savedUserKey, json.encode(clientUserDto.toJson()));
       userExists =
-      await _connectedApi.checkUserExists(clientUserDto.uid, device);
+          await _connectedApi.checkUserExists(clientUserDto.uid, device);
       print("Checking if user exists $userExists");
       return userExists;
     } else {
@@ -136,5 +139,18 @@ class AuthenticationService {
 
   Future<void> sendPasswordResetEmail(String email) async {
     return _firebaseRepo.sendPasswordResetEmail(email);
+  }
+
+  Future<ClientUserDto> getCurrentUserWithToken() async {
+    String savedUser = sharedPreferences.getString(CoreHelpers.savedUserKey);
+    ClientUserDto clientUserDto;
+    if (savedUser != null) {
+      clientUserDto = ClientUserDto.fromJson(json.decode(savedUser));
+      var token = await getUserToken();
+      clientUserDto.idToken = token;
+      return clientUserDto;
+    } else {
+      return Future.error("No user Found");
+    }
   }
 }
