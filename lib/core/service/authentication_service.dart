@@ -46,8 +46,8 @@ class AuthenticationService {
           CoreHelpers.getDeviceType(), deviceToken, uuid.v4().toString(), null);
       newUserDto.device = device;
       String token = await getUserToken();
-      var fetchedUser = await _connectedApi.getStoresByOwnerId(
-          authToken: token, device: device);
+      var fetchedUser =
+          await _connectedApi.register(authToken: token, device: device);
       hasUser = fetchedUser != null;
       if (hasUser) {
         fetchedUser.device = device;

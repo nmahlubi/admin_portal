@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 
@@ -13,6 +12,8 @@ class UIHelper {
   static const double _VerticalSpaceMediumLarge = 40.0;
   static const double _VerticalSpaceLarge = 60.0;
   static const double _VerticalSpaceXLarge = 120.0;
+  static const BorderRadius textFieldBorderRadiusAllCircular =
+      const BorderRadius.all(Radius.circular(8));
 
   // Vertical spacing constants. Adjust to your liking.
   static const double _HorizontalSpaceXSmall = 5.0;
@@ -86,60 +87,18 @@ class UIHelper {
     return Container(width: width);
   }
 
-  static void showDialogNoActions(BuildContext context, String title, Widget content) {
-    showDialog(context: context,
+  static void showDialogNoActions(
+      BuildContext context, String title, Widget content) {
+    showDialog(
+        context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Container(
                 decoration: new BoxDecoration(
                   color: primaryColor,
-                  borderRadius: new BorderRadius.only(topLeft: Radius.circular(12.0), topRight: Radius.circular(12.0)),
-                ),
-                padding: EdgeInsets.only(left: 24, top: 8, right: 8, bottom: 4),
-                child: Row(
-                  children: [
-                    Text(
-                        title,
-                        style: titleStyleWhite,
-                    ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            size: 30,
-                            color: Colors.white,
-                          ),
-                          tooltip: 'Close',
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ),
-                    )
-                  ],
-                )
-            ),
-            titlePadding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                BorderRadius.circular(12)),
-            content: content,
-            //actionsPadding: EdgeInsets.zero,
-          );
-        }
-    );
-  }
-
-  static void showDialogOneAction(BuildContext context, String title, Widget content, Function onClickButton, String buttonText) {
-    showDialog(context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Container(
-                decoration: new BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: new BorderRadius.only(topLeft: Radius.circular(12.0), topRight: Radius.circular(12.0)),
+                  borderRadius: new BorderRadius.only(
+                      topLeft: Radius.circular(12.0),
+                      topRight: Radius.circular(12.0)),
                 ),
                 padding: EdgeInsets.only(left: 24, top: 8, right: 8, bottom: 4),
                 child: Row(
@@ -165,12 +124,57 @@ class UIHelper {
                       ),
                     )
                   ],
-                )
-            ),
+                )),
             titlePadding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                BorderRadius.circular(12)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            content: content,
+            //actionsPadding: EdgeInsets.zero,
+          );
+        });
+  }
+
+  static void showDialogOneAction(BuildContext context, String title,
+      Widget content, Function onClickButton, String buttonText) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Container(
+                decoration: new BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: new BorderRadius.only(
+                      topLeft: Radius.circular(12.0),
+                      topRight: Radius.circular(12.0)),
+                ),
+                padding: EdgeInsets.only(left: 24, top: 8, right: 8, bottom: 4),
+                child: Row(
+                  children: [
+                    Text(
+                      title,
+                      style: titleStyleWhite,
+                    ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.close,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          tooltip: 'Close',
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                )),
+            titlePadding: EdgeInsets.zero,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             content: content,
             actions: <Widget>[
               FlatButton(
@@ -182,18 +186,27 @@ class UIHelper {
               )
             ],
           );
-        }
-    );
+        });
   }
 
-  static void showDialogTwoActions(BuildContext context, String title, Widget content, Function onClickButtonOne, String buttonOneText, Function onClickButtonTwo, String buttonTwoText) {
-    showDialog(context: context,
+  static void showDialogTwoActions(
+      BuildContext context,
+      String title,
+      Widget content,
+      Function onClickButtonOne,
+      String buttonOneText,
+      Function onClickButtonTwo,
+      String buttonTwoText) {
+    showDialog(
+        context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Container(
                 decoration: new BoxDecoration(
                   color: primaryColor,
-                  borderRadius: new BorderRadius.only(topLeft: Radius.circular(12.0), topRight: Radius.circular(12.0)),
+                  borderRadius: new BorderRadius.only(
+                      topLeft: Radius.circular(12.0),
+                      topRight: Radius.circular(12.0)),
                 ),
                 padding: EdgeInsets.only(left: 24, top: 8, right: 8, bottom: 4),
                 child: Row(
@@ -219,12 +232,10 @@ class UIHelper {
                       ),
                     )
                   ],
-                )
-            ),
+                )),
             titlePadding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                BorderRadius.circular(12)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             content: content,
             actions: <Widget>[
               FlatButton(
@@ -243,20 +254,24 @@ class UIHelper {
               ),
             ],
           );
-        }
-    );
+        });
   }
 
   static void showDialogNoActionsNoTitle(BuildContext context, Widget content) {
-    showDialog(context: context,
+    showDialog(
+        context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Container(
                 decoration: new BoxDecoration(
                   color: widgetBgColor,
-                  borderRadius: new BorderRadius.only(topLeft: Radius.circular(12.0), topRight: Radius.circular(12.0)),
+                  borderRadius: new BorderRadius.only(
+                      topLeft: Radius.circular(12.0),
+                      topRight: Radius.circular(12.0)),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 8,),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8,
+                ),
                 child: Container(
                   alignment: Alignment.centerLeft,
                   child: IconButton(
@@ -270,18 +285,15 @@ class UIHelper {
                       Navigator.of(context).pop();
                     },
                   ),
-                )
-            ),
+                )),
             titlePadding: EdgeInsets.zero,
             contentPadding: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                BorderRadius.circular(12)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             content: content,
             //actionsPadding: EdgeInsets.zero,
           );
-        }
-    );
+        });
   }
 
   static bool isLargeScreen(double screenWidth) {

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/device.dart';
 import 'package:Live_Connected_Admin/core/model/new_user_dto.dart';
+import 'package:Live_Connected_Admin/core/model/user.dart';
 import 'package:http/http.dart' as http;
 import '../../main.dart';
 
@@ -17,13 +18,13 @@ class ConnectedApi {
 
   var client = new http.Client();
 
-  Future<ClientUserDto> getStoresByOwnerId(
-      {String authToken, Device device}) async {
+  Future<ClientUserDto> register({String authToken, Device device}) async {
     Map<String, String> requestHeaders = {
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.acceptHeader: "application/json",
       "X-Authorization-Firebase": authToken
     };
+
     Uri uri = authorityType == "http"
         ? Uri.http(endpoint, "/api/v1/user/open/registerAdmin")
         : Uri.https(endpoint, "/api/v1/user/open/registerAdmin");
@@ -39,6 +40,40 @@ class ConnectedApi {
       return Future.error(response.body);
     } else {
       print('${response.toString()}');
+      return Future.error('${response.toString()}');
+    }
+  }
+
+  Future<Map<String, String>> getHeaders({String authToken}) async {
+    Map<String, String> requestHeaders = {
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json",
+    };
+    bool gms = true; //await CoreHelpers.isGMS();
+    if (!gms) {
+      requestHeaders.addAll({"Auth-Type": "AUTH_TYPE_HMS"});
+    }
+    if (authToken != null) {
+      requestHeaders.addAll({"X-Authorization-Firebase": authToken});
+    }
+    return requestHeaders;
+  }
+
+  Future<List<ClientUserDto>> getAllUsers(
+      {String token, bool active = true}) async {
+    Map<String, String> requestHeaders = await getHeaders(authToken: token);
+    Uri uri = Uri.https(endpoint, "/api/v1/user/secure/getAll");
+    final response = await client.get(uri, headers: requestHeaders);
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      return (json.decode(response.body) as List)
+          .map((data) => ClientUserDto.fromJson(data))
+          .toList();
+    } else if (response.body != null) {
+      return Future.error(response.body);
+    } else {
       return Future.error('${response.toString()}');
     }
   }

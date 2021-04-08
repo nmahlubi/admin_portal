@@ -1,3 +1,4 @@
+import 'package:Live_Connected_Admin/ui/view/users_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,6 +36,8 @@ class CustomDrawer extends StatelessWidget {
                   imagePath: "",
                   press: () {
                     _onClickUsers(context);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => UsersView()));
                   },
                   selected: selected == "users",
                 ),
