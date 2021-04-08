@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
             primaryColor: primaryColor,
             canvasColor: lightShadowColor,
           ),
-          initialRoute: 'login',
+          initialRoute: '/',
           onGenerateRoute: MyRouter.generateRoute,
         ));
   }

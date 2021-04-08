@@ -29,21 +29,7 @@ class UserModel extends BaseModel {
   String errorMessage;
   String successMessage;
   ClientUserDto user;
-  List<Country> countryList = [];
   List<ClientUserDto> userList = [];
-
-  Future getCountries() async {
-    setState(ViewState.Busy);
-    errorMessage = null;
-    countryList = [];
-    _countryRepo.getCountryList().then((categories) {
-      this.countryList.addAll(categories);
-      setState(ViewState.Idle);
-    }).catchError((error) {
-      errorMessage = '${error.toString()}';
-      setState(ViewState.Idle);
-    });
-  }
 
   Future getUsers() async {
     setState(ViewState.Busy);

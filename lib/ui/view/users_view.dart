@@ -67,12 +67,12 @@ class _UsersViewState extends State<UsersView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ImageWidget(
-                            marginTop: 0,
-                            height: 50,
-                            imageColor: widgetBgColor,
-                            path: 'assets/images/profile.png',
-                          ),
+  //                          ImageWidget(
+  //                            marginTop: 0,
+  //                            height: 50,
+  //                            imageColor: widgetBgColor,
+  //                            path: 'assets/images/profile.png',
+  //                          ),
                           UIHelper.horizontalSpaceMedium(),
                           Text(
                             "User List",
@@ -97,36 +97,14 @@ class _UsersViewState extends State<UsersView> {
                         : Container(),
                     Expanded(
                       flex: 8,
-                      child: ListView(
-                        children: <Widget>[
-                          Container(
-                              padding: UIHelper.isLargeScreen(screenWidth)
-                                  ? EdgeInsets.symmetric(
-                                      horizontal: 30.0, vertical: 75)
-                                  : EdgeInsets.symmetric(
-                                      horizontal: 12.0, vertical: 16),
-                              alignment: Alignment.center,
-                              child: model.state == ViewState.Busy
-                                  ? Center(child: CircularProgressIndicator())
-                                  : UserProfileContent(
-                                      firstNameController:
-                                          model.firstNameController,
-                                      lastNameController:
-                                          model.lastNameController,
-                                      dobController: model.dobController,
-                                      nationalityController:
-                                          model.nationalityController,
-                                      genderController: model.genderController,
-                                      cellNumberController:
-                                          model.cellNumberController,
-                                      errorMessage: model.errorMessage,
-                                      onClickSave: () {
-                                        //model.updateProfile(user.emailAddress);
-                                      },
-                                      //onClickCancel: model.cancel,
-                                      countryList: model.countryList,
-                                    )),
-                        ],
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: model.userList.length,
+                        itemBuilder: (context, index) {
+                          return UserContent(
+                            user: model.userList[index],
+                          );
+                        },
                       ),
                     ),
                   ],

@@ -59,11 +59,11 @@ class ConnectedApi {
     return requestHeaders;
   }
 
-  Future<List<ClientUserDto>> getAllUsers(
-      {String token, bool active = true}) async {
+  Future<List<ClientUserDto>> getAllUsers({String token, bool active = true}) async {
     Map<String, String> requestHeaders = await getHeaders(authToken: token);
-    Uri uri = Uri.https(endpoint, "/api/v1/user/secure/getAll");
+    Uri uri = authorityType == "http" ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAll"): Uri.http(endpoint, "/api/v1/user/$endpointType/getAll");
     final response = await client.get(uri, headers: requestHeaders);
+    print("response body ${response.body.length}");
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 203 ||

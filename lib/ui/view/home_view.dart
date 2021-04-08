@@ -31,12 +31,6 @@ class HomeView extends StatelessWidget {
         return Scaffold(
           key: _scaffoldKey,
           backgroundColor: widgetBgColor,
-          //drawer: UIHelper.isLargeScreen(screenWidth)
-          // ? Drawer(
-          //     child: CustomDrawer(
-          //     selected: "Home",
-          //   ))
-          // : null,
           body: Row(
             children: [
               Expanded(
