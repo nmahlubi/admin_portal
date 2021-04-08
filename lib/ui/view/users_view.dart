@@ -52,7 +52,7 @@ class _UsersViewState extends State<UsersView> {
                         ? Container()
                         : Container(
                             alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.all(16),
+                            //padding: EdgeInsets.all(16),
                             child: IconButton(
                               color: widgetBgColor,
                               icon: Icon(Icons.menu),
@@ -67,12 +67,12 @@ class _UsersViewState extends State<UsersView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-  //                          ImageWidget(
-  //                            marginTop: 0,
-  //                            height: 50,
-  //                            imageColor: widgetBgColor,
-  //                            path: 'assets/images/profile.png',
-  //                          ),
+                          ImageWidget(
+                            marginTop: 0,
+                            height: 50,
+                            imageColor: widgetBgColor,
+                            path: 'assets/images/profile.png',
+                          ),
                           UIHelper.horizontalSpaceMedium(),
                           Text(
                             "User List",

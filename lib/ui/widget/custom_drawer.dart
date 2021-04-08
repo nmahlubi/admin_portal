@@ -39,7 +39,7 @@ class CustomDrawer extends StatelessWidget {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => UsersView()));
                   },
-                  selected: selected == "users",
+                  selected: selected == "Users",
                 ),
                 UIHelper.verticalSpaceMedium(),
                 MenuItem(

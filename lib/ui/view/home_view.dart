@@ -29,59 +29,51 @@ class HomeView extends StatelessWidget {
         //model.getMyStores();
       }, builder: (BuildContext context, HomeModel model, Widget child) {
         return Scaffold(
-          key: _scaffoldKey,
-          backgroundColor: widgetBgColor,
-          body: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: CustomDrawer(
-                  selected: "Home",
-                ),
-              ),
-              Expanded(
-                flex: 8,
-                child: Column(
-                  children: [
-                    Container(
-                      color: primaryColor,
-                      width: double.infinity,
-                      height: 75,
-                      child: Stack(
-                        children: <Widget>[
-                          // Max Size
-                          UIHelper.isLargeScreen(screenWidth)
-                              ? Container()
-                              : Container(
-                                  alignment: Alignment.centerLeft,
-                                  padding: EdgeInsets.all(16),
-                                  child: IconButton(
-                                    color: Colors.black,
-                                    icon: Icon(Icons.menu),
-                                    tooltip: 'Menu',
-                                    onPressed: () {
-                                      _scaffoldKey.currentState.openDrawer();
-                                    },
-                                  ),
-                                ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ImageWidget(
-                                  marginTop: 0,
-                                  height: 50,
-                                  imageColor: widgetBgColor,
-                                  path: 'assets/images/live_connected_logo.png',
-                                ),
-                                UIHelper.horizontalSpaceMedium(),
-                                Text(
-                                  "Live Connect Admin",
-                                  style: titleStyleWhiteLight,
-                                ),
-                              ],
+            key: _scaffoldKey,
+            drawer: !UIHelper.isLargeScreen(screenWidth)
+                ? Drawer(
+                    child: CustomDrawer(
+                    selected: "Home",
+                  ))
+                : null,
+            backgroundColor: widgetBgColor,
+            body: Column(children: [
+              Container(
+                color: primaryColor,
+                width: double.infinity,
+                height: 75,
+                child: Stack(
+                  children: <Widget>[
+                    // Max Size
+                    UIHelper.isLargeScreen(screenWidth)
+                        ? Container()
+                        : Container(
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.all(16),
+                            child: IconButton(
+                              color: Colors.black,
+                              icon: Icon(Icons.menu),
+                              tooltip: 'Menu',
+                              onPressed: () {
+                                _scaffoldKey.currentState.openDrawer();
+                              },
                             ),
+                          ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ImageWidget(
+                            marginTop: 0,
+                            height: 50,
+                            imageColor: widgetBgColor,
+                            path: 'assets/images/live_connected_logo.png',
+                          ),
+                          UIHelper.horizontalSpaceMedium(),
+                          Text(
+                            "Live Connect Admin",
+                            style: titleStyleWhiteLight,
                           ),
                         ],
                       ),
@@ -89,9 +81,21 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
               ),
-            ],
-          ),
-        );
+              Expanded(
+                child: Row(
+                  children: [
+                    UIHelper.isLargeScreen(screenWidth)
+                        ? Expanded(
+                            flex: 2,
+                            child: CustomDrawer(
+                              selected: "User",
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
+              )
+            ]));
       }),
     );
   }
