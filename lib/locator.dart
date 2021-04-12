@@ -25,7 +25,7 @@ void setupLocator(
   locator.registerLazySingleton(() => FirebaseRepo());
   locator.registerLazySingleton(() => HomeModel());
   locator.registerLazySingleton(() => UserModel());
-  // locator.registerFactory(() => SearchModel());
+  locator.registerFactory(() => SearchModel());
   locator.registerLazySingleton(() => LocalDataRepo());
   locator.registerFactory(() => firebaseAuth);
 }

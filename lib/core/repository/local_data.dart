@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/country.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,13 @@ class LocalDataRepo {
         await parseJsonFromAssets("assets/json/country_list.json");
     return (json.decode(categoryJson) as List)
         .map((data) => Country.fromJson(data))
+        .toList();
+  }
+
+  Future<List<ClientUserDto>> getUsersList() async {
+    String usersJson = await parseJsonFromAssets("assets/json/category.json");
+    return (json.decode(usersJson) as List)
+        .map((data) => ClientUserDto.fromJson(data))
         .toList();
   }
 
