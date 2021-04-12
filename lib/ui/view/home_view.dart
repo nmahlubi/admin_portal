@@ -92,6 +92,13 @@ class HomeView extends StatelessWidget {
                             ),
                           )
                         : Container(),
+                    Expanded(
+                      flex: 8,
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text("Welcome to Live Connected Admin Interface"),
+                      ),
+                    )
                   ],
                 ),
               )
