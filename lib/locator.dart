@@ -10,6 +10,7 @@ import 'core/repository/local_data.dart';
 import 'core/service/authentication_service.dart';
 import 'core/service/connected_api.dart';
 import 'core/viewmodel/home_model.dart';
+import 'core/viewmodel/search_model.dart';
 import 'core/viewmodel/user_model.dart';
 
 GetIt locator = GetIt.instance;
@@ -24,6 +25,7 @@ void setupLocator(
   locator.registerLazySingleton(() => FirebaseRepo());
   locator.registerLazySingleton(() => HomeModel());
   locator.registerLazySingleton(() => UserModel());
+  // locator.registerFactory(() => SearchModel());
   locator.registerLazySingleton(() => LocalDataRepo());
   locator.registerFactory(() => firebaseAuth);
 }
