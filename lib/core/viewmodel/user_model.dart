@@ -42,12 +42,21 @@ class UserModel extends BaseModel {
       print("User List ${usersFilter.length}");
       for (int i = 0; i < userList.length; i++) {
         if (userList[i]
-            .firstName
-            .toLowerCase()
-            .contains(searchTerm.toLowerCase())) {
+                .firstName
+                .toLowerCase()
+                .contains(searchTerm.toLowerCase()) ||
+            userList[i]
+                .emailAddress
+                .toLowerCase()
+                .contains(searchTerm.toLowerCase()) ||
+            userList[i]
+                .lastName
+                .toLowerCase()
+                .contains(searchTerm.toLowerCase())) {
           tempUserList.add(userList[i]);
         }
       }
+
       usersFilter = tempUserList;
     }
     this.searchTerm = searchTerm;
@@ -58,14 +67,15 @@ class UserModel extends BaseModel {
     setState(ViewState.Busy);
     errorMessage = null;
     userList = [];
+    usersFilter = [];
     String token = await _authenticationService.getUserToken();
     _connectedAPI.getAllUsers(token: token).then((userlist) {
       this.userList = userlist;
+      this.usersFilter = userlist;
       setState(ViewState.Idle);
     }).catchError((error) {
       errorMessage = '${error.toString()}';
       setState(ViewState.Idle);
     });
   }
-
 }

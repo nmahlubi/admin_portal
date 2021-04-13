@@ -19,7 +19,7 @@ class MyRouter {
       case "usersView":
         return MaterialPageRoute(builder: (_) => UsersView());
       case "userDetailsView":
-        return MaterialPageRoute(builder: (_) => UserDetailsView());
+        return MaterialPageRoute(builder: (_) => UsersDetailsView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

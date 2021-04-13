@@ -98,28 +98,33 @@ class _UsersViewState extends State<UsersView> {
                         : Container(),
                     Expanded(
                       flex: 8,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            model.userList.isNotEmpty
-                                ? SearchFilter(
-                                    onTextChange: (searchTerm) {
-                                      model.search(searchTerm);
+                      child: ListView(
+                        children: [
+                          Column(
+                            children: [
+                              UIHelper.verticalSpaceSmall(),
+                              SearchFilter(
+                                onTextChange: (searchTerm) {
+                                  model.search(searchTerm);
+                                },
+                              ),
+                              UIHelper.verticalSpaceSmall(),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                itemCount: model.usersFilter.length,
+                                itemBuilder: (context, index) {
+                                  return UserContent(
+                                    onClickUserDetails: (){
+                                      Navigator.pushNamed(context, "userDetailsView");
                                     },
-                                  )
-                                : Container(),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              itemCount: model.userList.length,
-                              itemBuilder: (context, index) {
-                                return UserContent(
-                                  user: model.userList[index],
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                                    user: model.usersFilter[index],
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],
