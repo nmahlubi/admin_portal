@@ -25,11 +25,34 @@ class UserModel extends BaseModel {
       TextEditingController(text: "South Africa");
   final TextEditingController genderController = TextEditingController();
   final TextEditingController cellNumberController = TextEditingController();
-
+  String searchTerm;
+  String selectedCategory;
   String errorMessage;
   String successMessage;
   ClientUserDto user;
   List<ClientUserDto> userList = [];
+  List<ClientUserDto> usersFilter = [];
+
+  Future search(String searchTerm) async {
+    setState(ViewState.Busy);
+    if (searchTerm.isEmpty) {
+      usersFilter = userList;
+    } else {
+      List tempUserList = new List<ClientUserDto>();
+      print("User List ${usersFilter.length}");
+      for (int i = 0; i < userList.length; i++) {
+        if (userList[i]
+            .firstName
+            .toLowerCase()
+            .contains(searchTerm.toLowerCase())) {
+          tempUserList.add(userList[i]);
+        }
+      }
+      usersFilter = tempUserList;
+    }
+    this.searchTerm = searchTerm;
+    setState(ViewState.Idle);
+  }
 
   Future getUsers() async {
     setState(ViewState.Busy);
@@ -44,4 +67,5 @@ class UserModel extends BaseModel {
       setState(ViewState.Idle);
     });
   }
+
 }

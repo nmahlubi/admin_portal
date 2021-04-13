@@ -1,4 +1,3 @@
-import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/viewmodel/user_model.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
@@ -6,6 +5,7 @@ import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
+import 'package:Live_Connected_Admin/ui/widget/search_filter.dart';
 import 'package:Live_Connected_Admin/ui/widget/user_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +20,7 @@ class UsersView extends StatefulWidget {
 
 class _UsersViewState extends State<UsersView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     ClientUserDto user = Provider.of<ClientUserDto>(context);
@@ -97,14 +98,28 @@ class _UsersViewState extends State<UsersView> {
                         : Container(),
                     Expanded(
                       flex: 8,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: model.userList.length,
-                        itemBuilder: (context, index) {
-                          return UserContent(
-                            user: model.userList[index],
-                          );
-                        },
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            model.userList.isNotEmpty
+                                ? SearchFilter(
+                                    onTextChange: (searchTerm) {
+                                      model.search(searchTerm);
+                                    },
+                                  )
+                                : Container(),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              itemCount: model.userList.length,
+                              itemBuilder: (context, index) {
+                                return UserContent(
+                                  user: model.userList[index],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

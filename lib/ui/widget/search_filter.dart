@@ -1,10 +1,12 @@
+import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchFilter extends StatefulWidget {
   final Function(String) onTextChange;
 
-  const SearchFilter({Key key, this.onTextChange}) : super(key: key);
+  const SearchFilter({Key key, this.onTextChange})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => SearchFilterWidgetState();
@@ -12,7 +14,6 @@ class SearchFilter extends StatefulWidget {
 
 class SearchFilterWidgetState extends State<SearchFilter> {
   final TextEditingController _filter = new TextEditingController();
-  Widget textField = Container();
   String _searchText = "";
   bool textFieldActive = false;
 
@@ -36,7 +37,7 @@ class SearchFilterWidgetState extends State<SearchFilter> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: new TextField(
-          // style: greyTexts,
+          style: greyTexts,
           controller: _filter,
           decoration: new InputDecoration(
             prefixIcon: Icon(
