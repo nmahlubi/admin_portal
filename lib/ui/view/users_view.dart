@@ -10,6 +10,7 @@ import 'package:Live_Connected_Admin/ui/widget/user_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 
 import 'base_view.dart';
 
@@ -98,35 +99,38 @@ class _UsersViewState extends State<UsersView> {
                         : Container(),
                     Expanded(
                       flex: 8,
-                      child: ListView(
-                        children: [
-                          Column(
-                            children: [
-                              UIHelper.verticalSpaceSmall(),
-                              SearchFilter(
-                                onTextChange: (searchTerm) {
-                                  model.search(searchTerm);
-                                },
-                              ),
-                              UIHelper.verticalSpaceSmall(),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: const AlwaysScrollableScrollPhysics(),
-                                itemCount: model.usersFilter.length,
-                                itemBuilder: (context, index) {
-                                  return UserContent(
-                                    onClickUserDetails: () {
-                                      Navigator.pushNamed(
-                                          context, "userDetailsView");
-                                    },
-                                    user: model.usersFilter[index],
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                      child: model.state == ViewState.Busy
+                          ? Center(child: CircularProgressIndicator())
+                          : ListView(
+                              children: [
+                                Column(
+                                  children: [
+                                    UIHelper.verticalSpaceSmall(),
+                                    SearchFilter(
+                                      onTextChange: (searchTerm) {
+                                        model.search(searchTerm);
+                                      },
+                                    ),
+                                    UIHelper.verticalSpaceSmall(),
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(),
+                                      itemCount: model.usersFilter.length,
+                                      itemBuilder: (context, index) {
+                                        return UserContent(
+                                          onClickUserDetails: () {
+                                            Navigator.pushNamed(
+                                                context, "userDetailsView");
+                                          },
+                                          user: model.usersFilter[index],
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                     ),
                   ],
                 ),

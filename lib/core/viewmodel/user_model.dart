@@ -16,14 +16,14 @@ import 'base_model.dart';
 
 class UserModel extends BaseModel {
   final AuthenticationService _authenticationService =
-  locator<AuthenticationService>();
+      locator<AuthenticationService>();
   final ConnectedApi _connectedAPI = locator<ConnectedApi>();
   final LocalDataRepo _countryRepo = locator<LocalDataRepo>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController nationalityController =
-  TextEditingController(text: "South Africa");
+      TextEditingController(text: "South Africa");
   final TextEditingController genderController = TextEditingController();
   final TextEditingController cellNumberController = TextEditingController();
   String searchTerm;
@@ -44,9 +44,9 @@ class UserModel extends BaseModel {
       print("User List ${usersFilter.length}");
       for (int i = 0; i < userList.length; i++) {
         if (userList[i]
-            .firstName
-            .toLowerCase()
-            .contains(searchTerm.toLowerCase()) ||
+                .firstName
+                .toLowerCase()
+                .contains(searchTerm.toLowerCase()) ||
             userList[i]
                 .emailAddress
                 .toLowerCase()
@@ -70,10 +70,9 @@ class UserModel extends BaseModel {
     errorMessage = null;
     userDto = null;
     _authenticationService.getUserToken().then((token) {
-      return _connectedAPI.getUserDetails(
-          token: token, userId: userId);
+      return _connectedAPI.getUserDetails(token: token, userId: userId);
     }).then((userCommunityDetails) {
-      userDto = userCommunityDetails;
+      user = userCommunityDetails;
       setState(ViewState.Idle);
     }).catchError((error) {
       errorMessage = '${error.toString()}';
@@ -96,6 +95,7 @@ class UserModel extends BaseModel {
       setState(ViewState.Idle);
     });
   }
+
   Future getUsers() async {
     setState(ViewState.Busy);
     errorMessage = null;

@@ -5,6 +5,7 @@ import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
+import 'package:Live_Connected_Admin/ui/widget/user_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,9 +32,9 @@ class UsersDetailsView extends StatelessWidget {
           key: _scaffoldKey,
           drawer: !UIHelper.isLargeScreen(screenWidth)
               ? Drawer(
-              child: CustomDrawer(
-                selected: "User",
-              ))
+                  child: CustomDrawer(
+                  selected: "User",
+                ))
               : null,
           backgroundColor: widgetBgColor,
           body: Column(
@@ -48,17 +49,17 @@ class UsersDetailsView extends StatelessWidget {
                     UIHelper.isLargeScreen(screenWidth)
                         ? Container()
                         : Container(
-                      alignment: Alignment.centerLeft,
-                      //padding: EdgeInsets.all(16),
-                      child: IconButton(
-                        color: widgetBgColor,
-                        icon: Icon(Icons.menu),
-                        tooltip: 'Menu',
-                        onPressed: () {
-                          _scaffoldKey.currentState.openDrawer();
-                        },
-                      ),
-                    ),
+                            alignment: Alignment.centerLeft,
+                            //padding: EdgeInsets.all(16),
+                            child: IconButton(
+                              color: widgetBgColor,
+                              icon: Icon(Icons.menu),
+                              tooltip: 'Menu',
+                              onPressed: () {
+                                _scaffoldKey.currentState.openDrawer();
+                              },
+                            ),
+                          ),
                     Container(
                       alignment: Alignment.center,
                       child: Row(
@@ -86,20 +87,17 @@ class UsersDetailsView extends StatelessWidget {
                   children: [
                     UIHelper.isLargeScreen(screenWidth)
                         ? Expanded(
-                      flex: 2,
-                      child: CustomDrawer(
-                        selected: "User",
-                      ),
-                    )
+                            flex: 2,
+                            child: CustomDrawer(
+                              selected: "User",
+                            ),
+                          )
                         : Container(),
                     Expanded(
                         flex: 8,
                         child: Container(
-                          child: Center(
-                              child: Text("Nothing to show now")
-                          ),
-                        )
-                    ),
+                          child: Center(child: UserDetails()),
+                        )),
                   ],
                 ),
               )
