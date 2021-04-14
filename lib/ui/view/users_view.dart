@@ -115,8 +115,9 @@ class _UsersViewState extends State<UsersView> {
                                 itemCount: model.usersFilter.length,
                                 itemBuilder: (context, index) {
                                   return UserContent(
-                                    onClickUserDetails: (){
-                                      Navigator.pushNamed(context, "userDetailsView");
+                                    onClickUserDetails: () {
+                                      Navigator.pushNamed(
+                                          context, "userDetailsView");
                                     },
                                     user: model.usersFilter[index],
                                   );

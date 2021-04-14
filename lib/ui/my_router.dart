@@ -19,7 +19,9 @@ class MyRouter {
       case "usersView":
         return MaterialPageRoute(builder: (_) => UsersView());
       case "userDetailsView":
-        return MaterialPageRoute(builder: (_) => UsersDetailsView());
+        var userId = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (_) => UsersDetailsView(userId: userId));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

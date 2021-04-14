@@ -59,9 +59,43 @@ class ConnectedApi {
     return requestHeaders;
   }
 
-  Future<List<ClientUserDto>> getAllUsers({String token, bool active = true}) async {
+  Future<List<ClientUserDto>> getAllUsers(
+      {String token, bool active = true}) async {
     Map<String, String> requestHeaders = await getHeaders(authToken: token);
-    Uri uri = authorityType == "http" ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAll"): Uri.https(endpoint, "/api/v1/user/$endpointType/getAll");
+    Uri uri = authorityType == "http"
+        ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAll")
+        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAll");
+    final response = await client.get(uri, headers: requestHeaders);
+    print("response body ${response.body.length}");
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      return (json.decode(response.body) as List)
+          .map((data) => ClientUserDto.fromJson(data))
+          .toList();
+    } else if (response.body != null) {
+      return Future.error(response.body);
+    } else {
+      return Future.error('${response.toString()}');
+    }
+  }
+
+  Future<List<ClientUserDto>> getUserCommunityDetails(
+      {String token, bool active = true, userId}) async {
+    Map<String, String> requestHeaders = {
+      "X-Authentication-Firebase": token,
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json",
+    };
+    Map<String, String> queryParameters = {
+      'userId': userId,
+    };
+    Uri uri = authorityType == "http"
+        ? Uri.https(endpoint,
+            "/api/v1/activity/secure/getUserCommunityDetails/$endpointType/getAll")
+        : Uri.https(endpoint,
+            "/api/v1/activity/secure/getUserCommunityDetails/$endpointType/getAll");
     final response = await client.get(uri, headers: requestHeaders);
     print("response body ${response.body.length}");
     if (response.statusCode == 200 ||
