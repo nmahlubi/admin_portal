@@ -82,7 +82,7 @@ class ConnectedApi {
     }
   }
 
-  Future<ClientUserDto> getUserDetails({String token, String userId}) async {
+  Future<UserDto> getUserDetails({String token, String userId}) async {
     Map<String, String> requestHeaders = {
       "X-Authorization-Firebase": token,
       HttpHeaders.contentTypeHeader: "application/json",
@@ -91,21 +91,16 @@ class ConnectedApi {
     Map<String, String> queryParameters = {
       'userId': userId,
     };
-    Uri uri = authorityType == "http"
-        ? Uri.http(
-            endpoint,
-            "/api/v1/activity/$endpointType/getUserCommunityDetails",
-            queryParameters)
-        : Uri.https(
-            endpoint,
-            "/api/v1/activity/$endpointType/getUserCommunityDetails",
-            queryParameters);
+    Uri uri = authorityType == "http" ? Uri.http(endpoint, "/api/v1/activity/$endpointType/getUserCommunityDetails", queryParameters)
+        : Uri.https(endpoint, "/api/v1/activity/$endpointType/getUserCommunityDetails", queryParameters);
     final response = await client.get(uri, headers: requestHeaders);
+
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 203 ||
         response.statusCode == 204) {
-      return ClientUserDto.fromJson(json.decode(response.body));
+
+      return UserDto.fromJson(json.decode(response.body));
     } else if (response.body != null) {
       return Future.error(response.body);
     } else {
