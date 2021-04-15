@@ -7,7 +7,8 @@ class UserDetailsContent extends StatelessWidget {
   final UserDto userDto;
   final ClientUserDto currentUser;
 
-  const UserDetailsContent({Key key, this.userDto, this.currentUser}) : super(key: key);
+  const UserDetailsContent({Key key, this.userDto, this.currentUser})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +19,18 @@ class UserDetailsContent extends StatelessWidget {
               style: textStyle),
 
           //Add a text label for family memebrs / community members
-          userDto?.familyMembers != null && userDto.familyMembers.isNotEmpty ?
-              Expanded(
-                child: ListView.builder(shrinkWrap: true,
-                  physics:
-                  const AlwaysScrollableScrollPhysics(),
-                  itemCount:userDto.familyMembers.length,
-                  itemBuilder: (context, index) {
-                    return Text("${userDto.familyMembers[index].firstName}");
-                  },
-                ),
-              ) : Container(),
+          userDto?.familyMembers != null && userDto.familyMembers.isNotEmpty
+              ? Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: userDto.familyMembers.length,
+                    itemBuilder: (context, index) {
+                      return Text("${userDto.familyMembers[index].firstName}");
+                    },
+                  ),
+                )
+              : Container(),
           Text(userDto?.familyMembers ?? "No Details to display",
               style: textStyle),
         ],
