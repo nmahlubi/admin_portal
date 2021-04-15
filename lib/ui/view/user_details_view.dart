@@ -14,9 +14,10 @@ import 'base_view.dart';
 
 class UsersDetailsView extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final String userId;
+ // final String userId;
+  final ClientUserDto clientUserDto;
 
-  UsersDetailsView({Key key, this.userId}) : super(key: key);
+  UsersDetailsView({Key key, this.clientUserDto}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
