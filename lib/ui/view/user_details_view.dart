@@ -96,7 +96,8 @@ class UsersDetailsView extends StatelessWidget {
                     Expanded(
                         flex: 8,
                         child: Container(
-                          child: Center(child: UserDetailsContent(
+                          child: Center(
+                              child: UserDetailsContent(
                             userDto: model.userDto,
                           )),
                         )),
