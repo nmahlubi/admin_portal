@@ -2,13 +2,10 @@ import 'dart:convert';
 
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
-import 'package:Live_Connected_Admin/core/model/country.dart';
 import 'package:Live_Connected_Admin/core/model/user_dto.dart';
 import 'package:Live_Connected_Admin/core/repository/local_data.dart';
 import 'package:Live_Connected_Admin/core/service/authentication_service.dart';
 import 'package:Live_Connected_Admin/core/service/connected_api.dart';
-import 'package:Live_Connected_Admin/core/shared/core_helpers.dart';
-import 'package:Live_Connected_Admin/core/shared/date_formats.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../locator.dart';
@@ -65,14 +62,16 @@ class UserModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  void getUserCommunityDetails(String userId) {
+  void getUserDetails(String userId) {
     setState(ViewState.Busy);
     errorMessage = null;
     userDto = null;
     _authenticationService.getUserToken().then((token) {
+
       return _connectedAPI.getUserDetails(token: token, userId: userId);
-    }).then((userCommunityDetails) {
-      user = userCommunityDetails;
+    }).then((userDetails) {
+      print("user details ${userDetails.familyMembers}");
+      userDto = userDetails;
       setState(ViewState.Idle);
     }).catchError((error) {
       errorMessage = '${error.toString()}';
@@ -80,21 +79,6 @@ class UserModel extends BaseModel {
     });
   }
 
-  Future getUserDetails(String userId) async {
-    setState(ViewState.Busy);
-    errorMessage = null;
-    userList = [];
-    usersFilter = [];
-    String token = await _authenticationService.getUserToken();
-    _connectedAPI.getAllUsers(token: token).then((userlist) {
-      this.userList = userlist;
-      this.usersFilter = userlist;
-      setState(ViewState.Idle);
-    }).catchError((error) {
-      errorMessage = '${error.toString()}';
-      setState(ViewState.Idle);
-    });
-  }
 
   Future getUsers() async {
     setState(ViewState.Busy);

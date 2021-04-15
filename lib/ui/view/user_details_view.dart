@@ -5,7 +5,7 @@ import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
-import 'package:Live_Connected_Admin/ui/widget/user_details.dart';
+import 'package:Live_Connected_Admin/ui/widget/user_details_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +25,7 @@ class UsersDetailsView extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => true,
       child: BaseView<UserModel>(onModelReady: (model) {
-        model.getUserCommunityDetails(user.id);
+        model.getUserDetails(user.id);
         model.user = user;
       }, builder: (BuildContext context, UserModel model, Widget child) {
         return Scaffold(
@@ -96,7 +96,9 @@ class UsersDetailsView extends StatelessWidget {
                     Expanded(
                         flex: 8,
                         child: Container(
-                          child: Center(child: UserDetails()),
+                          child: Center(child: UserDetailsContent(
+                            userDto: model.userDto,
+                          )),
                         )),
                   ],
                 ),
