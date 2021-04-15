@@ -124,6 +124,7 @@ class _UsersViewState extends State<UsersView> {
                                                 context, "userDetailsView",arguments: model.usersFilter[index]);
                                           },
                                           user: model.usersFilter[index],
+
                                         );
                                       },
                                     ),

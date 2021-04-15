@@ -87,3 +87,5 @@ const textStylePrimarySmaller =
 const textStyleWhiteLargeBold =
     TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white);
 const greyTexts = TextStyle(fontSize: 18.0, color: Colors.black54,fontWeight: FontWeight.bold);
+const headerStylesBlack =
+TextStyle(fontSize: 22.0, color: Colors.black54,fontWeight: FontWeight.bold);
