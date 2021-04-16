@@ -44,84 +44,31 @@ class UserContent extends StatelessWidget {
     return SingleChildScrollView(
       child: InkWell(
         onTap: onClickUserDetails,
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              child: DataTable(
-                columns: const <DataColumn>[
-                  DataColumn(
-                    label: Text('First Name'),
-                  ),
-                  DataColumn(
-                    label: Text('Last Name'),
-                  ),
-                  DataColumn(
-                    label: Text('Email'),
-                  )
-                ],
-                rows: const <DataRow>[
-                  DataRow(cells: <DataCell>[
-                    DataCell(Text('user')),
-                    DataCell(Text('19')),
-                    DataCell(Text('Student')),
-                  ]),
-                ],
-              ),
-              // child: Column(
-              //   children: [
-              //     Card(
-              //       shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(5.0),
-              //           side: BorderSide(color: primaryColorDark, width: 1)),
-              //       elevation: 3,
-              //       child: Container(
-              //         padding: EdgeInsets.all(12),
-              //         child: Column(
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             UIHelper.verticalSpaceMedium(),
-              //             DataTable(
-              //               columns: const <DataColumn>[
-              //                 DataColumn(
-              //                   label: Text('First Name'),
-              //                 ),
-              //                 DataColumn(
-              //                   label: Text('Last Name'),
-              //                 ),
-              //                 DataColumn(
-              //                   label: Text('Email'),
-              //                 )
-              //               ],
-              //               rows: const <DataRow>[
-              //                 DataRow(cells: <DataCell>[
-              //                   DataCell(Text('user')),
-              //                   DataCell(Text('19')),
-              //                   DataCell(Text('Student')),
-              //                 ]),
-              //               ],
-              //             ),
-              //             Text(
-              //               "${user.firstName}",
-              //               style: textStyle,
-              //             ),
-              //             Text(
-              //               "${user.lastName}",
-              //               style: textStyle,
-              //             ),
-              //             Text(
-              //               "${user.emailAddress}",
-              //               style: textStyle,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-            ),
-          ],
-        ),
+         child: Column(
+           children: [
+             Container(
+               padding: EdgeInsets.all(12),
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   UIHelper.verticalSpaceMedium(),
+                   Text(
+                     "${user.firstName}",
+                     style: textStyle,
+                   ),
+                   Text(
+                     "${user.lastName}",
+                     style: textStyle,
+                   ),
+                   Text(
+                     "${user.emailAddress}",
+                     style: textStyle,
+                   ),
+                 ],
+               ),
+             ),
+           ],
+         ),
       ),
     );
   }
