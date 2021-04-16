@@ -6,7 +6,7 @@ import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class UserContent extends StatelessWidget {
+class UserContentLastName extends StatelessWidget {
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
   final TextEditingController dobController;
@@ -22,7 +22,7 @@ class UserContent extends StatelessWidget {
   final Function onClickUserDetails;
   final List<Country> countryList;
 
-  const UserContent(
+  const UserContentLastName(
       {Key key,
       this.user,
       this.firstNameController,
@@ -44,32 +44,31 @@ class UserContent extends StatelessWidget {
     return SingleChildScrollView(
       child: InkWell(
         onTap: onClickUserDetails,
-         child: Column(
-           children: [
-             Container(
-               padding: EdgeInsets.all(12),
-               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   UIHelper.verticalSpaceMedium(),
-                   Text(
-                     "${user.firstName}",
-                     style: textStyle,
-                   ),
-                   UIHelper.verticalSpaceSmall(),
-                   errorMessage != null
-                       ? Center(
-                     child: Text(
-                       errorMessage,
-                       style: TextStyle(color: Colors.red, fontSize: 18),
-                     ),
-                   )
-                       : Container()
-                 ],
-               ),
-             ),
-           ],
-         ),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(12),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    UIHelper.verticalSpaceMedium(),
+                    Text(
+                      "${user.lastName}",
+                      style: textStyle,
+                    ),
+                    UIHelper.verticalSpaceSmall(),
+                    errorMessage != null
+                        ? Center(
+                      child: Text(
+                        errorMessage,
+                        style: TextStyle(color: Colors.red, fontSize: 18),
+                      ),
+                    )
+                        : Container()
+                  ]),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -7,6 +7,8 @@ import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
 import 'package:Live_Connected_Admin/ui/widget/search_filter.dart';
 import 'package:Live_Connected_Admin/ui/widget/user_content.dart';
+import 'package:Live_Connected_Admin/ui/widget/user_content_last_name.dart';
+import 'package:Live_Connected_Admin/ui/widget/user_email_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +24,13 @@ class UsersView extends StatefulWidget {
 class _UsersViewState extends State<UsersView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+
   @override
   Widget build(BuildContext context) {
     ClientUserDto user = Provider.of<ClientUserDto>(context);
     double screenWidth = MediaQuery.of(context).size.width;
+    var numberRows = 3;
+    var rowHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async => true,
       child: BaseView<UserModel>(onModelReady: (model) {
@@ -36,9 +41,9 @@ class _UsersViewState extends State<UsersView> {
           key: _scaffoldKey,
           drawer: !UIHelper.isLargeScreen(screenWidth)
               ? Drawer(
-                  child: CustomDrawer(
-                  selected: "User",
-                ))
+              child: CustomDrawer(
+                selected: "User",
+              ))
               : null,
           backgroundColor: widgetBgColor,
           body: Column(
@@ -53,17 +58,17 @@ class _UsersViewState extends State<UsersView> {
                     UIHelper.isLargeScreen(screenWidth)
                         ? Container()
                         : Container(
-                            alignment: Alignment.centerLeft,
-                            //padding: EdgeInsets.all(16),
-                            child: IconButton(
-                              color: widgetBgColor,
-                              icon: Icon(Icons.menu),
-                              tooltip: 'Menu',
-                              onPressed: () {
-                                _scaffoldKey.currentState.openDrawer();
-                              },
-                            ),
-                          ),
+                      alignment: Alignment.centerLeft,
+                      //padding: EdgeInsets.all(16),
+                      child: IconButton(
+                        color: widgetBgColor,
+                        icon: Icon(Icons.menu),
+                        tooltip: 'Menu',
+                        onPressed: () {
+                          _scaffoldKey.currentState.openDrawer();
+                        },
+                      ),
+                    ),
                     Container(
                       alignment: Alignment.center,
                       child: Row(
@@ -91,48 +96,47 @@ class _UsersViewState extends State<UsersView> {
                   children: [
                     UIHelper.isLargeScreen(screenWidth)
                         ? Expanded(
-                            flex: 2,
-                            child: CustomDrawer(
-                              selected: "User",
-                            ),
-                          )
+                      flex: 2,
+                      child: CustomDrawer(
+                        selected: "User",
+                      ),
+                    )
                         : Container(),
                     Expanded(
                       flex: 8,
                       child: model.state == ViewState.Busy
                           ? Center(child: CircularProgressIndicator())
                           : ListView(
-                              children: [
-                                Column(
-                                  children: [
-                                    UIHelper.verticalSpaceSmall(),
-                                    SearchFilter(
-                                      onTextChange: (searchTerm) {
-                                        model.search(searchTerm);
-                                      },
-                                    ),
-                                    UIHelper.verticalSpaceSmall(),
-                                    ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(),
-                                      itemCount: model.usersFilter.length,
-                                      itemBuilder: (context, index) {
-                                        return UserContent(
-                                          onClickUserDetails: () {
-                                            Navigator.pushNamed(
-                                                context, "userDetailsView",
-                                                arguments:
-                                                    model.usersFilter[index]);
-                                          },
-                                          user: model.usersFilter[index],
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              UIHelper.verticalSpaceSmall(),
+                              SearchFilter(
+                                onTextChange: (searchTerm) {
+                                  model.search(searchTerm);
+                                },
+                              ),
+                              UIHelper.verticalSpaceSmall(),
+                              DataTable(
+                                dataRowHeight: rowHeight,
+                                columns: const <DataColumn>[
+                                  DataColumn(
+                                    label: Text('First Name'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Last Name'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Email Address'),
+                                  ),
+                                ],
+                                rows: _testRows(model),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -143,4 +147,76 @@ class _UsersViewState extends State<UsersView> {
       }),
     );
   }
+  List<DataRow> _testRows(UserModel model) {
+    return [
+      DataRow(
+        cells: [
+          DataCell(
+            Container(
+              width: 200,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: model.usersFilter.length,
+                itemBuilder: (context, index) {
+                  return UserContent(
+                    onClickUserDetails: () {
+                      Navigator.pushNamed(
+                          context, "userDetailsView",arguments: model.usersFilter[index]);
+                    },
+                    errorMessage: model.errorMessage,
+                    user: model.usersFilter[index],
+                  );
+                },
+              ),
+
+            ),
+          ),
+          DataCell(
+            Container(
+              width: 200,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: model.usersFilter.length,
+                itemBuilder: (context, index) {
+                  return UserContentLastName(
+                    onClickUserDetails: () {
+                      Navigator.pushNamed(
+                          context, "userDetailsView",arguments: model.usersFilter[index]);
+                    },
+                    errorMessage: model.errorMessage,
+                    user: model.usersFilter[index],
+                  );
+                },
+              ),
+
+            ),
+          ),
+          DataCell(
+            Container(
+              width: 200,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: model.usersFilter.length,
+                itemBuilder: (context, index) {
+                  return UserEmailContent(
+                    onClickUserDetails: () {
+                      Navigator.pushNamed(
+                          context, "userDetailsView",arguments: model.usersFilter[index]);
+                    },
+                    errorMessage: model.errorMessage,
+                    user: model.usersFilter[index],
+                  );
+                },
+              ),
+
+            ),
+          ),
+        ],
+      ),
+    ];
+  }
 }
+
+
+
+

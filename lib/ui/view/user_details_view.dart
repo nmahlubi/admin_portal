@@ -100,6 +100,7 @@ class UsersDetailsView extends StatelessWidget {
                         Container(
                           color: secondaryColorLight,
                           child: Center(child: UserDetailsContent(
+
                             userDto: model.userDto,
                             currentUser: clientUserDto,
                           )),
