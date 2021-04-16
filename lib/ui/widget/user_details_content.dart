@@ -6,11 +6,14 @@ import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:Live_Connected_Admin/ui/widget/round_image_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'image_widget.dart';
+
 class UserDetailsContent extends StatelessWidget {
+  final String errorMessage;
   final UserDto userDto;
   final ClientUserDto currentUser;
 
-  const UserDetailsContent({Key key, this.userDto, this.currentUser})
+  const UserDetailsContent({Key key, this.userDto, this.currentUser, this.errorMessage})
       : super(key: key);
 
   @override
@@ -24,16 +27,11 @@ class UserDetailsContent extends StatelessWidget {
             child: new Container(
               width: 100.0,
               height: 100.0,
-              child: RoundImageWidget(
-                placeHolder: 'assets/images/user_avatar.png',
-                // path: url,
-                height: 100,
-                imageRadius: 50,
+              child: ImageWidget(
+                path: "assets/images/image_placeholder.png",
                 marginTop: 0,
-                network: true,
-                plusButton: false,
-                placeHolderColor: primaryColor,
-                backgroundColor: primaryColorDark,
+                imageRadius: 75,
+                height: 150,
               ),
             ),
           ),
@@ -97,6 +95,15 @@ class UserDetailsContent extends StatelessWidget {
                   ),
                 )
               : Container(),
+          UIHelper.verticalSpaceSmall(),
+          errorMessage != null
+              ? Center(
+            child: Text(
+              errorMessage,
+              style: TextStyle(color: Colors.red, fontSize: 18),
+            ),
+          )
+              : Container()
         ],
       ),
     );
