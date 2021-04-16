@@ -121,10 +121,11 @@ class _UsersViewState extends State<UsersView> {
                                         return UserContent(
                                           onClickUserDetails: () {
                                             Navigator.pushNamed(
-                                                context, "userDetailsView",arguments: model.usersFilter[index]);
+                                                context, "userDetailsView",
+                                                arguments:
+                                                    model.usersFilter[index]);
                                           },
                                           user: model.usersFilter[index],
-
                                         );
                                       },
                                     ),

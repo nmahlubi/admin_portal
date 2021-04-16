@@ -10,7 +10,8 @@ class UserDetailsContent extends StatelessWidget {
   final UserDto userDto;
   final ClientUserDto currentUser;
 
-  const UserDetailsContent({Key key, this.userDto, this.currentUser}) : super(key: key);
+  const UserDetailsContent({Key key, this.userDto, this.currentUser})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class UserDetailsContent extends StatelessWidget {
               height: 100.0,
               child: RoundImageWidget(
                 placeHolder: 'assets/images/user_avatar.png',
-               // path: url,
+                // path: url,
                 height: 100,
                 imageRadius: 50,
                 marginTop: 0,
@@ -36,56 +37,66 @@ class UserDetailsContent extends StatelessWidget {
               ),
             ),
           ),
-          Text( "${currentUser.firstName}  ${currentUser.lastName}",
+          Text("${currentUser.firstName}  ${currentUser.lastName}",
               style: headerStylesBlack),
           UIHelper.verticalSpaceSmall(),
-          Text( "Email : ${currentUser.emailAddress}",
-              style: textStyle),
+          Text("Email : ${currentUser.emailAddress}", style: textStyle),
           UIHelper.verticalSpaceSmall(),
-          Text( "Contact Number : ${currentUser.cellNumber}",
-              style: textStyle),
+          Text("Contact Number : ${currentUser.cellNumber}", style: textStyle),
           UIHelper.verticalSpaceSmall(),
-          Text("List of Family Member",style: headerStylesBlack,),
+          Text(
+            "List of Family Member",
+            style: headerStylesBlack,
+          ),
           UIHelper.verticalSpaceSmall(),
-          userDto?.familyMembers != null && userDto.familyMembers.isNotEmpty ?
-              Expanded(
-                child: ListView.builder(shrinkWrap: true,
-                  physics:
-                  const AlwaysScrollableScrollPhysics(),
-                  itemCount:userDto.familyMembers.length,
-                  itemBuilder: (context, index) {
-                    return Text("${userDto.familyMembers[index].firstName}");
-                  },
-                ),
-              ) : Container(),
+          userDto?.familyMembers != null && userDto.familyMembers.isNotEmpty
+              ? Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: userDto.familyMembers.length,
+                    itemBuilder: (context, index) {
+                      return Text("${userDto.familyMembers[index].firstName}");
+                    },
+                  ),
+                )
+              : Container(),
           UIHelper.verticalSpaceSmall(),
-          Text("List of Activities",style: headerStylesBlack,),
+          Text(
+            "List of Activities",
+            style: headerStylesBlack,
+          ),
           UIHelper.verticalSpaceSmall(),
-          userDto?.activities != null && userDto.activities.isNotEmpty ?
-          Expanded(
-            child: ListView.builder(shrinkWrap: true,
-              physics:
-              const AlwaysScrollableScrollPhysics(),
-              itemCount:userDto.activities.length,
-              itemBuilder: (context, index) {
-                return Text("${userDto.activities[index].children}");
-              },
-            ),
-          ) : Container(),
+          userDto?.activities != null && userDto.activities.isNotEmpty
+              ? Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: userDto.activities.length,
+                    itemBuilder: (context, index) {
+                      return Text("${userDto.activities[index].children}");
+                    },
+                  ),
+                )
+              : Container(),
           UIHelper.verticalSpaceSmall(),
-          Text("List of Children",style: headerStylesBlack,),
+          Text(
+            "List of Children",
+            style: headerStylesBlack,
+          ),
           UIHelper.verticalSpaceSmall(),
-          userDto?.children != null && userDto.children.isNotEmpty ?
-          Expanded(
-            child: ListView.builder(shrinkWrap: true,
-              physics:
-              const AlwaysScrollableScrollPhysics(),
-              itemCount:userDto.children.length,
-              itemBuilder: (context, index) {
-                return Text("${userDto.children[index].firstName}");
-              },
-            ),
-          ) : Container(),
+          userDto?.children != null && userDto.children.isNotEmpty
+              ? Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: userDto.children.length,
+                    itemBuilder: (context, index) {
+                      return Text("${userDto.children[index].firstName}");
+                    },
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
