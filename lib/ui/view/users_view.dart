@@ -30,7 +30,7 @@ class _UsersViewState extends State<UsersView> {
     ClientUserDto user = Provider.of<ClientUserDto>(context);
     double screenWidth = MediaQuery.of(context).size.width;
     var numberRows = 3;
-    var rowHeight = MediaQuery.of(context).size.height;
+    double rowHeight = 50;
     return WillPopScope(
       onWillPop: () async => true,
       child: BaseView<UserModel>(onModelReady: (model) {
@@ -131,6 +131,18 @@ class _UsersViewState extends State<UsersView> {
                                         DataColumn(
                                           label: Text('Email Address'),
                                         ),
+                                        /*DataColumn(
+                                          label: Text('Contact Number'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Registered Date'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Active Status'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Subscribed Status'),
+                                        ),*/
                                       ],
                                       rows: _testRows(model),
                                     )
@@ -150,68 +162,88 @@ class _UsersViewState extends State<UsersView> {
   }
 
   List<DataRow> _testRows(UserModel model) {
-    return [
-      DataRow(
+
+    List<DataRow> dataRows = [];
+
+    for(var userItem in model.usersFilter) {
+      DataRow dataRow = DataRow(
+
         cells: [
           DataCell(
-            Container(
-              width: 200,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: model.usersFilter.length,
-                itemBuilder: (context, index) {
-                  return UserContent(
-                    onClickUserDetails: () {
-                      Navigator.pushNamed(context, "userDetailsView",
-                          arguments: model.usersFilter[index]);
-                    },
-                    errorMessage: model.errorMessage,
-                    user: model.usersFilter[index],
-                  );
-                },
-              ),
+            Text(
+              "${userItem.firstName}",
+              style: textStyle,
             ),
+            onTap: () {
+              Navigator.pushNamed(context, "userDetailsView",
+                  arguments: userItem);
+            }
           ),
           DataCell(
-            Container(
-              width: 200,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: model.usersFilter.length,
-                itemBuilder: (context, index) {
-                  return UserContentLastName(
-                    onClickUserDetails: () {
-                      Navigator.pushNamed(context, "userDetailsView",
-                          arguments: model.usersFilter[index]);
-                    },
-                    errorMessage: model.errorMessage,
-                    user: model.usersFilter[index],
-                  );
-                },
-              ),
+            Text(
+              "${userItem.lastName}",
+              style: textStyle,
             ),
+              onTap: () {
+                Navigator.pushNamed(context, "userDetailsView",
+                    arguments: userItem);
+              }
           ),
           DataCell(
-            Container(
-              width: 200,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: model.usersFilter.length,
-                itemBuilder: (context, index) {
-                  return UserEmailContent(
-                    onClickUserDetails: () {
-                      Navigator.pushNamed(context, "userDetailsView",
-                          arguments: model.usersFilter[index]);
-                    },
-                    errorMessage: model.errorMessage,
-                    user: model.usersFilter[index],
-                  );
-                },
-              ),
+            Text(
+              "${userItem.emailAddress}",
+              style: textStyle,
             ),
+              onTap: () {
+                Navigator.pushNamed(context, "userDetailsView",
+                    arguments: userItem);
+              }
           ),
+          /*DataCell(
+            Text(
+              "${userItem.cellNumber ?? "-"}",
+              style: textStyle,
+            ),
+              onTap: () {
+                Navigator.pushNamed(context, "userDetailsView",
+                    arguments: userItem);
+              }
+          ),
+          DataCell(
+            Text(
+              "${"-"}",
+              style: textStyle,
+            ),
+              onTap: () {
+                Navigator.pushNamed(context, "userDetailsView",
+                    arguments: userItem);
+              }
+          ),
+          DataCell(
+            Text(
+              "${"-"}",
+              style: textStyle,
+            ),
+              onTap: () {
+                Navigator.pushNamed(context, "userDetailsView",
+                    arguments: userItem);
+              }
+          ),
+          DataCell(
+            Text(
+              "${"-"}",
+              style: textStyle,
+            ),
+              onTap: () {
+                Navigator.pushNamed(context, "userDetailsView",
+                    arguments: userItem);
+              }
+          ),*/
         ],
-      ),
-    ];
+
+      );
+      dataRows.add(dataRow);
+    }
+    return dataRows;
   }
 }
