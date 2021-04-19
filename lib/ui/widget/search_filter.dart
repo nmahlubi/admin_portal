@@ -6,8 +6,7 @@ class SearchFilter extends StatefulWidget {
   final Function(String) onSelection;
   final Function(String) onTextChange;
 
-  const SearchFilter(
-      {Key key, this.onSelection, this.onTextChange})
+  const SearchFilter({Key key, this.onSelection, this.onTextChange})
       : super(key: key);
 
   @override
@@ -36,11 +35,12 @@ class SearchFilterWidgetState extends State<SearchFilter> {
           height: 60.0,
           child: new TextField(
             controller: _filter,
-
             decoration: InputDecoration(
-
                 hintText: "Search Here",
-                suffixIcon: Icon(Icons.search,color:primaryColor,),
+                suffixIcon: Icon(
+                  Icons.search,
+                  color: primaryColor,
+                ),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)))),
           ),

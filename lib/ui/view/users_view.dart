@@ -23,7 +23,7 @@ class UsersView extends StatefulWidget {
 
 class _UsersViewState extends State<UsersView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final ScrollController _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +41,9 @@ class _UsersViewState extends State<UsersView> {
           key: _scaffoldKey,
           drawer: !UIHelper.isLargeScreen(screenWidth)
               ? Drawer(
-              child: CustomDrawer(
-                selected: "User",
-              ))
+                  child: CustomDrawer(
+                  selected: "User",
+                ))
               : null,
           backgroundColor: widgetBgColor,
           body: Column(
@@ -58,17 +58,17 @@ class _UsersViewState extends State<UsersView> {
                     UIHelper.isLargeScreen(screenWidth)
                         ? Container()
                         : Container(
-                      alignment: Alignment.centerLeft,
-                      //padding: EdgeInsets.all(16),
-                      child: IconButton(
-                        color: widgetBgColor,
-                        icon: Icon(Icons.menu),
-                        tooltip: 'Menu',
-                        onPressed: () {
-                          _scaffoldKey.currentState.openDrawer();
-                        },
-                      ),
-                    ),
+                            alignment: Alignment.centerLeft,
+                            //padding: EdgeInsets.all(16),
+                            child: IconButton(
+                              color: widgetBgColor,
+                              icon: Icon(Icons.menu),
+                              tooltip: 'Menu',
+                              onPressed: () {
+                                _scaffoldKey.currentState.openDrawer();
+                              },
+                            ),
+                          ),
                     Container(
                       alignment: Alignment.center,
                       child: Row(
@@ -80,7 +80,7 @@ class _UsersViewState extends State<UsersView> {
                             imageColor: widgetBgColor,
                             path: 'assets/images/profile.png',
                           ),
-                          UIHelper.horizontalSpaceMedium(),
+                          UIHelper.horizontalSpaceSmall(),
                           Text(
                             "User List",
                             style: titleStyleWhiteLight,
@@ -96,47 +96,48 @@ class _UsersViewState extends State<UsersView> {
                   children: [
                     UIHelper.isLargeScreen(screenWidth)
                         ? Expanded(
-                      flex: 2,
-                      child: CustomDrawer(
-                        selected: "User",
-                      ),
-                    )
+                            flex: 2,
+                            child: CustomDrawer(
+                              selected: "User",
+                            ),
+                          )
                         : Container(),
                     Expanded(
                       flex: 8,
                       child: model.state == ViewState.Busy
                           ? Center(child: CircularProgressIndicator())
                           : ListView(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              UIHelper.verticalSpaceSmall(),
-                              SearchFilter(
-                                onTextChange: (searchTerm) {
-                                  model.search(searchTerm);
-                                },
-                              ),
-                              UIHelper.verticalSpaceSmall(),
-                              DataTable(
-                                dataRowHeight: rowHeight,
-                                columns: const <DataColumn>[
-                                  DataColumn(
-                                    label: Text('First Name'),
-                                  ),
-                                  DataColumn(
-                                    label: Text('Last Name'),
-                                  ),
-                                  DataColumn(
-                                    label: Text('Email Address'),
-                                  ),
-                                ],
-                                rows: _testRows(model),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+                              controller: _controller,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    UIHelper.verticalSpaceXSmall(),
+                                    SearchFilter(
+                                      onTextChange: (searchTerm) {
+                                        model.search(searchTerm);
+                                      },
+                                    ),
+                                    UIHelper.verticalSpaceXSmall(),
+                                    DataTable(
+                                      dataRowHeight: rowHeight,
+                                      columns: const <DataColumn>[
+                                        DataColumn(
+                                          label: Text('First Name'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Last Name'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Email Address'),
+                                        ),
+                                      ],
+                                      rows: _testRows(model),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                     ),
                   ],
                 ),
@@ -147,6 +148,7 @@ class _UsersViewState extends State<UsersView> {
       }),
     );
   }
+
   List<DataRow> _testRows(UserModel model) {
     return [
       DataRow(
@@ -160,15 +162,14 @@ class _UsersViewState extends State<UsersView> {
                 itemBuilder: (context, index) {
                   return UserContent(
                     onClickUserDetails: () {
-                      Navigator.pushNamed(
-                          context, "userDetailsView",arguments: model.usersFilter[index]);
+                      Navigator.pushNamed(context, "userDetailsView",
+                          arguments: model.usersFilter[index]);
                     },
                     errorMessage: model.errorMessage,
                     user: model.usersFilter[index],
                   );
                 },
               ),
-
             ),
           ),
           DataCell(
@@ -180,15 +181,14 @@ class _UsersViewState extends State<UsersView> {
                 itemBuilder: (context, index) {
                   return UserContentLastName(
                     onClickUserDetails: () {
-                      Navigator.pushNamed(
-                          context, "userDetailsView",arguments: model.usersFilter[index]);
+                      Navigator.pushNamed(context, "userDetailsView",
+                          arguments: model.usersFilter[index]);
                     },
                     errorMessage: model.errorMessage,
                     user: model.usersFilter[index],
                   );
                 },
               ),
-
             ),
           ),
           DataCell(
@@ -200,15 +200,14 @@ class _UsersViewState extends State<UsersView> {
                 itemBuilder: (context, index) {
                   return UserEmailContent(
                     onClickUserDetails: () {
-                      Navigator.pushNamed(
-                          context, "userDetailsView",arguments: model.usersFilter[index]);
+                      Navigator.pushNamed(context, "userDetailsView",
+                          arguments: model.usersFilter[index]);
                     },
                     errorMessage: model.errorMessage,
                     user: model.usersFilter[index],
                   );
                 },
               ),
-
             ),
           ),
         ],
@@ -216,7 +215,3 @@ class _UsersViewState extends State<UsersView> {
     ];
   }
 }
-
-
-
-

@@ -6,8 +6,8 @@ import 'app_colors.dart';
 /// Contains useful functions to reduce boilerplate code
 class UIHelper {
   // Vertical spacing constants. Adjust to your liking.
-  static const double _VerticalSpaceXSmall = 5.0;
-  static const double _VerticalSpaceSmall = 10.0;
+  static const double _VerticalSpaceXSmall = 1.0;
+  static const double _VerticalSpaceSmall = 5.0;
   static const double _VerticalSpaceMedium = 20.0;
   static const double _VerticalSpaceMediumLarge = 40.0;
   static const double _VerticalSpaceLarge = 60.0;
