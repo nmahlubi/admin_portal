@@ -51,6 +51,10 @@ class UserModel extends BaseModel {
             userList[i]
                 .lastName
                 .toLowerCase()
+                .contains(searchTerm.toLowerCase()) ||
+            userList[i]
+                .cellNumber
+                .toLowerCase()
                 .contains(searchTerm.toLowerCase())) {
           tempUserList.add(userList[i]);
         }
@@ -67,7 +71,6 @@ class UserModel extends BaseModel {
     errorMessage = null;
     userDto = null;
     _authenticationService.getUserToken().then((token) {
-
       return _connectedAPI.getUserDetails(token: token, userId: userId);
     }).then((userDetails) {
       print("user details ${userDetails.familyMembers}");
@@ -78,7 +81,6 @@ class UserModel extends BaseModel {
       setState(ViewState.Idle);
     });
   }
-
 
   Future getUsers() async {
     setState(ViewState.Busy);

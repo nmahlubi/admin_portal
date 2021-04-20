@@ -11,6 +11,7 @@ import 'package:Live_Connected_Admin/ui/widget/user_content_last_name.dart';
 import 'package:Live_Connected_Admin/ui/widget/user_email_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 
@@ -29,7 +30,7 @@ class _UsersViewState extends State<UsersView> {
   Widget build(BuildContext context) {
     ClientUserDto user = Provider.of<ClientUserDto>(context);
     double screenWidth = MediaQuery.of(context).size.width;
-    var numberRows = 3;
+    var numberRows = 7;
     double rowHeight = 50;
     return WillPopScope(
       onWillPop: () async => true,
@@ -38,6 +39,7 @@ class _UsersViewState extends State<UsersView> {
         model.user = user;
       }, builder: (BuildContext context, UserModel model, Widget child) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           key: _scaffoldKey,
           drawer: !UIHelper.isLargeScreen(screenWidth)
               ? Drawer(
@@ -47,6 +49,8 @@ class _UsersViewState extends State<UsersView> {
               : null,
           backgroundColor: widgetBgColor,
           body: Column(
+            // child: SingleChildScrollView(
+            //     scrollDirection: Axis.horizontal,
             children: [
               Container(
                 color: primaryColor,
@@ -71,6 +75,8 @@ class _UsersViewState extends State<UsersView> {
                           ),
                     Container(
                       alignment: Alignment.center,
+                      // child: SingleChildScrollView(
+                      //   scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -88,9 +94,12 @@ class _UsersViewState extends State<UsersView> {
                         ],
                       ),
                     ),
+                    // ),
                   ],
                 ),
               ),
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
               Expanded(
                 child: Row(
                   children: [
@@ -107,7 +116,6 @@ class _UsersViewState extends State<UsersView> {
                       child: model.state == ViewState.Busy
                           ? Center(child: CircularProgressIndicator())
                           : ListView(
-                              controller: _controller,
                               children: [
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,32 +127,34 @@ class _UsersViewState extends State<UsersView> {
                                       },
                                     ),
                                     UIHelper.verticalSpaceXSmall(),
-                                    DataTable(
-                                      dataRowHeight: rowHeight,
-                                      columns: const <DataColumn>[
-                                        DataColumn(
-                                          label: Text('First Name'),
-                                        ),
-                                        DataColumn(
-                                          label: Text('Last Name'),
-                                        ),
-                                        DataColumn(
-                                          label: Text('Email Address'),
-                                        ),
-                                        /*DataColumn(
-                                          label: Text('Contact Number'),
-                                        ),
-                                        DataColumn(
-                                          label: Text('Registered Date'),
-                                        ),
-                                        DataColumn(
-                                          label: Text('Active Status'),
-                                        ),
-                                        DataColumn(
-                                          label: Text('Subscribed Status'),
-                                        ),*/
-                                      ],
-                                      rows: _testRows(model),
+                                    SingleChildScrollView(
+                                      child: DataTable(
+                                        dataRowHeight: rowHeight,
+                                        columns: const <DataColumn>[
+                                          DataColumn(
+                                            label: Text('First Name'),
+                                          ),
+                                          DataColumn(
+                                            label: Text('Last Name'),
+                                          ),
+                                          DataColumn(
+                                            label: Text('Email Address'),
+                                          ),
+                                          DataColumn(
+                                            label: Text('Contact Number'),
+                                          ),
+                                          DataColumn(
+                                            label: Text('Registered Date'),
+                                          ),
+                                          DataColumn(
+                                            label: Text('Active Status'),
+                                          ),
+                                          DataColumn(
+                                            label: Text('Subscribed Status'),
+                                          ),
+                                        ],
+                                        rows: _testRows(model),
+                                      ),
                                     )
                                   ],
                                 ),
@@ -153,7 +163,7 @@ class _UsersViewState extends State<UsersView> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         );
@@ -162,85 +172,67 @@ class _UsersViewState extends State<UsersView> {
   }
 
   List<DataRow> _testRows(UserModel model) {
-
     List<DataRow> dataRows = [];
-
-    for(var userItem in model.usersFilter) {
+    for (var userItem in model.usersFilter) {
       DataRow dataRow = DataRow(
-
         cells: [
           DataCell(
-            Text(
-              "${userItem.firstName}",
-              style: textStyle,
-            ),
-            onTap: () {
-              Navigator.pushNamed(context, "userDetailsView",
-                  arguments: userItem);
-            }
-          ),
+              Text(
+                "${userItem.firstName}",
+                style: textStyle,
+              ), onTap: () {
+            Navigator.pushNamed(context, "userDetailsView",
+                arguments: userItem);
+          }),
           DataCell(
-            Text(
-              "${userItem.lastName}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
+              Text(
+                "${userItem.lastName}",
+                style: textStyle,
+              ), onTap: () {
+            Navigator.pushNamed(context, "userDetailsView",
+                arguments: userItem);
+          }),
           DataCell(
-            Text(
-              "${userItem.emailAddress}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
-          /*DataCell(
-            Text(
-              "${userItem.cellNumber ?? "-"}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
+              Text(
+                "${userItem.emailAddress}",
+                style: textStyle,
+              ), onTap: () {
+            Navigator.pushNamed(context, "userDetailsView",
+                arguments: userItem);
+          }),
           DataCell(
-            Text(
-              "${"-"}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
+              Text(
+                "${userItem.cellNumber ?? "-"}",
+                style: textStyle,
+              ), onTap: () {
+            Navigator.pushNamed(context, "userDetailsView",
+                arguments: userItem);
+          }),
           DataCell(
-            Text(
-              "${"-"}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
+              Text(
+                "${"-"}",
+                style: textStyle,
+              ), onTap: () {
+            Navigator.pushNamed(context, "userDetailsView",
+                arguments: userItem);
+          }),
           DataCell(
-            Text(
-              "${"-"}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),*/
+              Text(
+                "${"-"}",
+                style: textStyle,
+              ), onTap: () {
+            Navigator.pushNamed(context, "userDetailsView",
+                arguments: userItem);
+          }),
+          DataCell(
+              Text(
+                "${"-"}",
+                style: textStyle,
+              ), onTap: () {
+            Navigator.pushNamed(context, "userDetailsView",
+                arguments: userItem);
+          }),
         ],
-
       );
       dataRows.add(dataRow);
     }
