@@ -13,7 +13,8 @@ class UserDetailsContent extends StatelessWidget {
   final UserDto userDto;
   final ClientUserDto currentUser;
 
-  const UserDetailsContent({Key key, this.userDto, this.currentUser, this.errorMessage})
+  const UserDetailsContent(
+      {Key key, this.userDto, this.currentUser, this.errorMessage})
       : super(key: key);
 
   @override
@@ -42,68 +43,105 @@ class UserDetailsContent extends StatelessWidget {
           UIHelper.verticalSpaceSmall(),
           Text("Contact Number : ${currentUser.cellNumber}", style: textStyle),
           UIHelper.verticalSpaceSmall(),
-          Text(
-            "List of Family Member",
-            style: headerStylesBlack,
+          Text("Acive User : ${currentUser.activeOnApp}", style: textStyle),
+          UIHelper.verticalSpaceSmall(),
+          Text("Subscription Status : ${currentUser.activeSubscription}",
+              style: textStyle),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      "List of Children",
+                      style: headerStylesBlack,
+                    ),
+                    UIHelper.verticalSpaceSmall(),
+                    userDto?.children != null && userDto.children.isNotEmpty
+                        ? Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: primaryColorLight,
+                            elevation: 10,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              itemCount: userDto.children.length,
+                              itemBuilder: (context, index) {
+                                return Text(
+                                    "${userDto.children[index].firstName}");
+                              },
+                            ),
+                          )
+                        : Container(),
+                    UIHelper.verticalSpaceSmall(),
+                    errorMessage != null
+                        ? Center(
+                            child: Text(
+                              errorMessage,
+                              style: TextStyle(color: Colors.red, fontSize: 18),
+                            ),
+                          )
+                        : Container()
+                  ],
+                ),
+              ),
+              UIHelper.horizontalSpaceSmall(),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      "List of Activities",
+                      style: headerStylesBlack,
+                    ),
+                    UIHelper.verticalSpaceSmall(),
+                    userDto?.activities != null && userDto.activities.isNotEmpty
+                        ? Container(
+                            color: primaryColorLight,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              itemCount: userDto.activities.length,
+                              itemBuilder: (context, index) {
+                                return Text(
+                                    "${userDto.activities[index].children}");
+                              },
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
+              ),
+              UIHelper.horizontalSpaceSmall(),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      "List of Family Member",
+                      style: headerStylesBlack,
+                    ),
+                    UIHelper.verticalSpaceSmall(),
+                    userDto?.familyMembers != null &&
+                            userDto.familyMembers.isNotEmpty
+                        ? Container(
+                            color: textColorGrey,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              itemCount: userDto.familyMembers.length,
+                              itemBuilder: (context, index) {
+                                return Text(
+                                    "${userDto.familyMembers[index].firstName}");
+                              },
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
+              )
+            ],
           ),
-          UIHelper.verticalSpaceSmall(),
-          userDto?.familyMembers != null && userDto.familyMembers.isNotEmpty
-              ? Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemCount: userDto.familyMembers.length,
-                    itemBuilder: (context, index) {
-                      return Text("${userDto.familyMembers[index].firstName}");
-                    },
-                  ),
-                )
-              : Container(),
-          UIHelper.verticalSpaceSmall(),
-          Text(
-            "List of Activities",
-            style: headerStylesBlack,
-          ),
-          UIHelper.verticalSpaceSmall(),
-          userDto?.activities != null && userDto.activities.isNotEmpty
-              ? Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemCount: userDto.activities.length,
-                    itemBuilder: (context, index) {
-                      return Text("${userDto.activities[index].children}");
-                    },
-                  ),
-                )
-              : Container(),
-          UIHelper.verticalSpaceSmall(),
-          Text(
-            "List of Children",
-            style: headerStylesBlack,
-          ),
-          UIHelper.verticalSpaceSmall(),
-          userDto?.children != null && userDto.children.isNotEmpty
-              ? Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemCount: userDto.children.length,
-                    itemBuilder: (context, index) {
-                      return Text("${userDto.children[index].firstName}");
-                    },
-                  ),
-                )
-              : Container(),
-          UIHelper.verticalSpaceSmall(),
-          errorMessage != null
-              ? Center(
-            child: Text(
-              errorMessage,
-              style: TextStyle(color: Colors.red, fontSize: 18),
-            ),
-          )
-              : Container()
         ],
       ),
     );

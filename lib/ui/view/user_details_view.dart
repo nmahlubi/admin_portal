@@ -98,7 +98,6 @@ class UsersDetailsView extends StatelessWidget {
                         flex: 8,
                         child:
                         Container(
-                          color: secondaryColorLight,
                           child: Center(child: UserDetailsContent(
 
                             userDto: model.userDto,
