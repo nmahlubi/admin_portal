@@ -61,11 +61,16 @@ class ConnectedApi {
   }
 
   Future<List<ClientUserDto>> getAllUsers(
-      {String token, bool active = true}) async {
+      {String token, bool active = true, int page, int pageSize}) async {
     Map<String, String> requestHeaders = await getHeaders(authToken: token);
+    Map<String, String> queryParameters = {
+      'active': "$active",
+      'currentPage': "$page",
+      'pageSize': "$pageSize",
+    };
     Uri uri = authorityType == "http"
-        ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAll")
-        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAll");
+        ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAllForAdmin", queryParameters)
+        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAllForAdmin", queryParameters);
     final response = await client.get(uri, headers: requestHeaders);
     print("response body ${response.body.length}");
     if (response.statusCode == 200 ||

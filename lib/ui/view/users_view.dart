@@ -25,6 +25,13 @@ class _UsersViewState extends State<UsersView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _controller = ScrollController();
 
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     ClientUserDto user = Provider.of<ClientUserDto>(context);
@@ -34,7 +41,15 @@ class _UsersViewState extends State<UsersView> {
     return WillPopScope(
       onWillPop: () async => true,
       child: BaseView<UserModel>(onModelReady: (model) {
-        model.getUsers();
+        model.getUsers(initController: () {
+          _controller.addListener(() {
+            if (_controller.position.pixels ==
+                _controller.position.maxScrollExtent) {
+              model.getUsers();
+            }
+          });
+        });
+
         model.user = user;
       }, builder: (BuildContext context, UserModel model, Widget child) {
         return Scaffold(
@@ -106,50 +121,168 @@ class _UsersViewState extends State<UsersView> {
                       flex: 8,
                       child: model.state == ViewState.Busy
                           ? Center(child: CircularProgressIndicator())
-                          : ListView(
-                              controller: _controller,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    UIHelper.verticalSpaceXSmall(),
-                                    SearchFilter(
-                                      onTextChange: (searchTerm) {
-                                        model.search(searchTerm);
-                                      },
-                                    ),
-                                    UIHelper.verticalSpaceXSmall(),
-                                    DataTable(
-                                      dataRowHeight: rowHeight,
-                                      columns: const <DataColumn>[
-                                        DataColumn(
-                                          label: Text('First Name'),
+                          : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              UIHelper.verticalSpaceXSmall(),
+                              SearchFilter(
+                                onTextChange: (searchTerm) {
+                                  model.search(searchTerm);
+                                },
+                              ),
+                              UIHelper.verticalSpaceXSmall(),
+                              model.errorMessage != null
+                              ? Container(
+                                alignment: Alignment.center,
+                                child: Text(model.errorMessage, style: errorStyleRed,),
+                              ): Container(),
+
+                              UIHelper.verticalSpaceXSmall(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('First Name'),
+                                  Text('Last Name'),
+                                  Text('Email Address'),
+                                  Text('Contact Number'),
+                                  Text('Registered Date'),
+                                  Text('Active Status'),
+                                  Text('Subscribed Status'),
+                                ],
+                              ),
+                              UIHelper.verticalSpaceXSmall(),
+                              Expanded(
+                                child: ListView.separated(
+                                  separatorBuilder: (context, index) => Divider(
+                                    color: Colors.black26,
+                                  ),
+                                  shrinkWrap: true,
+                                  controller: _controller,
+                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  itemCount: model.usersFilter.length +1 ,
+                                  itemBuilder: (context, index) {
+                                    if(index == model.usersFilter.length) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new Center(
+                                          child: new Opacity(
+                                            opacity: model.isLoading ? 1.0 : 00,
+                                            child: new CircularProgressIndicator(),
+                                          ),
                                         ),
-                                        DataColumn(
-                                          label: Text('Last Name'),
+                                      );
+                                    } else {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(context, "userDetailsView",
+                                              arguments: model.usersFilter[index]);
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                height: rowHeight,
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "${model.usersFilter[index].firstName}",
+                                                  style: textStyle,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                height: rowHeight,
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "${model.usersFilter[index].lastName}",
+                                                  style: textStyle,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                height: rowHeight,
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "${model.usersFilter[index].emailAddress}",
+                                                  style: textStyle,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                height: rowHeight,
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "${model.usersFilter[index].cellNumber ?? "-"}",
+                                                  style: textStyle,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                height: rowHeight,
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "${model.usersFilter[index].modified.toIso8601String() ?? "-"}",
+                                                  style: textStyle,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                height: rowHeight,
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "${model.usersFilter[index].activeOnApp ??"-"}",
+                                                  style: textStyle,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                height: rowHeight,
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "${model.usersFilter[index].activeSubscription ??"-"}",
+                                                  style: textStyle,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        DataColumn(
-                                          label: Text('Email Address'),
-                                        ),
-                                        /*DataColumn(
-                                          label: Text('Contact Number'),
-                                        ),
-                                        DataColumn(
-                                          label: Text('Registered Date'),
-                                        ),
-                                        DataColumn(
-                                          label: Text('Active Status'),
-                                        ),
-                                        DataColumn(
-                                          label: Text('Subscribed Status'),
-                                        ),*/
-                                      ],
-                                      rows: _testRows(model),
-                                    )
-                                  ],
+                                      );
+                                    }
+
+                                  },
                                 ),
-                              ],
-                            ),
+                              )
+                            ],
+                          ),
                     ),
                   ],
                 ),
@@ -159,91 +292,5 @@ class _UsersViewState extends State<UsersView> {
         );
       }),
     );
-  }
-
-  List<DataRow> _testRows(UserModel model) {
-
-    List<DataRow> dataRows = [];
-
-    for(var userItem in model.usersFilter) {
-      DataRow dataRow = DataRow(
-
-        cells: [
-          DataCell(
-            Text(
-              "${userItem.firstName}",
-              style: textStyle,
-            ),
-            onTap: () {
-              Navigator.pushNamed(context, "userDetailsView",
-                  arguments: userItem);
-            }
-          ),
-          DataCell(
-            Text(
-              "${userItem.lastName}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
-          DataCell(
-            Text(
-              "${userItem.emailAddress}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
-          /*DataCell(
-            Text(
-              "${userItem.cellNumber ?? "-"}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
-          DataCell(
-            Text(
-              "${"-"}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
-          DataCell(
-            Text(
-              "${"-"}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),
-          DataCell(
-            Text(
-              "${"-"}",
-              style: textStyle,
-            ),
-              onTap: () {
-                Navigator.pushNamed(context, "userDetailsView",
-                    arguments: userItem);
-              }
-          ),*/
-        ],
-
-      );
-      dataRows.add(dataRow);
-    }
-    return dataRows;
   }
 }

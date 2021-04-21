@@ -28,6 +28,10 @@ class ClientUserDto {
   Device device;
   bool loggedIn;
   String idToken;
+  DateTime created;
+  DateTime modified;
+  bool activeOnApp;
+  bool activeSubscription;
 
   ClientUserDto(
       this.idToken,
@@ -121,6 +125,14 @@ class ClientUserDto {
         ? Device.fromJson(json['device'])
         : null;
     idToken = json['idToken'];
+    created = json.containsKey('created') && json['created'] != null
+        ? responseDateFormat.parse(json['created'])
+        : null;
+    modified = json.containsKey('modified') && json['modified'] != null
+        ? responseDateFormat.parse(json['modified'])
+        : null;
+    activeOnApp = json['activeOnApp'];
+    activeSubscription = json['activeSubscription'];
   }
 
   Map<String, dynamic> toJson() {
@@ -193,6 +205,19 @@ class ClientUserDto {
     if (this.idToken != null) {
       data['idToken'] = this.idToken;
     }
+    if (this.created != null) {
+      data['created'] = this.created.toIso8601String();
+    }
+    if (this.modified != null) {
+      data['modified'] = this.modified.toIso8601String();
+    }
+    if (this.activeOnApp != null) {
+      data['activeOnApp'] = this.activeOnApp;
+    }
+    if (this.activeSubscription != null) {
+      data['activeSubscription'] = this.activeSubscription;
+    }
+
     return data;
   }
 }

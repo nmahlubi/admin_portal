@@ -31,6 +31,9 @@ class UserModel extends BaseModel {
   List<ClientUserDto> userList = [];
   List<ClientUserDto> usersFilter = [];
   UserDto userDto;
+  int page = 0;
+  int pageSize = 20;
+  bool isLoading = false;
 
   Future search(String searchTerm) async {
     setState(ViewState.Busy);
@@ -80,15 +83,23 @@ class UserModel extends BaseModel {
   }
 
 
-  Future getUsers() async {
-    setState(ViewState.Busy);
+  Future getUsers({Function initController}) async {
+    if(!isLoading) {
+      isLoading = true;
+    }
+    //setState(ViewState.Busy);
     errorMessage = null;
-    userList = [];
-    usersFilter = [];
+    //userList = [];
+    //usersFilter = [];
     String token = await _authenticationService.getUserToken();
-    _connectedAPI.getAllUsers(token: token).then((userlist) {
-      this.userList = userlist;
-      this.usersFilter = userlist;
+    _connectedAPI.getAllUsers(token: token, page: page, pageSize: pageSize).then((userlist) {
+      this.userList.addAll(userlist);
+      this.usersFilter.addAll(userlist);
+      isLoading = true;
+      page++;
+      if(initController != null) {
+        initController();
+      }
       setState(ViewState.Idle);
     }).catchError((error) {
       errorMessage = '${error.toString()}';
