@@ -21,128 +21,165 @@ class UserDetailsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: new Container(
-              width: 100.0,
-              height: 100.0,
-              child: ImageWidget(
-                path: "assets/images/image_placeholder.png",
-                marginTop: 0,
-                imageRadius: 75,
-                height: 150,
+      child: SingleChildScrollView(
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: new Container(
+                width: 100.0,
+                height: 100.0,
+                child: ImageWidget(
+                  path: "assets/images/image_placeholder.png",
+                  marginTop: 0,
+                  imageRadius: 75,
+                  height: 150,
+                ),
               ),
             ),
-          ),
-          Text("${currentUser.firstName}  ${currentUser.lastName}",
-              style: headerStylesBlack),
-          UIHelper.verticalSpaceSmall(),
-          Text("Email : ${currentUser.emailAddress}", style: textStyle),
-          UIHelper.verticalSpaceSmall(),
-          Text("Contact Number : ${currentUser.cellNumber}", style: textStyle),
-          UIHelper.verticalSpaceSmall(),
-          Text("Acive User : ${currentUser.activeOnApp}", style: textStyle),
-          UIHelper.verticalSpaceSmall(),
-          Text("Subscription Status : ${currentUser.activeSubscription}",
-              style: textStyle),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      "List of Children",
-                      style: headerStylesBlack,
-                    ),
-                    UIHelper.verticalSpaceSmall(),
-                    userDto?.children != null && userDto.children.isNotEmpty
-                        ? Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            color: primaryColorLight,
-                            elevation: 10,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              itemCount: userDto.children.length,
-                              itemBuilder: (context, index) {
-                                return Text(
-                                    "${userDto.children[index].firstName}");
-                              },
-                            ),
-                          )
-                        : Container(),
-                    UIHelper.verticalSpaceSmall(),
-                    errorMessage != null
-                        ? Center(
-                            child: Text(
-                              errorMessage,
-                              style: TextStyle(color: Colors.red, fontSize: 18),
-                            ),
-                          )
-                        : Container()
-                  ],
+            Text("${currentUser.firstName}  ${currentUser.lastName}",
+                style: headerStylesBlack),
+            UIHelper.verticalSpaceSmall(),
+            Text("Email : ${currentUser.emailAddress}", style: textStyle),
+            UIHelper.verticalSpaceSmall(),
+            Text("Contact Number : ${currentUser.cellNumber}", style: textStyle),
+            UIHelper.verticalSpaceSmall(),
+            Text("Acive User : ${currentUser.activeOnApp}", style: textStyle),
+            UIHelper.verticalSpaceSmall(),
+            Text("Subscription Status : ${currentUser.activeSubscription}",
+                style: textStyle),
+            UIHelper.verticalSpaceSmall(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      userDto?.activities != null && userDto.activities.isNotEmpty
+                          ? Container(
+                        height: 350,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          color: primaryColorLight,
+                          elevation: 10,
+                          child: Column(
+                            children: [
+                              UIHelper.verticalSpaceSmall(),
+                              Text(
+                                "List of Child",
+                                style: headerStylesBlack,
+                              ),
+                              UIHelper.verticalSpaceSmall(),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                itemCount: userDto.children.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(left: 10.0,top: 20),
+                                    child: Text(
+                                      "${userDto.children[index].firstName}",style: textStyle,),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                          : Container(),
+                    ],
+                  ),
                 ),
-              ),
-              UIHelper.horizontalSpaceSmall(),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      "List of Activities",
-                      style: headerStylesBlack,
-                    ),
-                    UIHelper.verticalSpaceSmall(),
-                    userDto?.activities != null && userDto.activities.isNotEmpty
-                        ? Container(
-                            color: primaryColorLight,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              itemCount: userDto.activities.length,
-                              itemBuilder: (context, index) {
-                                return Text(
-                                    "${userDto.activities[index].children}");
-                              },
-                            ),
-                          )
-                        : Container(),
-                  ],
+                UIHelper.horizontalSpaceSmall(),
+                Expanded(
+                  child: Column(
+                    children: [
+                      userDto?.activities != null && userDto.activities.isNotEmpty
+                          ? Container(
+                              height: 350,
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                color: primaryColorLight,
+                                elevation: 10,
+                                child: Column(
+                                  children: [
+                                    UIHelper.verticalSpaceSmall(),
+                                    Text(
+                                      "List of Activities",
+                                      style: headerStylesBlack,
+                                    ),
+                                    UIHelper.verticalSpaceSmall(),
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const AlwaysScrollableScrollPhysics(),
+                                      itemCount: userDto.activities.length,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          margin: EdgeInsets.only(left: 10.0,top: 20),
+                                          child: Text(
+                                              "${userDto.activities[index].children}",style: textStyle,),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  ),
                 ),
-              ),
-              UIHelper.horizontalSpaceSmall(),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      "List of Family Member",
-                      style: headerStylesBlack,
-                    ),
-                    UIHelper.verticalSpaceSmall(),
-                    userDto?.familyMembers != null &&
-                            userDto.familyMembers.isNotEmpty
-                        ? Container(
-                            color: textColorGrey,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              itemCount: userDto.familyMembers.length,
-                              itemBuilder: (context, index) {
-                                return Text(
-                                    "${userDto.familyMembers[index].firstName}");
-                              },
-                            ),
-                          )
-                        : Container(),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
+                UIHelper.horizontalSpaceSmall(),
+                Expanded(
+                  child: Column(
+                    children: [
+                      userDto?.familyMembers != null &&
+                              userDto.familyMembers.isNotEmpty
+                          ? Container(
+                              height: 350,
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                color: primaryColorLight,
+                                elevation: 10,
+                                child: Column(
+                                  children: [
+                                    UIHelper.verticalSpaceSmall(),
+                                    Text(
+                                      "List of Family Member",
+                                      style: headerStylesBlack,
+                                    ),
+                                    UIHelper.verticalSpaceSmall(),
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const AlwaysScrollableScrollPhysics(),
+                                      itemCount: userDto.familyMembers.length,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          margin: EdgeInsets.only(left: 10.0,top: 20),
+                                          child: Text(
+                                              "${userDto.familyMembers[index].firstName}",style: textStyle,),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

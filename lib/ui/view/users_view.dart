@@ -139,18 +139,20 @@ class _UsersViewState extends State<UsersView> {
 
                               UIHelper.verticalSpaceXSmall(),
                               Container(
+                                height: 50,
                                 margin: EdgeInsets.only(left: 20.0),
+                                color: textColorLightBlue,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('First Name'),
-                                    Text('Last Name'),
-                                    Container(margin: EdgeInsets.only(left: 20.0),child: Text('Email Address')),
-                                    Text('Contact Number'),
-                                    Text('Registered Date'),
-                                    Text('Active Status'),
-                                    Text('Subscribed Status'),
+                                    Text('First Name',style: textStyleWhite,),
+                                    Text('Last Name',style: textStyleWhite,),
+                                    Container(margin: EdgeInsets.only(left: 20.0),child: Text('Email Address',style: textStyleWhite,)),
+                                    Text('Contact Number',style: textStyleWhite,),
+                                    Text('Registered Date',style: textStyleWhite,),
+                                    Text('Active Status',style: textStyleWhite,),
+                                    Text('Subscribed Status',style: textStyleWhite,),
                                   ],
                                 ),
                               ),
@@ -261,7 +263,7 @@ class _UsersViewState extends State<UsersView> {
                                                   child: Center(
                                                     child: Text(
                                                       "${model.usersFilter[index].activeOnApp ??"-"}",
-                                                      style: textStyle,
+                                                      style: textStyleWhite,
                                                       maxLines: 1,
                                                       overflow: TextOverflow.ellipsis,
                                                     ),
@@ -278,7 +280,7 @@ class _UsersViewState extends State<UsersView> {
                                                   child: Center(
                                                     child: Text(
                                                       "${model.usersFilter[index].activeSubscription ??"-"}",
-                                                      style: textStyle,
+                                                      style: textStyleWhite,
                                                       maxLines: 1,
                                                       overflow: TextOverflow.ellipsis,
                                                     ),
