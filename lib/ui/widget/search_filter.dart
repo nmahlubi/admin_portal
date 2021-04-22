@@ -1,4 +1,5 @@
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
+import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +18,6 @@ class SearchFilterWidgetState extends State<SearchFilter> {
   final TextEditingController _filter = new TextEditingController();
   String _searchText = "";
 
-  SearchFilterWidgetState() {
-    _filter.addListener(() {
-      setState(() {
-        _searchText = _filter.text.isEmpty ? "" : _filter.text;
-      });
-      widget.onTextChange(_searchText);
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,16 +27,25 @@ class SearchFilterWidgetState extends State<SearchFilter> {
           alignment: Alignment.center,
           height: 60.0,
           child: new TextField(
-            controller: _filter,
-            decoration: InputDecoration(
-                hintText: "Search Here",
-                suffixIcon: Icon(
+              onSubmitted: (_searchText) {
+                _filter.addListener(() {
+                  setState(() {
+                    _searchText = _filter.text.isEmpty ? "" : _filter.text;
+                  });
+                  widget.onTextChange(_searchText);
+                });
+              },
+              style: greyTexts,
+              controller: _filter,
+              decoration: new InputDecoration(
+                prefixIcon: Icon(
                   Icons.search,
-                  color: primaryColor,
+                  color: Colors.black,
                 ),
+                hintText: 'Search...',
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)))),
-          ),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)))
+              ))
         ),
       ],
     );

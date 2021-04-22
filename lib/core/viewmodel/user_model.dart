@@ -35,35 +35,60 @@ class UserModel extends BaseModel {
   int pageSize = 20;
   bool isLoading = false;
 
-  Future search(String searchTerm) async {
+  Future search(String searchTerm) async{
     setState(ViewState.Busy);
-    if (searchTerm.isEmpty) {
-      usersFilter = userList;
-    } else {
-      List tempUserList = new List<ClientUserDto>();
-      print("User List ${usersFilter.length}");
-      for (int i = 0; i < userList.length; i++) {
-        if (userList[i]
-                .firstName
-                .toLowerCase()
-                .contains(searchTerm.toLowerCase()) ||
-            userList[i]
-                .emailAddress
-                .toLowerCase()
-                .contains(searchTerm.toLowerCase()) ||
-            userList[i]
-                .lastName
-                .toLowerCase()
-                .contains(searchTerm.toLowerCase())) {
-          tempUserList.add(userList[i]);
+    errorMessage = null;
+    userList = [];
+    usersFilter = [];
+    _authenticationService.getUserToken()
+        .then((token) {
+      return _connectedAPI.getAllUsers(token: token, page: page, pageSize: pageSize,search: searchTerm,);
+    }).then((user) {
+      if (user != null) {
+        this.userList = user;
+        this.usersFilter = user;
+        if (user.isEmpty) {
+          errorMessage = "No User Found";
         }
+      } else {
+        errorMessage = "Failed to load User";
       }
-
-      usersFilter = tempUserList;
-    }
-    this.searchTerm = searchTerm;
-    setState(ViewState.Idle);
+      setState(ViewState.Idle);
+    }).catchError((error) {
+      errorMessage = '${error.toString()}';
+      setState(ViewState.Idle);
+    });
   }
+
+//  Future search(String searchTerm) async {
+//    setState(ViewState.Busy);
+//    if (searchTerm.isEmpty) {
+//      usersFilter = userList;
+//    } else {
+//      List tempUserList = new List<ClientUserDto>();
+//      print("User List ${usersFilter.length}");
+//      for (int i = 0; i < userList.length; i++) {
+//        if (userList[i]
+//                .firstName
+//                .toLowerCase()
+//                .contains(searchTerm.toLowerCase()) ||
+//            userList[i]
+//                .emailAddress
+//                .toLowerCase()
+//                .contains(searchTerm.toLowerCase()) ||
+//            userList[i]
+//                .lastName
+//                .toLowerCase()
+//                .contains(searchTerm.toLowerCase())) {
+//          tempUserList.add(userList[i]);
+//        }
+//      }
+//
+//      usersFilter = tempUserList;
+//    }
+//    this.searchTerm = searchTerm;
+//    setState(ViewState.Idle);
+//  }
 
   void getUserDetails(String userId) {
     setState(ViewState.Busy);
@@ -87,10 +112,7 @@ class UserModel extends BaseModel {
     if(!isLoading) {
       isLoading = true;
     }
-    //setState(ViewState.Busy);
     errorMessage = null;
-    //userList = [];
-    //usersFilter = [];
     String token = await _authenticationService.getUserToken();
     _connectedAPI.getAllUsers(token: token, page: page, pageSize: pageSize).then((userlist) {
       this.userList.addAll(userlist);

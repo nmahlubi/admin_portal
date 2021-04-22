@@ -60,8 +60,7 @@ class ConnectedApi {
     return requestHeaders;
   }
 
-  Future<List<ClientUserDto>> getAllUsers(
-      {String token, bool active = true, int page, int pageSize}) async {
+  Future<List<ClientUserDto>> getAllUsers({String token, bool active = true, int page, int pageSize,String search}) async {
     Map<String, String> requestHeaders = await getHeaders(authToken: token);
     Map<String, String> queryParameters = {
       'active': "$active",
