@@ -60,13 +60,18 @@ class ConnectedApi {
     return requestHeaders;
   }
 
-  Future<List<ClientUserDto>> getAllUsers({String token, bool active = true, int page, int pageSize,String search}) async {
+  Future<List<ClientUserDto>> getAllUsers({String token, bool active = true, int page, int pageSize, String search}) async {
     Map<String, String> requestHeaders = await getHeaders(authToken: token);
     Map<String, String> queryParameters = {
       'active': "$active",
       'currentPage': "$page",
       'pageSize': "$pageSize",
     };
+    if (search != null) {
+      queryParameters.addAll({
+        "searchQuery" : search
+      });
+    }
     Uri uri = authorityType == "http"
         ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAllForAdmin", queryParameters)
         : Uri.https(endpoint, "/api/v1/user/$endpointType/getAllForAdmin", queryParameters);

@@ -1,5 +1,6 @@
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/user_dto.dart';
+import 'package:Live_Connected_Admin/core/shared/date_formats.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
@@ -20,24 +21,14 @@ class UserDetailsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10.0),
+      margin: EdgeInsets.all(5),
+      padding: EdgeInsets.all(5),
       child: SingleChildScrollView(
 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Center(
-              child: new Container(
-                width: 100.0,
-                height: 100.0,
-                child: ImageWidget(
-                  path: "assets/images/image_placeholder.png",
-                  marginTop: 0,
-                  imageRadius: 75,
-                  height: 150,
-                ),
-              ),
-            ),
             Text("${currentUser.firstName}  ${currentUser.lastName}",
                 style: headerStylesBlack),
             UIHelper.verticalSpaceSmall(),
@@ -45,7 +36,7 @@ class UserDetailsContent extends StatelessWidget {
             UIHelper.verticalSpaceSmall(),
             Text("Contact Number : ${currentUser.cellNumber}", style: textStyle),
             UIHelper.verticalSpaceSmall(),
-            Text("Acive User : ${currentUser.activeOnApp}", style: textStyle),
+            Text("Active User : ${currentUser.activeOnApp}", style: textStyle),
             UIHelper.verticalSpaceSmall(),
             Text("Subscription Status : ${currentUser.activeSubscription}",
                 style: textStyle),
@@ -69,7 +60,7 @@ class UserDetailsContent extends StatelessWidget {
                             children: [
                               UIHelper.verticalSpaceSmall(),
                               Text(
-                                "List of Child",
+                                "List of Children Added",
                                 style: headerStylesBlack,
                               ),
                               UIHelper.verticalSpaceSmall(),
@@ -81,7 +72,7 @@ class UserDetailsContent extends StatelessWidget {
                                   return Container(
                                     margin: EdgeInsets.only(left: 10.0,top: 20),
                                     child: Text(
-                                      "${userDto.children[index].firstName}",style: textStyle,),
+                                      "${userDto.children[index].firstName} ${userDto.children[index].lastName}",style: textStyle,),
                                   );
                                 },
                               ),
@@ -110,7 +101,7 @@ class UserDetailsContent extends StatelessWidget {
                                   children: [
                                     UIHelper.verticalSpaceSmall(),
                                     Text(
-                                      "List of Activities",
+                                      "List of Schedules",
                                       style: headerStylesBlack,
                                     ),
                                     UIHelper.verticalSpaceSmall(),
@@ -120,9 +111,10 @@ class UserDetailsContent extends StatelessWidget {
                                       itemCount: userDto.activities.length,
                                       itemBuilder: (context, index) {
                                         return Container(
-                                          margin: EdgeInsets.only(left: 10.0,top: 20),
+                                          margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
                                           child: Text(
-                                              "${userDto.activities[index].children}",style: textStyle,),
+                                              "${userDto.activities[index].title}"
+                                                  "\n${activityDateFormat.format(userDto.activities[index].startDateTime)} - ${activityDateFormat.format(userDto.activities[index].endDateTime)}",style: textStyle,),
                                         );
                                       },
                                     ),
@@ -152,7 +144,7 @@ class UserDetailsContent extends StatelessWidget {
                                   children: [
                                     UIHelper.verticalSpaceSmall(),
                                     Text(
-                                      "List of Family Member",
+                                      "List of Family Members",
                                       style: headerStylesBlack,
                                     ),
                                     UIHelper.verticalSpaceSmall(),
@@ -164,7 +156,7 @@ class UserDetailsContent extends StatelessWidget {
                                         return Container(
                                           margin: EdgeInsets.only(left: 10.0,top: 20),
                                           child: Text(
-                                              "${userDto.familyMembers[index].firstName}",style: textStyle,),
+                                            "${userDto.familyMembers[index].firstName} ${userDto.familyMembers[index].lastName}",style: textStyle,),
                                         );
                                       },
                                     ),

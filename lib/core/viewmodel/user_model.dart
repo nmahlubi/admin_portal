@@ -34,6 +34,12 @@ class UserModel extends BaseModel {
   int page = 0;
   int pageSize = 20;
   bool isLoading = false;
+  bool showCloseSearch = false;
+
+  void setShowCloseSearch(bool show) {
+    showCloseSearch = show;
+    setState(ViewState.Idle);
+  }
 
   Future search(String searchTerm) async{
     setState(ViewState.Busy);
@@ -42,7 +48,7 @@ class UserModel extends BaseModel {
     usersFilter = [];
     _authenticationService.getUserToken()
         .then((token) {
-      return _connectedAPI.getAllUsers(token: token, page: page, pageSize: pageSize,search: searchTerm,);
+      return _connectedAPI.getAllUsers(token: token, page: 0, pageSize: 50,search: searchTerm,);
     }).then((user) {
       if (user != null) {
         this.userList = user;
@@ -53,6 +59,7 @@ class UserModel extends BaseModel {
       } else {
         errorMessage = "Failed to load User";
       }
+      showCloseSearch = true;
       setState(ViewState.Idle);
     }).catchError((error) {
       errorMessage = '${error.toString()}';
@@ -111,6 +118,9 @@ class UserModel extends BaseModel {
   Future getUsers({Function initController}) async {
     if(!isLoading) {
       isLoading = true;
+    }
+    if(page == 0) {
+      setState(ViewState.Busy);
     }
     errorMessage = null;
     String token = await _authenticationService.getUserToken();

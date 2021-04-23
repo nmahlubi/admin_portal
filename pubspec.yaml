@@ -40,9 +40,8 @@ dependencies:
   provider: ^5.0.0
   #firebase_messaging: ^9.0.1
   flutter_local_notifications: ^5.0.0
-  draggable_scrollbar: 0.0.4
   flutter_search_bar: ^2.1.0
-
+  draggable_scrollbar: ^0.1.0
 
 dev_dependencies:
   flutter_test:

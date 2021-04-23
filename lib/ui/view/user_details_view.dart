@@ -1,3 +1,4 @@
+import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/viewmodel/user_model.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
@@ -26,7 +27,7 @@ class UsersDetailsView extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => true,
       child: BaseView<UserModel>(onModelReady: (model) {
-        model.getUserDetails(user.id);
+        model.getUserDetails(clientUserDto.id);
         model.user = user;
       }, builder: (BuildContext context, UserModel model, Widget child) {
         return Scaffold(
@@ -97,12 +98,27 @@ class UsersDetailsView extends StatelessWidget {
                     Expanded(
                         flex: 8,
                         child:
-                        Container(
-                          child: Center(child: UserDetailsContent(
+                        Column(
+                          children: [
+                            UIHelper.verticalSpaceMedium(),
+                            model.errorMessage != null
+                                ? Container(
+                              alignment: Alignment.center,
+                              child: Text(model.errorMessage, style: errorStyleRed,),
+                            ): Container(),
+                            UIHelper.verticalSpaceSmall(),
 
-                            userDto: model.userDto,
-                            currentUser: clientUserDto,
-                          )),
+                            UIHelper.verticalSpaceSmall(),
+                            model.state == ViewState.Busy
+                                ? Center(child: CircularProgressIndicator())
+                                :  Container(
+                              child: Center(child: UserDetailsContent(
+
+                                userDto: model.userDto,
+                                currentUser: clientUserDto,
+                              )),
+                            ),
+                          ],
                         ),
                     ),
                   ],
