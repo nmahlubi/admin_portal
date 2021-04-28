@@ -44,32 +44,32 @@ class UserContent extends StatelessWidget {
     return SingleChildScrollView(
       child: InkWell(
         onTap: onClickUserDetails,
-         child: Column(
-           children: [
-             Container(
-               padding: EdgeInsets.all(12),
-               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   UIHelper.verticalSpaceMedium(),
-                   Text(
-                     "${user.firstName}",
-                     style: textStyle,
-                   ),
-                   UIHelper.verticalSpaceSmall(),
-                   errorMessage != null
-                       ? Center(
-                     child: Text(
-                       errorMessage,
-                       style: TextStyle(color: Colors.red, fontSize: 18),
-                     ),
-                   )
-                       : Container()
-                 ],
-               ),
-             ),
-           ],
-         ),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UIHelper.verticalSpaceMedium(),
+                  Text(
+                    "${user.firstName}",
+                    style: textStyle,
+                  ),
+                  UIHelper.verticalSpaceSmall(),
+                  errorMessage != null
+                      ? Center(
+                          child: Text(
+                            errorMessage,
+                            style: TextStyle(color: Colors.red, fontSize: 18),
+                          ),
+                        )
+                      : Container()
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
