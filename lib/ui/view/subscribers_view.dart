@@ -189,8 +189,8 @@ class _SubscribersViewState extends State<SubscribersView> {
                                       ),
                                       shrinkWrap: true,
                                       controller: _controller,
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(),
+                                      // physics:
+                                      //     const AlwaysScrollableScrollPhysics(),
                                       itemCount: model.usersFilter.length +
                                           (model.usersFilter.length >
                                                   model.pageSize
@@ -215,7 +215,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                                           return GestureDetector(
                                             onTap: () {
                                               Navigator.pushNamed(
-                                                  context, "userDetailsView",
+                                                  context, "subscribersView",
                                                   arguments:
                                                       model.usersFilter[index]);
                                             },

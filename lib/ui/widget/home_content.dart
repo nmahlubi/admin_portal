@@ -48,19 +48,20 @@ class HomeContent extends StatelessWidget {
                         height: 200,
                         child: Card(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
-                          color: Colors.red[400],
+                          color: Colors.red,
                           elevation: 10,
                           child: Column(
                             children: [
                               UIHelper.verticalSpaceSmall(),
                               Text(
-                                "1",
-                                style: headerStylesBlack,
+                                'Updates',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20.0,
+                                ),
                               ),
-                              Text('Update'),
-                              UIHelper.verticalSpaceSmall(),
                             ],
                           ),
                         ),
@@ -82,15 +83,20 @@ class HomeContent extends StatelessWidget {
                         height: 200,
                         child: Card(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
-                          color: Colors.blue[400],
+                          color: Colors.blue,
                           elevation: 10,
                           child: Column(
                             children: [
                               UIHelper.verticalSpaceSmall(),
-                              Text('Users'),
-                              UIHelper.verticalSpaceSmall(),
+                              Text(
+                                'Users',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20.0,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -114,14 +120,20 @@ class HomeContent extends StatelessWidget {
                         height: 200,
                         child: Card(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
-                          color: Colors.teal[400],
+                          color: Colors.teal,
                           elevation: 10,
                           child: Column(
                             children: [
                               UIHelper.verticalSpaceSmall(),
-                              Text('Active Subscribers'),
+                              Text(
+                                'Active Subscribers',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20.0,
+                                ),
+                              ),
                               UIHelper.verticalSpaceSmall(),
                             ],
                           ),
