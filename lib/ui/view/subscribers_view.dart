@@ -280,16 +280,10 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                       height: rowHeight,
                                                       alignment:
                                                           Alignment.centerLeft,
-                                                      color: model
-                                                                  .usersFilter[
-                                                                      index]
-                                                                  .activeOnApp ==
-                                                              true
-                                                          ? textColorGreen
-                                                          : textColorRed,
+                                                      color: textColorGreen,
                                                       child: Center(
                                                         child: Text(
-                                                          "${model.usersFilter[index].activeOnApp ?? "-"}",
+                                                          "${model.usersFilter[index].activeSubscription ?? "-"}",
                                                           style: textStyleWhite,
                                                           maxLines: 1,
                                                           overflow: TextOverflow
