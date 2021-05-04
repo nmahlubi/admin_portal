@@ -38,6 +38,7 @@ class UserModel extends BaseModel {
 
   void setShowCloseSearch(bool show) {
     showCloseSearch = show;
+    page = 0;
     setState(ViewState.Idle);
   }
 
@@ -121,6 +122,7 @@ class UserModel extends BaseModel {
     }
     if(page == 0) {
       setState(ViewState.Busy);
+      userList = [];
     }
     errorMessage = null;
     String token = await _authenticationService.getUserToken();
