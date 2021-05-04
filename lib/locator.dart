@@ -1,4 +1,5 @@
 import 'package:Live_Connected_Admin/core/model/user.dart';
+import 'package:Live_Connected_Admin/ui/view/subscribers_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:Live_Connected_Admin/core/repository/firebase_repo.dart';
@@ -26,6 +27,7 @@ void setupLocator(
   locator.registerLazySingleton(() => HomeModel());
   locator.registerLazySingleton(() => UserModel());
   locator.registerFactory(() => SearchModel());
+  //locator.registerLazySingleton(() => SubscribersView());
   locator.registerLazySingleton(() => LocalDataRepo());
   locator.registerFactory(() => firebaseAuth);
 }

@@ -1,4 +1,5 @@
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
+import 'package:Live_Connected_Admin/ui/view/subscribers_view.dart';
 import 'package:Live_Connected_Admin/ui/view/user_details_view.dart';
 import 'package:Live_Connected_Admin/ui/view/users_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,12 +18,15 @@ class MyRouter {
         return MaterialPageRoute(builder: (_) => LoginView());
       case "register":
         return MaterialPageRoute(builder: (_) => RegisterView());
+      case "subscribersView":
+        return MaterialPageRoute(builder: (_) => SubscribersView());
       case "usersView":
         return MaterialPageRoute(builder: (_) => UsersView());
       case "userDetailsView":
         var clientUserDto = settings.arguments as ClientUserDto;
         return MaterialPageRoute(
             builder: (_) => UsersDetailsView(clientUserDto: clientUserDto));
+
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

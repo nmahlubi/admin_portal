@@ -3,6 +3,7 @@ import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
+import 'package:Live_Connected_Admin/ui/widget/home_content.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
@@ -96,7 +97,7 @@ class HomeView extends StatelessWidget {
                       flex: 8,
                       child: Container(
                         alignment: Alignment.center,
-                        child: Text("Welcome to Live Connected Admin Interface"),
+                        child: HomeContent(),
                       ),
                     )
                   ],

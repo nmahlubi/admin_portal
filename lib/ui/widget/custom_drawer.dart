@@ -1,3 +1,4 @@
+import 'package:Live_Connected_Admin/ui/view/subscribers_view.dart';
 import 'package:Live_Connected_Admin/ui/view/user_details_view.dart';
 import 'package:Live_Connected_Admin/ui/view/users_view.dart';
 import 'package:flutter/material.dart';
@@ -42,14 +43,18 @@ class CustomDrawer extends StatelessWidget {
                   },
                   selected: selected == "Users",
                 ),
-
                 UIHelper.verticalSpaceMedium(),
                 MenuItem(
                   title: "Subscriptions",
                   imagePath: "",
-                  press: () {_onClickSubscription(context);
+                  press: () {
+                    _onClickUsers(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SubscribersView()));
                   },
-                  selected: selected == "Subscriptions",
+                  selected: selected == "subscribersView",
                 ),
                 UIHelper.verticalSpaceMedium(),
               ],
@@ -84,6 +89,7 @@ class CustomDrawer extends StatelessWidget {
     Navigator.pushNamedAndRemoveUntil(
         context, 'users', (Route<dynamic> route) => false);
   }
+
   _onClickDetailsUsers(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(
         context, 'userDetailsView', (Route<dynamic> route) => false);
