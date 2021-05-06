@@ -26,7 +26,6 @@ class _UsersViewState extends State<UsersView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _controller = ScrollController();
 
-
   @override
   void dispose() {
     _controller.dispose();
@@ -101,6 +100,13 @@ class _UsersViewState extends State<UsersView> {
                             "User List",
                             style: titleStyleWhiteLight,
                           ),
+                          TextButton(
+                              child: Text('Back',
+                                  textAlign: TextAlign.right,
+                                  style: titleStyleWhiteLight),
+                              onPressed: () {
+                                print('Pressed');
+                              })
                         ],
                       ),
                     ),
@@ -123,194 +129,263 @@ class _UsersViewState extends State<UsersView> {
                       child: model.state == ViewState.Busy
                           ? Center(child: CircularProgressIndicator())
                           : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              UIHelper.verticalSpaceXSmall(),
-                              SearchFilter(
-                                onTextChange: (searchTerm) {
-                                  model.search(searchTerm);
-                                },
-                                closeSearch: model.showCloseSearch,
-                                pressClose: () {
-                                  model.setShowCloseSearch(false);
-                                  model.getUsers();
-                                },
-                              ),
-                              UIHelper.verticalSpaceXSmall(),
-                              model.errorMessage != null
-                              ? Container(
-                                alignment: Alignment.center,
-                                child: Text(model.errorMessage, style: errorStyleRed,),
-                              ): Container(),
-
-                              UIHelper.verticalSpaceXSmall(),
-                              Container(
-                                height: 50,
-                                margin: EdgeInsets.all(10.0),
-                                padding: EdgeInsets.all(10.0),
-                                color: textColorLightBlue,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text('First Name',style: textStyleWhite,),
-                                    Text('Last Name',style: textStyleWhite,),
-                                    Container(margin: EdgeInsets.only(left: 20.0),child: Text('Email Address',style: textStyleWhite,)),
-                                    Text('Contact Number',style: textStyleWhite,),
-                                    Text('Registered Date',style: textStyleWhite,),
-                                    Text('Active Status',style: textStyleWhite,),
-                                    Text('Subscribed Status',style: textStyleWhite,),
-                                  ],
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                UIHelper.verticalSpaceXSmall(),
+                                SearchFilter(
+                                  onTextChange: (searchTerm) {
+                                    model.search(searchTerm);
+                                  },
+                                  closeSearch: model.showCloseSearch,
+                                  pressClose: () {
+                                    model.setShowCloseSearch(false);
+                                    model.getUsers();
+                                  },
                                 ),
-                              ),
-                              UIHelper.verticalSpaceXSmall(),
-                              Expanded(
-                                child: DraggableScrollbar.arrows(
-                                  controller: _controller,
-                                  alwaysVisibleScrollThumb: true,
-                                  backgroundColor: primaryColor,
-                                  child: ListView.separated(
-                                    separatorBuilder: (context, index) => Divider(
-                                      color: Colors.black26,
-                                    ),
-                                    shrinkWrap: true,
-                                    controller: _controller,
-                                    physics: const AlwaysScrollableScrollPhysics(),
-                                    itemCount: model.usersFilter.length + (model.usersFilter.length > model.pageSize ? 1 : 0) ,
-                                    itemBuilder: (context, index) {
-                                      if(index == model.usersFilter.length && model.usersFilter.length > model.pageSize) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: new Center(
-                                            child: new Opacity(
-                                              opacity: model.isLoading ? 1.0 : 00,
-                                              child: new CircularProgressIndicator(),
-                                            ),
-                                          ),
-                                        );
-                                      } else {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(context, "userDetailsView",
-                                                arguments: model.usersFilter[index]);
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.all(10.0),
-                                            padding: EdgeInsets.all(10.0),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Container(
-                                                    height: rowHeight,
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      "${model.usersFilter[index].firstName}",
-                                                      style: textStyle,
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Container(
-                                                    height: rowHeight,
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      "${model.usersFilter[index].lastName}",
-                                                      style: textStyle,
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Container(
-                                                    height: rowHeight,
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      "${model.usersFilter[index].emailAddress}",
-                                                      style: textStyle,
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Container(
-                                                    height: rowHeight,
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      "${model.usersFilter[index].cellNumber ?? "-"}",
-                                                      style: textStyle,
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Container(
-                                                    height: rowHeight,
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      "${model.usersFilter[index].modified.toIso8601String() ?? "-"}",
-                                                      style: textStyle,
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Container(
-                                                    height: rowHeight,
-                                                    alignment: Alignment.centerLeft,
-                                                    color: model.usersFilter[index].activeOnApp == true ? textColorGreen : textColorRed,
-                                                    child: Center(
-                                                      child: Text(
-                                                        "${model.usersFilter[index].activeOnApp ??"-"}",
-                                                        style: textStyleWhite,
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                UIHelper.horizontalSpaceXSmall(),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Container(
-                                                    height: rowHeight,
-                                                    alignment: Alignment.centerLeft,
-                                                    color: model.usersFilter[index].activeSubscription == true ? textColorGreen : textColorRed,
-                                                    child: Center(
-                                                      child: Text(
-                                                        "${model.usersFilter[index].activeSubscription ??"-"}",
-                                                        style: textStyleWhite,
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      }
-
-                                    },
+                                UIHelper.verticalSpaceXSmall(),
+                                model.errorMessage != null
+                                    ? Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          model.errorMessage,
+                                          style: errorStyleRed,
+                                        ),
+                                      )
+                                    : Container(),
+                                UIHelper.verticalSpaceXSmall(),
+                                Container(
+                                  height: 50,
+                                  margin: EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.all(10.0),
+                                  color: textColorLightBlue,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'First Name',
+                                        style: textStyleWhite,
+                                      ),
+                                      Text(
+                                        'Last Name',
+                                        style: textStyleWhite,
+                                      ),
+                                      Container(
+                                          margin: EdgeInsets.only(left: 20.0),
+                                          child: Text(
+                                            'Email Address',
+                                            style: textStyleWhite,
+                                          )),
+                                      Text(
+                                        'Contact Number',
+                                        style: textStyleWhite,
+                                      ),
+                                      Text(
+                                        'Registered Date',
+                                        style: textStyleWhite,
+                                      ),
+                                      Text(
+                                        'Active Status',
+                                        style: textStyleWhite,
+                                      ),
+                                      Text(
+                                        'Subscribed Status',
+                                        style: textStyleWhite,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
+                                UIHelper.verticalSpaceXSmall(),
+                                Expanded(
+                                  child: DraggableScrollbar.arrows(
+                                    controller: _controller,
+                                    alwaysVisibleScrollThumb: true,
+                                    backgroundColor: primaryColor,
+                                    child: ListView.separated(
+                                      separatorBuilder: (context, index) =>
+                                          Divider(
+                                        color: Colors.black26,
+                                      ),
+                                      shrinkWrap: true,
+                                      controller: _controller,
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(),
+                                      itemCount: model.usersFilter.length +
+                                          (model.usersFilter.length >
+                                                  model.pageSize
+                                              ? 1
+                                              : 0),
+                                      itemBuilder: (context, index) {
+                                        if (index == model.usersFilter.length &&
+                                            model.usersFilter.length >
+                                                model.pageSize) {
+                                          return Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: new Center(
+                                              child: new Opacity(
+                                                opacity:
+                                                    model.isLoading ? 1.0 : 00,
+                                                child:
+                                                    new CircularProgressIndicator(),
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                  context, "userDetailsView",
+                                                  arguments:
+                                                      model.usersFilter[index]);
+                                            },
+                                            child: Container(
+                                              margin: EdgeInsets.all(10.0),
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        "${model.usersFilter[index].firstName}",
+                                                        style: textStyle,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        "${model.usersFilter[index].lastName}",
+                                                        style: textStyle,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        "${model.usersFilter[index].emailAddress}",
+                                                        style: textStyle,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        "${model.usersFilter[index].cellNumber ?? "-"}",
+                                                        style: textStyle,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        "${model.usersFilter[index].modified.toIso8601String() ?? "-"}",
+                                                        style: textStyle,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      color: model
+                                                                  .usersFilter[
+                                                                      index]
+                                                                  .activeOnApp ==
+                                                              true
+                                                          ? textColorGreen
+                                                          : textColorRed,
+                                                      child: Center(
+                                                        child: Text(
+                                                          "${model.usersFilter[index].activeOnApp ?? "-"}",
+                                                          style: textStyleWhite,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  UIHelper
+                                                      .horizontalSpaceXSmall(),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      color: model
+                                                                  .usersFilter[
+                                                                      index]
+                                                                  .activeSubscription ==
+                                                              true
+                                                          ? textColorGreen
+                                                          : textColorRed,
+                                                      child: Center(
+                                                        child: Text(
+                                                          "${model.usersFilter[index].activeSubscription ?? "-"}",
+                                                          style: textStyleWhite,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                     ),
                   ],
                 ),

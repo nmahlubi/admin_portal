@@ -25,7 +25,7 @@ class CustomDrawer extends StatelessWidget {
             child: ListView(
               children: <Widget>[
                 MenuItem(
-                  title: "Home",
+                  title: "Dashboard",
                   imagePath: "",
                   press: () {
                     _onClickHome(context);

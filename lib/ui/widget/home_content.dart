@@ -9,9 +9,11 @@ import 'package:Live_Connected_Admin/ui/view/users_view.dart';
 import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
 import 'package:Live_Connected_Admin/ui/widget/user_content.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeContent extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -43,17 +45,42 @@ class HomeContent extends StatelessWidget {
                       Navigator.pushNamed(context, "/");
                     },
                     child: Container(
-                      height: 150,
+                      height: 250,
+                      decoration: new BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.orangeAccent.withOpacity(.5),
+                          )
+                        ],
+                      ),
                       child: Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        color: Colors.red,
-                        elevation: 10,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8.0))),
                         child: Column(
-                          children: [
-                            UIHelper.verticalSpaceSmall(),
-                            Text('Updates', style: textStyleWhiteLargeBold),
+                          children: <Widget>[
+                            ListTile(
+                              title: Text(
+                                '36',
+                                style: textStyleOrangeLargeBold,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: Image.asset(
+                                'assets/icons/boy.png',
+                                height: 100,
+                                width: 120,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            ListTile(
+                              title: Text('Children',
+                                  style: textStyleBlueGreySmaller),
+                            ),
+                            Divider(
+                              color: Colors.grey,
+                            )
                           ],
                         ),
                       ),
@@ -66,17 +93,41 @@ class HomeContent extends StatelessWidget {
                     Navigator.pushNamed(context, "usersView");
                   },
                   child: Container(
-                    height: 150,
+                    height: 250,
+                    decoration: new BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.blueGrey.withOpacity(.5),
+                        )
+                      ],
+                    ),
                     child: Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      color: Colors.blue,
-                      elevation: 10,
+                          borderRadius: BorderRadius.all(Radius.circular(8.0))),
                       child: Column(
-                        children: [
-                          UIHelper.verticalSpaceSmall(),
-                          Text('Users', style: textStyleWhiteLargeBold),
+                        children: <Widget>[
+                          ListTile(
+                            title: Text(
+                              '55',
+                              style: textStyleBlueGreyLargeBold,
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.topRight,
+                            child: Image.asset(
+                              'assets/icons/network.png',
+                              height: 100,
+                              width: 120,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          ListTile(
+                            title:
+                                Text('Users', style: textStyleBlueGreySmaller),
+                          ),
+                          Divider(
+                            color: Colors.grey,
+                          )
                         ],
                       ),
                     ),
@@ -85,33 +136,51 @@ class HomeContent extends StatelessWidget {
               ),
               UIHelper.horizontalSpaceSmall(),
               Expanded(
-                child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, "subscribersView");
-                    },
-                    child: Container(
-                      height: 150,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                  child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, "subscribersView");
+                },
+                child: Container(
+                  height: 250,
+                  decoration: new BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.redAccent.withOpacity(.5),
+                      )
+                    ],
+                  ),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                    child: Column(
+                      children: <Widget>[
+                        ListTile(
+                          title: Text(
+                            '43',
+                            style: textStyleRedAccentLargeBold,
+                          ),
                         ),
-                        color: Colors.teal,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            UIHelper.verticalSpaceSmall(),
-                            Center(
-                              child: Text(
-                                'Subscriptions',
-                                style: textStyleWhiteLargeBold,
-                              ),
-                            ),
-                            UIHelper.verticalSpaceSmall(),
-                          ],
+                        Container(
+                          alignment: Alignment.topRight,
+                          child: Image.asset(
+                            'assets/icons/subscribe.png',
+                            height: 100,
+                            width: 120,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                    )),
-              )
+                        ListTile(
+                          title: Text('Subscription',
+                              style: textStyleBlueGreySmaller),
+                        ),
+                        Divider(
+                          color: Colors.grey,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ))
             ],
           ),
         ));

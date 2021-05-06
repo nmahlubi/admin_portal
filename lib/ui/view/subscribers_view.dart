@@ -100,6 +100,20 @@ class _SubscribersViewState extends State<SubscribersView> {
                             "Subscribers",
                             style: titleStyleWhiteLight,
                           ),
+                          FlatButton(
+                              color: Colors.blue,
+                              textColor: Colors.white,
+                              padding: EdgeInsets.all(8.0),
+                              splashColor: Colors.blueAccent,
+                              onPressed: () {
+                                /*...*/
+                              },
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("Flat",
+                                    style: TextStyle(fontSize: 20.0),
+                                    textAlign: TextAlign.center),
+                              ))
                         ],
                       ),
                     ),
@@ -170,7 +184,11 @@ class _SubscribersViewState extends State<SubscribersView> {
                                         style: textStyleWhite,
                                       ),
                                       Text(
-                                        'Active Subscribers',
+                                        'Monthly',
+                                        style: textStyleWhite,
+                                      ),
+                                      Text(
+                                        'Yearly',
                                         style: textStyleWhite,
                                       ),
                                     ],
@@ -271,6 +289,24 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      color: textColorGreen,
+                                                      child: Center(
+                                                        child: Text(
+                                                          "${model.usersFilter[index].activeSubscription ?? "-"}",
+                                                          style: textStyleWhite,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
