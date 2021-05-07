@@ -34,15 +34,53 @@ class HomeContent extends StatelessWidget {
         //model.getMyStores();
       }, builder: (BuildContext context, HomeModel model, Widget child) {
         return Scaffold(
-            body: Container(
-          margin: EdgeInsets.only(bottom: 250.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: InkWell(
+          body: Container(
+            margin: EdgeInsets.only(bottom: 250.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/");
+                      },
+                      child: Container(
+                        height: 250,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
+                          child: Column(
+                            children: <Widget>[
+                              ListTile(
+                                title: Text(
+                                  '36',
+                                  style: textStylePrimaryColorDarkLargeBold,
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.topRight,
+                                child: Image.asset(
+                                  'assets/icons/boy.png',
+                                  height: 100,
+                                  width: 120,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              ListTile(
+                                title: Text('Children',
+                                    style: textStyleBlueGreySmaller),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+                ),
+                UIHelper.horizontalSpaceSmall(),
+                Expanded(
+                  child: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, "/");
+                      Navigator.pushNamed(context, "usersView");
                     },
                     child: Container(
                       height: 250,
@@ -54,33 +92,34 @@ class HomeContent extends StatelessWidget {
                           children: <Widget>[
                             ListTile(
                               title: Text(
-                                '36',
-                                style: textStyleOrangeLargeBold,
+                                '55',
+                                style: textStylePrimaryColorDarkLargeBold,
                               ),
                             ),
                             Container(
                               alignment: Alignment.topRight,
                               child: Image.asset(
-                                'assets/icons/boy.png',
-                                height: 100,
-                                width: 120,
+                                'assets/icons/group.png',
+                                height: 80,
+                                width: 80,
                                 fit: BoxFit.cover,
                               ),
                             ),
                             ListTile(
-                              title: Text('Children',
+                              title: Text('Users',
                                   style: textStyleBlueGreySmaller),
                             ),
                           ],
                         ),
                       ),
-                    )),
-              ),
-              UIHelper.horizontalSpaceSmall(),
-              Expanded(
-                child: InkWell(
+                    ),
+                  ),
+                ),
+                UIHelper.horizontalSpaceSmall(),
+                Expanded(
+                    child: InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, "usersView");
+                    Navigator.pushNamed(context, "subscribersView");
                   },
                   child: Container(
                     height: 250,
@@ -92,72 +131,70 @@ class HomeContent extends StatelessWidget {
                         children: <Widget>[
                           ListTile(
                             title: Text(
-                              '55',
-                              style: textStyleBlueGreyLargeBold,
+                              '43',
+                              style: textStylePrimaryColorDarkLargeBold,
                             ),
                           ),
                           Container(
                             alignment: Alignment.topRight,
                             child: Image.asset(
-                              'assets/icons/network.png',
-                              height: 100,
-                              width: 120,
+                              'assets/images/renew.png',
+                              height: 80,
+                              width: 70,
                               fit: BoxFit.cover,
                             ),
                           ),
                           ListTile(
-                            title:
-                                Text('Users', style: textStyleBlueGreySmaller),
+                            title: Text('Subscription',
+                                style: textStyleBlueGreySmaller),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ),
-              ),
-              UIHelper.horizontalSpaceSmall(),
-              Expanded(
-                  child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, "subscribersView");
-                },
-                child: Container(
-                  height: 250,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    child: Column(
-                      children: <Widget>[
-                        ListTile(
-                          title: Text(
-                            '43',
-                            style: textStyleRedAccentLargeBold,
+                )),
+                UIHelper.horizontalSpaceSmall(),
+                Expanded(
+                    child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, "EventView");
+                  },
+                  child: Container(
+                    height: 250,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20.0))),
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Text(
+                              '7',
+                              style: textStylePrimaryColorDarkLargeBold,
+                            ),
                           ),
-                        ),
-                        Container(
-                          alignment: Alignment.topRight,
-                          child: Image.asset(
-                            'assets/icons/subscription.png',
-                            height: 100,
-                            width: 120,
-                            fit: BoxFit.cover,
+                          Container(
+                            alignment: Alignment.topRight,
+                            child: Image.asset(
+                              'assets/icons/calendar.png',
+                              height: 80,
+                              width: 80,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        ListTile(
-                          title: Text('Subscription',
-                              style: textStyleBlueGreySmaller),
-                        ),
-                        // Divider(
-                        //   color: Colors.grey,
-                        // )
-                      ],
+                          ListTile(
+                            title:
+                                Text('Events', style: textStyleBlueGreySmaller),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ))
-            ],
+                ))
+              ],
+            ),
           ),
-        ));
+        );
       }),
     );
   }

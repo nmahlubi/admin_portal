@@ -64,7 +64,7 @@ class _UsersViewState extends State<UsersView> {
           body: Column(
             children: [
               Container(
-                color: textColorGrey,
+                color: primaryColor,
                 width: double.infinity,
                 height: 75,
                 child: Stack(

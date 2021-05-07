@@ -1,3 +1,4 @@
+import 'package:Live_Connected_Admin/ui/view/event_view.dart';
 import 'package:Live_Connected_Admin/ui/view/subscribers_view.dart';
 import 'package:Live_Connected_Admin/ui/view/user_details_view.dart';
 import 'package:Live_Connected_Admin/ui/view/users_view.dart';
@@ -22,18 +23,6 @@ class CustomDrawer extends StatelessWidget {
       color: textColorWhite,
       child: Column(
         children: [
-          SizedBox(
-              width: double.infinity,
-              height: 60,
-              child: Container(
-                child: FlatButton(
-                    color: textColorLightGrey,
-                    child: Text(
-                      'DASHBOARD',
-                      style: titleStyleWhiteLight,
-                    ),
-                    onPressed: () {}),
-              )),
           SizedBox(height: 30.0),
           Expanded(
             child: ListView(
@@ -46,7 +35,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                   selected: selected == "Home",
                 ),
-                UIHelper.verticalSpaceMedium(),
+                UIHelper.verticalSpaceSmall(),
                 MenuItem(
                   title: "Users",
                   imagePath: "assets/images/group.png",
@@ -57,7 +46,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                   selected: selected == "Users",
                 ),
-                UIHelper.verticalSpaceMedium(),
+                UIHelper.verticalSpaceSmall(),
                 MenuItem(
                   title: "Subscriptions",
                   imagePath: "assets/images/renew.png",
@@ -70,7 +59,16 @@ class CustomDrawer extends StatelessWidget {
                   },
                   selected: selected == "subscribersView",
                 ),
-                UIHelper.verticalSpaceMedium(),
+                MenuItem(
+                  title: "Events",
+                  imagePath: "assets/images/renew.png",
+                  press: () {
+                    _onClickUsers(context);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => EventView()));
+                  },
+                  selected: selected == "subscribersView",
+                ),
               ],
             ),
           ),
@@ -79,7 +77,7 @@ class CustomDrawer extends StatelessWidget {
               height: 60,
               child: Container(
                 child: FlatButton(
-                    color: textColorLightGrey,
+                    color: primaryColor,
                     child: Text(
                       'Logout',
                       style: titleStyleWhiteLight,
@@ -112,6 +110,11 @@ class CustomDrawer extends StatelessWidget {
   _onClickSubscription(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(
         context, 'Subscription', (Route<dynamic> route) => false);
+  }
+
+  _onClickEvents(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+        context, 'Events', (Route<dynamic> route) => false);
   }
 
   _onClickLogout(BuildContext context) async {

@@ -94,11 +94,15 @@ const textStyleBlackLargeBold =
 const textStylePurpleLargeBold =
     TextStyle(fontSize: 50, fontWeight: FontWeight.w500, color: Colors.purple);
 const textStyleOrangeLargeBold = TextStyle(
-    fontSize: 70, fontWeight: FontWeight.w500, color: Colors.orangeAccent);
+    fontSize: 50, fontWeight: FontWeight.w500, color: Colors.orangeAccent);
 const textStyleBlueGreyLargeBold = TextStyle(
-    fontSize: 70, fontWeight: FontWeight.w500, color: Colors.blueGrey);
-const textStyleRedAccentLargeBold = TextStyle(
-    fontSize: 70, fontWeight: FontWeight.w500, color: Colors.redAccent);
+    fontSize: 50, fontWeight: FontWeight.w500, color: Colors.blueGrey);
+const textStylePrimaryColorDarkLargeBold = TextStyle(
+    fontSize: 50, fontWeight: FontWeight.w500, color: primaryColorDark);
+
+// const textStylePrimaryLargeBold = TextStyle(
+//     fontSize: 50, fontWeight: FontWeight.w500, color: Colors.primaryColor);
+
 const greyTexts = TextStyle(
     fontSize: 18.0, color: Colors.black54, fontWeight: FontWeight.bold);
 const headerStylesBlack = TextStyle(

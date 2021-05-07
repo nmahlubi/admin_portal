@@ -48,24 +48,22 @@ class MenuItemState extends State<MenuItem> {
       },
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: 16, vertical: widget.verticalPadding),
+            horizontal: 8.0, vertical: widget.verticalPadding),
         child: Row(
           children: [
-            // ImageWidget(
-            //   marginTop: 0,
-            //   height: 40,
-            //   path: widget.imagePath,
-            // ),
-            UIHelper.horizontalSpaceSmall(),
-            Flexible(
-              child: Text(
-                widget.title,
-                style: TextStyle(
-                    color: textColor,
-                    fontWeight:
-                        widget.selected ? FontWeight.w600 : FontWeight.w400,
-                    fontSize: 15),
-              ),
+            ImageWidget(
+              height: 40,
+              imageRadius: 40,
+              marginTop: 0,
+              path: widget.imagePath,
+            ),
+            Text(
+              widget.title,
+              style: TextStyle(
+                  color: textColor,
+                  fontWeight:
+                      widget.selected ? FontWeight.w600 : FontWeight.w400,
+                  fontSize: 15),
             ),
           ],
         ),
