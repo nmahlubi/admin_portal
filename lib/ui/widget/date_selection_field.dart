@@ -28,7 +28,7 @@ class DateSelectionField extends StatefulWidget {
       this.customHint,
       this.borderRadiusPresent,
       this.width,
-      this.dateFormat = "yyyy-MM-dd",
+      this.dateFormat = "dd-MM-yyy",
       this.borderRadius = UIHelper.textFieldBorderRadiusAllCircular,
       this.color = widgetBgColor})
       : super(key: key);

@@ -64,7 +64,7 @@ class _UsersViewState extends State<UsersView> {
           body: Column(
             children: [
               Container(
-                color: primaryColor,
+                color: textColorGrey,
                 width: double.infinity,
                 height: 75,
                 child: Stack(
@@ -100,13 +100,21 @@ class _UsersViewState extends State<UsersView> {
                             "User List",
                             style: titleStyleWhiteLight,
                           ),
-                          TextButton(
-                              child: Text('Back',
-                                  textAlign: TextAlign.right,
-                                  style: titleStyleWhiteLight),
-                              onPressed: () {
-                                print('Pressed');
-                              })
+                          SizedBox(height: 30.0),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            child: FlatButton(
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "back",
+                                    style: titleStyleWhiteLight,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "/");
+                                }),
+                          ),
                         ],
                       ),
                     ),

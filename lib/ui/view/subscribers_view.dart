@@ -64,7 +64,7 @@ class _SubscribersViewState extends State<SubscribersView> {
           body: Column(
             children: [
               Container(
-                color: primaryColor,
+                color: textColorGrey,
                 width: double.infinity,
                 height: 75,
                 child: Stack(
@@ -84,6 +84,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                               },
                             ),
                           ),
+
                     Container(
                       alignment: Alignment.center,
                       child: Row(
@@ -100,20 +101,21 @@ class _SubscribersViewState extends State<SubscribersView> {
                             "Subscribers",
                             style: titleStyleWhiteLight,
                           ),
-                          FlatButton(
-                              color: Colors.blue,
-                              textColor: Colors.white,
-                              padding: EdgeInsets.all(8.0),
-                              splashColor: Colors.blueAccent,
-                              onPressed: () {
-                                /*...*/
-                              },
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text("Flat",
-                                    style: TextStyle(fontSize: 20.0),
-                                    textAlign: TextAlign.center),
-                              ))
+                          SizedBox(height: 30.0),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            child: FlatButton(
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "back",
+                                    style: titleStyleWhiteLight,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "/");
+                                }),
+                          ),
                         ],
                       ),
                     ),

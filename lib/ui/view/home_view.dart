@@ -37,10 +37,10 @@ class HomeView extends StatelessWidget {
                     selected: "Home",
                   ))
                 : null,
-            backgroundColor: widgetBgColor,
+            backgroundColor: textColorBlack,
             body: Column(children: [
               Container(
-                color: primaryColor,
+                color: textColorGrey,
                 width: double.infinity,
                 height: 75,
                 child: Stack(

@@ -2,6 +2,7 @@ import 'package:Live_Connected_Admin/ui/view/subscribers_view.dart';
 import 'package:Live_Connected_Admin/ui/view/user_details_view.dart';
 import 'package:Live_Connected_Admin/ui/view/users_view.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/shared/core_helpers.dart';
@@ -18,15 +19,28 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: lightShadowColor,
+      color: textColorWhite,
       child: Column(
         children: [
+          SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: Container(
+                child: FlatButton(
+                    color: textColorLightGrey,
+                    child: Text(
+                      'DASHBOARD',
+                      style: titleStyleWhiteLight,
+                    ),
+                    onPressed: () {}),
+              )),
+          SizedBox(height: 30.0),
           Expanded(
             child: ListView(
               children: <Widget>[
                 MenuItem(
-                  title: "Dashboard",
-                  imagePath: "",
+                  title: "Home",
+                  imagePath: "assets/icons/home(1).png",
                   press: () {
                     _onClickHome(context);
                   },
@@ -35,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
                 UIHelper.verticalSpaceMedium(),
                 MenuItem(
                   title: "Users",
-                  imagePath: "",
+                  imagePath: "assets/icons/group(1).png",
                   press: () {
                     _onClickUsers(context);
                     Navigator.push(context,
@@ -46,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
                 UIHelper.verticalSpaceMedium(),
                 MenuItem(
                   title: "Subscriptions",
-                  imagePath: "",
+                  imagePath: "subscription",
                   press: () {
                     _onClickUsers(context);
                     Navigator.push(
@@ -65,7 +79,7 @@ class CustomDrawer extends StatelessWidget {
               height: 60,
               child: Container(
                 child: FlatButton(
-                    color: primaryColor,
+                    color: textColorLightGrey,
                     child: Text(
                       'Logout',
                       style: titleStyleWhiteLight,

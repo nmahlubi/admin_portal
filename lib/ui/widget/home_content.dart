@@ -35,7 +35,7 @@ class HomeContent extends StatelessWidget {
       }, builder: (BuildContext context, HomeModel model, Widget child) {
         return Scaffold(
             body: Container(
-          margin: EdgeInsets.only(bottom: 300.0),
+          margin: EdgeInsets.only(bottom: 250.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -46,17 +46,10 @@ class HomeContent extends StatelessWidget {
                     },
                     child: Container(
                       height: 250,
-                      decoration: new BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.orangeAccent.withOpacity(.5),
-                          )
-                        ],
-                      ),
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(8.0))),
+                                BorderRadius.all(Radius.circular(20.0))),
                         child: Column(
                           children: <Widget>[
                             ListTile(
@@ -78,9 +71,6 @@ class HomeContent extends StatelessWidget {
                               title: Text('Children',
                                   style: textStyleBlueGreySmaller),
                             ),
-                            Divider(
-                              color: Colors.grey,
-                            )
                           ],
                         ),
                       ),
@@ -94,16 +84,10 @@ class HomeContent extends StatelessWidget {
                   },
                   child: Container(
                     height: 250,
-                    decoration: new BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.blueGrey.withOpacity(.5),
-                        )
-                      ],
-                    ),
                     child: Card(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20.0))),
                       child: Column(
                         children: <Widget>[
                           ListTile(
@@ -125,9 +109,6 @@ class HomeContent extends StatelessWidget {
                             title:
                                 Text('Users', style: textStyleBlueGreySmaller),
                           ),
-                          Divider(
-                            color: Colors.grey,
-                          )
                         ],
                       ),
                     ),
@@ -142,16 +123,9 @@ class HomeContent extends StatelessWidget {
                 },
                 child: Container(
                   height: 250,
-                  decoration: new BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.redAccent.withOpacity(.5),
-                      )
-                    ],
-                  ),
                   child: Card(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     child: Column(
                       children: <Widget>[
                         ListTile(
@@ -163,7 +137,7 @@ class HomeContent extends StatelessWidget {
                         Container(
                           alignment: Alignment.topRight,
                           child: Image.asset(
-                            'assets/icons/subscribe.png',
+                            'assets/icons/subscription.png',
                             height: 100,
                             width: 120,
                             fit: BoxFit.cover,
@@ -173,9 +147,9 @@ class HomeContent extends StatelessWidget {
                           title: Text('Subscription',
                               style: textStyleBlueGreySmaller),
                         ),
-                        Divider(
-                          color: Colors.grey,
-                        )
+                        // Divider(
+                        //   color: Colors.grey,
+                        // )
                       ],
                     ),
                   ),
