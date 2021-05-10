@@ -57,7 +57,7 @@ class CustomDrawer extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => SubscribersView()));
                   },
-                  selected: selected == "subscribersView",
+                  selected: selected == "Subscribers",
                 ),
                 MenuItem(
                   title: "Events",
@@ -67,7 +67,7 @@ class CustomDrawer extends StatelessWidget {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => EventView()));
                   },
-                  selected: selected == "subscribersView",
+                  selected: selected == "Events",
                 ),
               ],
             ),

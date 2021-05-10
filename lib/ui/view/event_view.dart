@@ -124,7 +124,7 @@ class _EventViewState extends State<EventView> {
                         ? Expanded(
                             flex: 2,
                             child: CustomDrawer(
-                              selected: "User",
+                              selected: "Events",
                             ),
                           )
                         : Container(),

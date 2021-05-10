@@ -34,7 +34,10 @@ class HomeModel extends BaseModel {
     errorMessage = null;
     userCommunityCountDto = null;
     userCommunityCountDtoList = [];
-    _connectedApi.getAllCountForAdmin().then((userCommunityDto) {
+    String token = await _authenticationService.getUserToken();
+    _connectedApi.getAllCountForAdmin(
+        token: token
+    ).then((userCommunityDto) {
       print("This reaches here ");
       if (userCommunityDto != null ) {
         this.userCommunityCountDto = userCommunityDto;

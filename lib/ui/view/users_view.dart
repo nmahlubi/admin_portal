@@ -128,7 +128,7 @@ class _UsersViewState extends State<UsersView> {
                         ? Expanded(
                             flex: 2,
                             child: CustomDrawer(
-                              selected: "User",
+                              selected: "Users",
                             ),
                           )
                         : Container(),

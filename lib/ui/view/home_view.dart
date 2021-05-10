@@ -1,3 +1,4 @@
+import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
 import 'package:Live_Connected_Admin/core/viewmodel/home_model.dart';
@@ -39,7 +40,7 @@ class HomeView extends StatelessWidget {
                     selected: "Home",
                   ))
                 : null,
-            backgroundColor: textColorBlack,
+            backgroundColor: lightShadowColor,
             body: Column(children: [
               Container(
                 color: primaryColor,
@@ -91,17 +92,31 @@ class HomeView extends StatelessWidget {
                         ? Expanded(
                             flex: 2,
                             child: CustomDrawer(
-                              selected: "User",
+                              selected: "Home",
                             ),
                           )
                         : Container(),
                     Expanded(
                         flex: 8,
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: HomeContent(
-                            userCommunityCountDto: model?.userCommunityCountDto,
-                          ),
+                        child: Stack(
+                          children: [
+                            model.userCommunityCountDto != null
+                                ? Container(
+                              alignment: Alignment.center,
+                              child: HomeContent(
+                                userCommunityCountDto: model?.userCommunityCountDto,
+                              ),
+                            ) : Container(),
+                            model.errorMessage != null
+                                ? Container(
+                              alignment: Alignment.center,
+                              child: Text(model.errorMessage, style: errorStyleRed,),
+                            ): Container(),
+
+                            model.state == ViewState.Busy
+                                ? Center(child: CircularProgressIndicator())
+                                : Container()
+                          ],
                         ))
                   ],
                 ),

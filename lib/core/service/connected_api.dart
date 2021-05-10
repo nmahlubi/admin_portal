@@ -90,6 +90,37 @@ class ConnectedApi {
     }
   }
 
+  Future<List<ClientUserDto>> getAllSubscribedUsers({String token, bool active = true, int page, int pageSize, String search}) async {
+    Map<String, String> requestHeaders = await getHeaders(authToken: token);
+    Map<String, String> queryParameters = {
+      'active': "$active",
+      'currentPage': "$page",
+      'pageSize': "$pageSize",
+    };
+    if (search != null) {
+      queryParameters.addAll({
+        "searchQuery" : search
+      });
+    }
+    Uri uri = authorityType == "http"
+        ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAllSubscribedUsersForAdmin", queryParameters)
+        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAllSubscribedUsersForAdmin", queryParameters);
+    final response = await client.get(uri, headers: requestHeaders);
+    print("response body ${response.body.length}");
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      return (json.decode(response.body) as List)
+          .map((data) => ClientUserDto.fromJson(data))
+          .toList();
+    } else if (response.body != null) {
+      return Future.error(response.body);
+    } else {
+      return Future.error('${response.toString()}');
+    }
+  }
+
   Future<UserDto> getUserDetails({String token, String userId}) async {
     Map<String, String> requestHeaders = {
       "X-Authorization-Firebase": token,

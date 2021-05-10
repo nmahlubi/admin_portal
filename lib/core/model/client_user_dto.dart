@@ -30,6 +30,8 @@ class ClientUserDto {
   DateTime modified;
   bool activeOnApp;
   bool activeSubscription;
+  //TODO  "subscriptionExpiry": "2021-05-10T18:28:40.972Z",
+  //TODO    "subscriptionType": "TWO_YEARS",
 
   ClientUserDto(
       this.idToken,

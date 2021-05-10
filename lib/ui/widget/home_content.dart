@@ -1,4 +1,5 @@
 import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
+import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,6 +42,7 @@ class HomeContent extends StatelessWidget {
                             height: 100,
                             width: 120,
                             fit: BoxFit.cover,
+                            color: textColorGrey,
                           ),
                         ),
                         ListTile(
@@ -78,6 +80,7 @@ class HomeContent extends StatelessWidget {
                           height: 80,
                           width: 80,
                           fit: BoxFit.cover,
+                          color: textColorGrey,
                         ),
                       ),
                       ListTile(
@@ -115,6 +118,7 @@ class HomeContent extends StatelessWidget {
                         height: 80,
                         width: 70,
                         fit: BoxFit.cover,
+                        color: textColorGrey,
                       ),
                     ),
                     ListTile(
@@ -152,6 +156,7 @@ class HomeContent extends StatelessWidget {
                         height: 80,
                         width: 80,
                         fit: BoxFit.cover,
+                        color: textColorGrey,
                       ),
                     ),
                     ListTile(

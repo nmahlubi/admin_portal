@@ -1,4 +1,5 @@
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
+import 'package:Live_Connected_Admin/core/viewmodel/subscribers_model.dart';
 import 'package:Live_Connected_Admin/core/viewmodel/user_model.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
@@ -41,18 +42,18 @@ class _SubscribersViewState extends State<SubscribersView> {
     double rowHeight = 50;
     return WillPopScope(
       onWillPop: () async => true,
-      child: BaseView<UserModel>(onModelReady: (model) {
-        model.getUsers(initController: () {
+      child: BaseView<SubscribersModel>(onModelReady: (model) {
+        model.getAllSubscribedUsers(initController: () {
           _controller.addListener(() {
             if (_controller.position.pixels ==
                 _controller.position.maxScrollExtent) {
-              model.getUsers();
+              model.getAllSubscribedUsers();
             }
           });
         });
 
         model.user = user;
-      }, builder: (BuildContext context, UserModel model, Widget child) {
+      }, builder: (BuildContext context, SubscribersModel model, Widget child) {
         return Scaffold(
           key: _scaffoldKey,
           drawer: !UIHelper.isLargeScreen(screenWidth)
@@ -130,7 +131,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                         ? Expanded(
                             flex: 2,
                             child: CustomDrawer(
-                              selected: "User",
+                              selected: "Subscribers",
                             ),
                           )
                         : Container(),
@@ -149,7 +150,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                                   closeSearch: model.showCloseSearch,
                                   pressClose: () {
                                     model.setShowCloseSearch(false);
-                                    model.getUsers();
+                                    model.getAllSubscribedUsers();
                                   },
                                 ),
                                 UIHelper.verticalSpaceXSmall(),
@@ -283,6 +284,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                       alignment:
                                                           Alignment.centerLeft,
                                                       child: Text(
+                                                        //TODO USe the expiry date field
                                                         "${DateFormat.yMMMd().format(model.usersFilter[index].modified )?? "-"}",
                                                         style: textStyle,
                                                         maxLines: 1,
