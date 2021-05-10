@@ -61,7 +61,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 MenuItem(
                   title: "Events",
-                  imagePath: "assets/images/renew.png",
+                  imagePath: "assets/images/calendar.png",
                   press: () {
                     _onClickUsers(context);
                     Navigator.push(context,

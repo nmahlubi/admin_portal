@@ -186,11 +186,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                                         style: textStyleWhite,
                                       ),
                                       Text(
-                                        'Monthly',
-                                        style: textStyleWhite,
-                                      ),
-                                      Text(
-                                        'Yearly',
+                                        'Active Subscribers',
                                         style: textStyleWhite,
                                       ),
                                     ],
@@ -291,24 +287,6 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: Container(
-                                                      height: rowHeight,
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      color: textColorGreen,
-                                                      child: Center(
-                                                        child: Text(
-                                                          "${model.usersFilter[index].activeSubscription ?? "-"}",
-                                                          style: textStyleWhite,
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
                                                       ),
                                                     ),
                                                   ),
