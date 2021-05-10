@@ -4,10 +4,7 @@ import 'package:Live_Connected_Admin/core/shared/date_formats.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
-import 'package:Live_Connected_Admin/ui/widget/round_image_widget.dart';
 import 'package:flutter/material.dart';
-
-import 'image_widget.dart';
 
 class UserDetailsContent extends StatelessWidget {
   final String errorMessage;

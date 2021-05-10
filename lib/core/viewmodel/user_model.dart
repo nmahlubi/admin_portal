@@ -67,37 +67,6 @@ class UserModel extends BaseModel {
       setState(ViewState.Idle);
     });
   }
-
-//  Future search(String searchTerm) async {
-//    setState(ViewState.Busy);
-//    if (searchTerm.isEmpty) {
-//      usersFilter = userList;
-//    } else {
-//      List tempUserList = new List<ClientUserDto>();
-//      print("User List ${usersFilter.length}");
-//      for (int i = 0; i < userList.length; i++) {
-//        if (userList[i]
-//                .firstName
-//                .toLowerCase()
-//                .contains(searchTerm.toLowerCase()) ||
-//            userList[i]
-//                .emailAddress
-//                .toLowerCase()
-//                .contains(searchTerm.toLowerCase()) ||
-//            userList[i]
-//                .lastName
-//                .toLowerCase()
-//                .contains(searchTerm.toLowerCase())) {
-//          tempUserList.add(userList[i]);
-//        }
-//      }
-//
-//      usersFilter = tempUserList;
-//    }
-//    this.searchTerm = searchTerm;
-//    setState(ViewState.Idle);
-//  }
-
   void getUserDetails(String userId) {
     setState(ViewState.Busy);
     errorMessage = null;

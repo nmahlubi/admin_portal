@@ -12,6 +12,7 @@ import 'package:Live_Connected_Admin/ui/widget/user_email_content.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 
@@ -282,7 +283,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                       alignment:
                                                           Alignment.centerLeft,
                                                       child: Text(
-                                                        "${model.usersFilter[index].modified.toIso8601String() ?? "-"}",
+                                                        "${DateFormat.yMMMd().format(model.usersFilter[index].modified )?? "-"}",
                                                         style: textStyle,
                                                         maxLines: 1,
                                                         overflow: TextOverflow

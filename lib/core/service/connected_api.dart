@@ -3,8 +3,7 @@ import 'dart:io';
 
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/device.dart';
-import 'package:Live_Connected_Admin/core/model/new_user_dto.dart';
-import 'package:Live_Connected_Admin/core/model/user.dart';
+import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
 import 'package:Live_Connected_Admin/core/model/user_dto.dart';
 import 'package:http/http.dart' as http;
 import '../../main.dart';
@@ -132,6 +131,29 @@ class ConnectedApi {
         response.statusCode == 203 ||
         response.statusCode == 204) {
       return response.body == "true";
+    } else if (response.body != null) {
+      return Future.error(response.body);
+    } else {
+      return Future.error('${response.toString()}');
+    }
+  }
+
+  Future<UserCommunityCountDto> getAllCountForAdmin({String token, bool active = true,}) async {
+    Map<String, String> requestHeaders = await getHeaders(authToken: token);
+    Map<String, String> queryParameters = {
+      'active': "$active",
+    };
+    Uri uri = authorityType == "http" ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAllCountsForAdmin", queryParameters)
+        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAllCountsForAdmin", queryParameters);
+    final response = await client.get(uri, headers: requestHeaders);
+
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      print("response body ${response.body.length}");
+      return UserCommunityCountDto.fromJson(json.decode(response.body));
+
     } else if (response.body != null) {
       return Future.error(response.body);
     } else {

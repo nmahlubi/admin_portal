@@ -1,3 +1,5 @@
+import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
+import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
 import 'package:Live_Connected_Admin/core/viewmodel/home_model.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
@@ -6,28 +8,28 @@ import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
 import 'package:Live_Connected_Admin/ui/widget/home_content.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:provider/provider.dart';
 
 import 'base_view.dart';
 
 class HomeView extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final ClientUserDto globalUser;
+//  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+//      GlobalKey<RefreshIndicatorState>();
 
-  HomeView({Key key, this.globalUser}) : super(key: key);
+
+  HomeView({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     ClientUserDto user = Provider.of<ClientUserDto>(context);
-    if (user.id == " " && globalUser != null) {
-      user = globalUser;
-    }
     double screenWidth = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async => true,
       child: BaseView<HomeModel>(onModelReady: (model) {
-        //model.getMyStores();
+        model.getAllCountForAdmin();
       }, builder: (BuildContext context, HomeModel model, Widget child) {
         return Scaffold(
             key: _scaffoldKey,
@@ -94,12 +96,13 @@ class HomeView extends StatelessWidget {
                           )
                         : Container(),
                     Expanded(
-                      flex: 8,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: HomeContent(),
-                      ),
-                    )
+                        flex: 8,
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: HomeContent(
+                            userCommunityCountDto: model?.userCommunityCountDto,
+                          ),
+                        ))
                   ],
                 ),
               )
@@ -107,4 +110,17 @@ class HomeView extends StatelessWidget {
       }),
     );
   }
+//  Widget getUserCommunityUi(
+//      List<UserCommunityCountDto> userCommunity, BuildContext context,HomeModel model) {
+//
+//    return RefreshIndicator(
+//      key: _refreshIndicatorKey,
+//      onRefresh: () {
+//        return model.getAllCountForAdmin();
+//      },
+//      child: ListView.builder(
+//          itemCount: userCommunity.length,
+//          itemBuilder: (context, index) => ),
+//    );
+//  }
 }
