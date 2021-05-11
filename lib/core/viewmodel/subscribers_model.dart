@@ -23,6 +23,9 @@ class SubscribersModel extends BaseModel {
       TextEditingController(text: "South Africa");
   final TextEditingController genderController = TextEditingController();
   final TextEditingController cellNumberController = TextEditingController();
+  final TextEditingController subscriptionExpiry = TextEditingController();
+  final TextEditingController subscriptionType = TextEditingController();
+
   String searchTerm;
   String selectedCategory;
   String errorMessage;
@@ -42,14 +45,18 @@ class SubscribersModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  Future search(String searchTerm) async{
+  Future search(String searchTerm) async {
     setState(ViewState.Busy);
     errorMessage = null;
     userList = [];
     usersFilter = [];
-    _authenticationService.getUserToken()
-        .then((token) {
-      return _connectedAPI.getAllSubscribedUsers(token: token, page: 0, pageSize: 50,search: searchTerm,);
+    _authenticationService.getUserToken().then((token) {
+      return _connectedAPI.getAllSubscribedUsers(
+        token: token,
+        page: 0,
+        pageSize: 50,
+        search: searchTerm,
+      );
     }).then((user) {
       if (user != null) {
         this.userList = user;
@@ -67,12 +74,12 @@ class SubscribersModel extends BaseModel {
       setState(ViewState.Idle);
     });
   }
+
   void getUserDetails(String userId) {
     setState(ViewState.Busy);
     errorMessage = null;
     userDto = null;
     _authenticationService.getUserToken().then((token) {
-
       return _connectedAPI.getUserDetails(token: token, userId: userId);
     }).then((userDetails) {
       print("user details ${userDetails.familyMembers}");
@@ -84,23 +91,24 @@ class SubscribersModel extends BaseModel {
     });
   }
 
-
   Future getAllSubscribedUsers({Function initController}) async {
-    if(!isLoading) {
+    if (!isLoading) {
       isLoading = true;
     }
-    if(page == 0) {
+    if (page == 0) {
       setState(ViewState.Busy);
       userList = [];
     }
     errorMessage = null;
     String token = await _authenticationService.getUserToken();
-    _connectedAPI.getAllSubscribedUsers(token: token, page: page, pageSize: pageSize).then((userlist) {
+    _connectedAPI
+        .getAllSubscribedUsers(token: token, page: page, pageSize: pageSize)
+        .then((userlist) {
       this.userList.addAll(userlist);
       this.usersFilter.addAll(userlist);
       isLoading = true;
       page++;
-      if(initController != null) {
+      if (initController != null) {
         initController();
       }
       setState(ViewState.Idle);

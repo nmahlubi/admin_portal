@@ -1,3 +1,4 @@
+import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/viewmodel/user_model.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
@@ -9,16 +10,15 @@ import 'package:Live_Connected_Admin/ui/widget/search_filter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 
 import 'base_view.dart';
 
-class EventView extends StatefulWidget {
+class ChildrenView extends StatefulWidget {
   @override
-  _EventViewState createState() => _EventViewState();
+  _ChildrenViewState createState() => _ChildrenViewState();
 }
 
-class _EventViewState extends State<EventView> {
+class _ChildrenViewState extends State<ChildrenView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _controller = ScrollController();
 
@@ -93,7 +93,7 @@ class _EventViewState extends State<EventView> {
                           ),
                           UIHelper.horizontalSpaceSmall(),
                           Text(
-                            "Event",
+                            "Children",
                             style: titleStyleWhiteLight,
                           ),
                           SizedBox(height: 30.0),
@@ -124,7 +124,7 @@ class _EventViewState extends State<EventView> {
                         ? Expanded(
                             flex: 2,
                             child: CustomDrawer(
-                              selected: "Events",
+                              selected: "Children",
                             ),
                           )
                         : Container(),
@@ -147,7 +147,7 @@ class _EventViewState extends State<EventView> {
                                   },
                                 ),
                                 Container(
-                                  child: Text('Event view page'),
+                                  child: Text('Children view page'),
                                 )
                               ],
                             ),

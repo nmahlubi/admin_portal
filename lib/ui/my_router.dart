@@ -1,5 +1,6 @@
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
+import 'package:Live_Connected_Admin/ui/view/children_view.dart';
 import 'package:Live_Connected_Admin/ui/view/event_view.dart';
 import 'package:Live_Connected_Admin/ui/view/subscribers_view.dart';
 import 'package:Live_Connected_Admin/ui/view/user_details_view.dart';
@@ -22,6 +23,8 @@ class MyRouter {
       case "subscribersView":
         return MaterialPageRoute(builder: (_) => SubscribersView());
       case "EventView":
+        return MaterialPageRoute(builder: (_) => ChildrenView());
+      case "eventView":
         return MaterialPageRoute(builder: (_) => EventView());
       case "usersView":
         return MaterialPageRoute(builder: (_) => UsersView());

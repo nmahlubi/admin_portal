@@ -12,6 +12,7 @@ class MenuItem extends StatefulWidget {
   final double verticalPadding;
   final bool selected;
   final String imagePath;
+  final Color color;
 
   const MenuItem({
     Key key,
@@ -20,6 +21,7 @@ class MenuItem extends StatefulWidget {
     this.verticalPadding = 16,
     this.selected,
     this.imagePath,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -64,6 +66,9 @@ class MenuItemState extends State<MenuItem> {
                   fontWeight:
                       widget.selected ? FontWeight.w600 : FontWeight.w400,
                   fontSize: 15),
+            ),
+            Container(
+              color: Colors.grey,
             ),
           ],
         ),

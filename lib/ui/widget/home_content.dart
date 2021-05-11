@@ -15,12 +15,12 @@ class HomeContent extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 250.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        //mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
             child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, "/");
+                  Navigator.pushNamed(context, "eventView");
                 },
                 child: Container(
                   height: 250,
@@ -38,16 +38,15 @@ class HomeContent extends StatelessWidget {
                         Container(
                           alignment: Alignment.topRight,
                           child: Image.asset(
-                            'assets/icons/boy.png',
-                            height: 100,
-                            width: 120,
+                            'assets/icons/calendar.png',
+                            height: 80,
+                            width: 80,
                             fit: BoxFit.cover,
                             color: textColorGrey,
                           ),
                         ),
                         ListTile(
-                          title:
-                              Text('Children', style: textStyleBlueGreySmaller),
+                          title: Text('Event', style: textStyleBlueGreySmaller),
                         ),
                       ],
                     ),
@@ -152,7 +151,7 @@ class HomeContent extends StatelessWidget {
                     Container(
                       alignment: Alignment.topRight,
                       child: Image.asset(
-                        'assets/icons/calendar.png',
+                        'assets/icons/boy.png',
                         height: 80,
                         width: 80,
                         fit: BoxFit.cover,
@@ -160,7 +159,7 @@ class HomeContent extends StatelessWidget {
                       ),
                     ),
                     ListTile(
-                      title: Text('Events', style: textStyleBlueGreySmaller),
+                      title: Text('Children', style: textStyleBlueGreySmaller),
                     ),
                   ],
                 ),

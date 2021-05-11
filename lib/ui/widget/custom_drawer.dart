@@ -1,3 +1,4 @@
+import 'package:Live_Connected_Admin/ui/view/children_view.dart';
 import 'package:Live_Connected_Admin/ui/view/event_view.dart';
 import 'package:Live_Connected_Admin/ui/view/subscribers_view.dart';
 import 'package:Live_Connected_Admin/ui/view/user_details_view.dart';
@@ -23,7 +24,7 @@ class CustomDrawer extends StatelessWidget {
       color: textColorWhite,
       child: Column(
         children: [
-          SizedBox(height: 30.0),
+          //  SizedBox(height: 10.0),
           Expanded(
             child: ListView(
               children: <Widget>[
@@ -35,10 +36,10 @@ class CustomDrawer extends StatelessWidget {
                   },
                   selected: selected == "Home",
                 ),
-                UIHelper.verticalSpaceSmall(),
                 MenuItem(
                   title: "Users",
                   imagePath: "assets/images/group.png",
+                  color: textColorGrey,
                   press: () {
                     _onClickUsers(context);
                     Navigator.push(context,
@@ -46,10 +47,10 @@ class CustomDrawer extends StatelessWidget {
                   },
                   selected: selected == "Users",
                 ),
-                UIHelper.verticalSpaceSmall(),
                 MenuItem(
                   title: "Subscriptions",
                   imagePath: "assets/images/renew.png",
+                  color: textColorGrey,
                   press: () {
                     _onClickUsers(context);
                     Navigator.push(
@@ -60,8 +61,22 @@ class CustomDrawer extends StatelessWidget {
                   selected: selected == "Subscribers",
                 ),
                 MenuItem(
+                  title: "Children",
+                  imagePath: "assets/icons/boy.png",
+                  color: textColorGrey,
+                  press: () {
+                    _onClickUsers(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChildrenView()));
+                  },
+                  selected: selected == "Children",
+                ),
+                MenuItem(
                   title: "Events",
                   imagePath: "assets/images/calendar.png",
+                  color: textColorGrey,
                   press: () {
                     _onClickUsers(context);
                     Navigator.push(context,
@@ -74,7 +89,7 @@ class CustomDrawer extends StatelessWidget {
           ),
           SizedBox(
               width: double.infinity,
-              height: 60,
+              height: 40,
               child: Container(
                 child: FlatButton(
                     color: primaryColor,
@@ -115,6 +130,11 @@ class CustomDrawer extends StatelessWidget {
   _onClickEvents(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(
         context, 'Events', (Route<dynamic> route) => false);
+  }
+
+  _onClickChildren(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+        context, 'Children', (Route<dynamic> route) => false);
   }
 
   _onClickLogout(BuildContext context) async {

@@ -188,7 +188,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                                         style: textStyleWhite,
                                       ),
                                       Text(
-                                        'Active Subscribers',
+                                        'Subscription Type',
                                         style: textStyleWhite,
                                       ),
                                     ],
@@ -285,7 +285,8 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                           Alignment.centerLeft,
                                                       child: Text(
                                                         //TODO USe the expiry date field
-                                                        "${DateFormat.yMMMd().format(model.usersFilter[index].modified )?? "-"}",
+                                                        // "${DateFormat.yMMMd().format(model.usersFilter[index].subscriptionExpiry) ?? "-"}",
+                                                        "${model.usersFilter[index].subscriptionExpiry}",
                                                         style: textStyle,
                                                         maxLines: 1,
                                                         overflow: TextOverflow
@@ -302,7 +303,8 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                       color: textColorGreen,
                                                       child: Center(
                                                         child: Text(
-                                                          "${model.usersFilter[index].activeSubscription ?? "-"}",
+                                                          // "${model.usersFilter[index].subscriptionType ?? "-"}",
+                                                          "${model.usersFilter[index].subscriptionType}",
                                                           style: textStyleWhite,
                                                           maxLines: 1,
                                                           overflow: TextOverflow

@@ -30,6 +30,9 @@ class ClientUserDto {
   DateTime modified;
   bool activeOnApp;
   bool activeSubscription;
+  DateTime subscriptionExpiry;
+  String subscriptionType;
+
   //TODO  "subscriptionExpiry": "2021-05-10T18:28:40.972Z",
   //TODO    "subscriptionType": "TWO_YEARS",
 
@@ -50,6 +53,8 @@ class ClientUserDto {
       this.accessRights,
       this.medicalAidName,
       this.medicalAidNumber,
+      this.subscriptionExpiry,
+      this.subscriptionType,
       dob,
       this.gender,
       this.userType,
@@ -129,6 +134,13 @@ class ClientUserDto {
         : null;
     activeOnApp = json['activeOnApp'];
     activeSubscription = json['activeSubscription'];
+    // subscriptionExpiry = json['subscriptionExpiry'];
+    subscriptionExpiry = json.containsKey('subscriptionExpiry') &&
+            json['subscriptionExpiry'] != null
+        ? responseDateFormat.parse(json['subscriptionExpiry'])
+        : null;
+
+    subscriptionType = json['subscriptionType'];
   }
 
   Map<String, dynamic> toJson() {
@@ -212,6 +224,12 @@ class ClientUserDto {
     }
     if (this.activeSubscription != null) {
       data['activeSubscription'] = this.activeSubscription;
+    }
+    if (this.subscriptionExpiry != null) {
+      data['subscriptionExpiry'] = this.subscriptionExpiry;
+    }
+    if (this.subscriptionType != null) {
+      data['subscriptionType'] = this.subscriptionType;
     }
 
     return data;
