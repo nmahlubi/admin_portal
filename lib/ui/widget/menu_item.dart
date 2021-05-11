@@ -58,6 +58,7 @@ class MenuItemState extends State<MenuItem> {
               imageRadius: 40,
               marginTop: 0,
               path: widget.imagePath,
+              imageColor: widget.color,
             ),
             Text(
               widget.title,

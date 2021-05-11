@@ -1,21 +1,17 @@
+import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/viewmodel/subscribers_model.dart';
-import 'package:Live_Connected_Admin/core/viewmodel/user_model.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
 import 'package:Live_Connected_Admin/ui/widget/search_filter.dart';
-import 'package:Live_Connected_Admin/ui/widget/user_content.dart';
-import 'package:Live_Connected_Admin/ui/widget/user_content_last_name.dart';
-import 'package:Live_Connected_Admin/ui/widget/user_email_content.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 
 import 'base_view.dart';
 
@@ -90,33 +86,30 @@ class _SubscribersViewState extends State<SubscribersView> {
                     Container(
                       alignment: Alignment.center,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ImageWidget(
-                            marginTop: 0,
-                            height: 50,
-                            imageColor: widgetBgColor,
-                            path: 'assets/images/profile.png',
+                          UIHelper.horizontalSpaceSmall(),
+                          BackButton(
+                            color: widgetBgColor,
                           ),
                           UIHelper.horizontalSpaceSmall(),
-                          Text(
-                            "Subscribers",
-                            style: titleStyleWhiteLight,
-                          ),
-                          SizedBox(height: 30.0),
-                          Container(
-                            alignment: Alignment.topLeft,
-                            child: FlatButton(
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "back",
-                                    style: titleStyleWhiteLight,
-                                  ),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ImageWidget(
+                                  marginTop: 0,
+                                  height: 50,
+                                  imageColor: widgetBgColor,
+                                  path: 'assets/images/live_connected_logo.png',
                                 ),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "/");
-                                }),
+                                UIHelper.horizontalSpaceSmall(),
+                                Text(
+                                  "Subscribers",
+                                  style: titleStyleWhiteLight,
+                                ),
+                                SizedBox(height: 30.0),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -184,6 +177,10 @@ class _SubscribersViewState extends State<SubscribersView> {
                                         style: textStyleWhite,
                                       ),
                                       Text(
+                                        'Email Address',
+                                        style: textStyleWhite,
+                                      ),
+                                      Text(
                                         'Expire Date',
                                         style: textStyleWhite,
                                       ),
@@ -240,6 +237,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                                             child: Container(
                                               margin: EdgeInsets.all(10.0),
                                               padding: EdgeInsets.all(10.0),
+
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -284,9 +282,23 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                       alignment:
                                                           Alignment.centerLeft,
                                                       child: Text(
-                                                        //TODO USe the expiry date field
+                                                        "${model.usersFilter[index].emailAddress}",
+                                                        style: textStyle,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
                                                         // "${DateFormat.yMMMd().format(model.usersFilter[index].subscriptionExpiry) ?? "-"}",
-                                                        "${model.usersFilter[index].subscriptionExpiry}",
+                                                        "${DateFormat.yMMMd().format(model.usersFilter[index].subscriptionExpiry ?? DateTime.now())}",
                                                         style: textStyle,
                                                         maxLines: 1,
                                                         overflow: TextOverflow

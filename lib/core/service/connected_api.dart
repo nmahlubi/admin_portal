@@ -94,8 +94,8 @@ class ConnectedApi {
     Map<String, String> requestHeaders = await getHeaders(authToken: token);
     Map<String, String> queryParameters = {
       'active': "$active",
-      'currentPage': "$page",
-      'pageSize': "$pageSize",
+      //'currentPage': "$page",
+      //'pageSize': "$pageSize",
     };
     if (search != null) {
       queryParameters.addAll({

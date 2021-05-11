@@ -104,8 +104,8 @@ class SubscribersModel extends BaseModel {
     _connectedAPI
         .getAllSubscribedUsers(token: token, page: page, pageSize: pageSize)
         .then((userlist) {
-      this.userList.addAll(userlist);
-      this.usersFilter.addAll(userlist);
+      this.userList = userlist;
+      this.usersFilter = userlist;
       isLoading = true;
       page++;
       if (initController != null) {
