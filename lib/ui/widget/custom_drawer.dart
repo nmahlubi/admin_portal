@@ -21,7 +21,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: textColorWhite,
+      color: lightShadowColor,
       child: Column(
         children: [
           //  SizedBox(height: 10.0),
@@ -31,6 +31,7 @@ class CustomDrawer extends StatelessWidget {
                 MenuItem(
                   title: "Home",
                   imagePath: "assets/images/home.png",
+                  color: textColorGrey,
                   press: () {
                     _onClickHome(context);
                   },

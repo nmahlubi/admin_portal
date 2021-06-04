@@ -12,6 +12,7 @@ import 'package:Live_Connected_Admin/ui/widget/user_email_content.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 
@@ -87,33 +88,28 @@ class _UsersViewState extends State<UsersView> {
                     Container(
                       alignment: Alignment.center,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ImageWidget(
-                            marginTop: 0,
-                            height: 50,
-                            imageColor: widgetBgColor,
-                            path: 'assets/images/profile.png',
-                          ),
                           UIHelper.horizontalSpaceSmall(),
-                          Text(
-                            "User List",
-                            style: titleStyleWhiteLight,
-                          ),
-                          SizedBox(height: 30.0),
-                          Container(
-                            alignment: Alignment.topLeft,
-                            child: FlatButton(
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "back",
-                                    style: titleStyleWhiteLight,
-                                  ),
+                          BackButton(color: widgetBgColor,),
+                          UIHelper.horizontalSpaceSmall(),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ImageWidget(
+                                  marginTop: 0,
+                                  height: 50,
+                                  imageColor: widgetBgColor,
+                                  path: 'assets/images/live_connected_logo.png',
                                 ),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "/");
-                                }),
+                                UIHelper.horizontalSpaceSmall(),
+                                Text(
+                                  "User List",
+                                  style: titleStyleWhiteLight,
+                                ),
+                                SizedBox(height: 30.0),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -325,7 +321,7 @@ class _UsersViewState extends State<UsersView> {
                                                       alignment:
                                                           Alignment.centerLeft,
                                                       child: Text(
-                                                        "${model.usersFilter[index].modified.toIso8601String() ?? "-"}",
+                                                        "${DateFormat.yMMMd().format(model.usersFilter[index].modified ?? DateTime.now())}",
                                                         style: textStyle,
                                                         maxLines: 1,
                                                         overflow: TextOverflow

@@ -18,6 +18,7 @@ import 'ui/shared/app_colors.dart';
 import 'ui/shared/received_notification.dart';
 
 final debug = false;
+bool showMyDialog = true;
 
 final StreamController<ReceivedNotification>
     didReceiveLocalNotificationSubject =

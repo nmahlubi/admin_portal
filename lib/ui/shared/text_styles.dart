@@ -85,7 +85,7 @@ const labelStyleBoldLight = TextStyle(
 const textStylePrimarySmaller =
     TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: primaryColor);
 const textStyleBlueGreySmaller = TextStyle(
-    fontSize: 16, fontWeight: FontWeight.w400, color: Colors.blueGrey);
+    fontSize: 24, fontWeight: FontWeight.w700, color: Colors.blueGrey);
 
 const textStyleWhiteLargeBold =
     TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.white);

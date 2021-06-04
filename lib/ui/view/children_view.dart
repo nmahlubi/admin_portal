@@ -83,33 +83,28 @@ class _ChildrenViewState extends State<ChildrenView> {
                     Container(
                       alignment: Alignment.center,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ImageWidget(
-                            marginTop: 0,
-                            height: 50,
-                            imageColor: widgetBgColor,
-                            path: 'assets/images/profile.png',
-                          ),
                           UIHelper.horizontalSpaceSmall(),
-                          Text(
-                            "Children",
-                            style: titleStyleWhiteLight,
-                          ),
-                          SizedBox(height: 30.0),
-                          Container(
-                            alignment: Alignment.topLeft,
-                            child: FlatButton(
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "back",
-                                    style: titleStyleWhiteLight,
-                                  ),
+                          BackButton(color: widgetBgColor,),
+                          UIHelper.horizontalSpaceSmall(),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ImageWidget(
+                                  marginTop: 0,
+                                  height: 50,
+                                  imageColor: widgetBgColor,
+                                  path: 'assets/images/live_connected_logo.png',
                                 ),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "/");
-                                }),
+                                UIHelper.horizontalSpaceSmall(),
+                                Text(
+                                  "Children",
+                                  style: titleStyleWhiteLight,
+                                ),
+                                SizedBox(height: 30.0),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -147,7 +142,8 @@ class _ChildrenViewState extends State<ChildrenView> {
                                   },
                                 ),
                                 Container(
-                                  child: Text('Children view page'),
+                                  alignment: Alignment.center,
+                                  child: Text('Coming end of May'),
                                 )
                               ],
                             ),
