@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'base_view.dart';
+import 'home_view.dart';
 
 class ChildrenView extends StatefulWidget {
   @override
@@ -85,7 +86,16 @@ class _ChildrenViewState extends State<ChildrenView> {
                       child: Row(
                         children: [
                           UIHelper.horizontalSpaceSmall(),
-                          BackButton(color: widgetBgColor,),
+                          BackButton(
+                              color: widgetBgColor,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          HomeView(),
+                                    ));
+                              }),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
                             child: Row(

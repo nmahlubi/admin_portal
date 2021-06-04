@@ -12,12 +12,11 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 250.0),
+    return SingleChildScrollView(
+      // margin: EdgeInsets.only(bottom: 250.0),
       child: Column(
         children: [
           Row(
-            //mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
                 child: InkWell(
@@ -28,7 +27,8 @@ class HomeContent extends StatelessWidget {
                       margin: EdgeInsets.all(12),
                       child: Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
                         child: Container(
                           height: 250,
                           padding: EdgeInsets.all(20),
@@ -51,7 +51,8 @@ class HomeContent extends StatelessWidget {
                                 ),
                               ),
                               ListTile(
-                                title: Text('Events', style: textStyleBlueGreySmaller),
+                                title: Text('Events',
+                                    style: textStyleBlueGreySmaller),
                               ),
                             ],
                           ),
@@ -69,7 +70,8 @@ class HomeContent extends StatelessWidget {
                     margin: EdgeInsets.all(12),
                     child: Card(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20.0))),
                       child: Container(
                         height: 250,
                         padding: EdgeInsets.all(20),
@@ -92,7 +94,8 @@ class HomeContent extends StatelessWidget {
                               ),
                             ),
                             ListTile(
-                              title: Text('Users', style: textStyleBlueGreySmaller),
+                              title: Text('Users',
+                                  style: textStyleBlueGreySmaller),
                             ),
                           ],
                         ),
@@ -101,95 +104,95 @@ class HomeContent extends StatelessWidget {
                   ),
                 ),
               ),
-              UIHelper.horizontalSpaceSmall(),
             ],
           ),
           Row(
             children: [
               Expanded(
                   child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, "subscribersView");
-                    },
+                onTap: () {
+                  Navigator.pushNamed(context, "subscribersView");
+                },
+                child: Container(
+                  margin: EdgeInsets.all(12),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     child: Container(
-                      margin: EdgeInsets.all(12),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                        child: Container(
-                          height: 250,
-                          padding: EdgeInsets.all(20),
-                          child: Column(
-                            children: <Widget>[
-                              ListTile(
-                                title: Text(
-                                  '${userCommunityCountDto.totalSubscribers}',
-                                  style: textStylePrimaryColorDarkLargeBold,
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.topRight,
-                                child: Image.asset(
-                                  'assets/images/renew.png',
-                                  height: 80,
-                                  width: 80,
-                                  fit: BoxFit.cover,
-                                  color: textColorGrey,
-                                ),
-                              ),
-                              ListTile(
-                                title:
-                                Text('Subscriptions', style: textStyleBlueGreySmaller),
-                              ),
-                            ],
+                      height: 250,
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Text(
+                              '${userCommunityCountDto.totalSubscribers}',
+                              style: textStylePrimaryColorDarkLargeBold,
+                            ),
                           ),
-                        ),
+                          Container(
+                            alignment: Alignment.topRight,
+                            child: Image.asset(
+                              'assets/images/renew.png',
+                              height: 80,
+                              width: 80,
+                              fit: BoxFit.cover,
+                              color: textColorGrey,
+                            ),
+                          ),
+                          ListTile(
+                            title: Text('Subscriptions',
+                                style: textStyleBlueGreySmaller),
+                          ),
+                        ],
                       ),
                     ),
-                  )),
+                  ),
+                ),
+              )),
               UIHelper.horizontalSpaceSmall(),
               Expanded(
                   child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, "EventView");
-                    },
+                onTap: () {
+                  Navigator.pushNamed(context, "EventView");
+                },
+                child: Container(
+                  margin: EdgeInsets.all(12),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     child: Container(
-                      margin: EdgeInsets.all(12),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                        child: Container(
-                          height: 250,
-                          padding: EdgeInsets.all(20),
-                          child: Column(
-                            children: <Widget>[
-                              ListTile(
-                                title: Text(
-                                  '${userCommunityCountDto.totalChildren}',
-                                  style: textStylePrimaryColorDarkLargeBold,
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.topRight,
-                                child: Image.asset(
-                                  'assets/icons/boy.png',
-                                  height: 80,
-                                  width: 80,
-                                  fit: BoxFit.cover,
-                                  color: textColorGrey,
-                                ),
-                              ),
-                              ListTile(
-                                title: Text('Children', style: textStyleBlueGreySmaller),
-                              ),
-                            ],
+                      height: 250,
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Text(
+                              '${userCommunityCountDto.totalChildren}',
+                              style: textStylePrimaryColorDarkLargeBold,
+                            ),
                           ),
-                        ),
+                          Container(
+                            alignment: Alignment.topRight,
+                            child: Image.asset(
+                              'assets/icons/boy.png',
+                              height: 80,
+                              width: 80,
+                              fit: BoxFit.cover,
+                              color: textColorGrey,
+                            ),
+                          ),
+                          ListTile(
+                            title: Text('Children',
+                                style: textStyleBlueGreySmaller),
+                          ),
+                        ],
                       ),
                     ),
-                  ))
+                  ),
+                ),
+              ))
             ],
-          )
+          ),
         ],
       ),
     );

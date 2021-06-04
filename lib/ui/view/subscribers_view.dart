@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'base_view.dart';
+import 'home_view.dart';
 
 class SubscribersView extends StatefulWidget {
   @override
@@ -89,8 +90,15 @@ class _SubscribersViewState extends State<SubscribersView> {
                         children: [
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
-                            color: widgetBgColor,
-                          ),
+                              color: widgetBgColor,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          HomeView(),
+                                    ));
+                              }),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
                             child: Row(
@@ -185,6 +193,10 @@ class _SubscribersViewState extends State<SubscribersView> {
                                         style: textStyleWhite,
                                       ),
                                       Text(
+                                        'Status',
+                                        style: textStyleWhite,
+                                      ),
+                                      Text(
                                         'Subscription Type',
                                         style: textStyleWhite,
                                       ),
@@ -237,7 +249,6 @@ class _SubscribersViewState extends State<SubscribersView> {
                                             child: Container(
                                               margin: EdgeInsets.all(10.0),
                                               padding: EdgeInsets.all(10.0),
-
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -303,6 +314,30 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: rowHeight,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      color: model
+                                                                  .usersFilter[
+                                                                      index]
+                                                                  .activeSubscription ==
+                                                              true
+                                                          ? textColorGreen
+                                                          : textColorRed,
+                                                      child: Center(
+                                                        child: Text(
+                                                          "${model.usersFilter[index].activeSubscription ?? "-"}",
+                                                          style: textStyleWhite,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),

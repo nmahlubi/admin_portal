@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 
 import 'base_view.dart';
+import 'home_view.dart';
 
 class UsersView extends StatefulWidget {
   @override
@@ -90,7 +91,16 @@ class _UsersViewState extends State<UsersView> {
                       child: Row(
                         children: [
                           UIHelper.horizontalSpaceSmall(),
-                          BackButton(color: widgetBgColor,),
+                          BackButton(
+                              color: widgetBgColor,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          HomeView(),
+                                    ));
+                              }),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
                             child: Row(

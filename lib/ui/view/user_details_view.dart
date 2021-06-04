@@ -15,7 +15,7 @@ import 'base_view.dart';
 
 class UsersDetailsView extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
- // final String userId;
+  // final String userId;
   final ClientUserDto clientUserDto;
 
   UsersDetailsView({Key key, this.clientUserDto}) : super(key: key);
@@ -57,9 +57,7 @@ class UsersDetailsView extends StatelessWidget {
                               color: widgetBgColor,
                               icon: Icon(Icons.menu),
                               tooltip: 'Menu',
-                              onPressed: () {
-                                _scaffoldKey.currentState.openDrawer();
-                              },
+                              onPressed: () {},
                             ),
                           ),
                     Container(
@@ -96,30 +94,32 @@ class UsersDetailsView extends StatelessWidget {
                           )
                         : Container(),
                     Expanded(
-                        flex: 8,
-                        child:
-                        Column(
-                          children: [
-                            UIHelper.verticalSpaceMedium(),
-                            model.errorMessage != null
-                                ? Container(
-                              alignment: Alignment.center,
-                              child: Text(model.errorMessage, style: errorStyleRed,),
-                            ): Container(),
-                            UIHelper.verticalSpaceSmall(),
-
-                            UIHelper.verticalSpaceSmall(),
-                            model.state == ViewState.Busy
-                                ? Center(child: CircularProgressIndicator())
-                                :  Container(
-                              child: Center(child: UserDetailsContent(
-
-                                userDto: model.userDto,
-                                currentUser: clientUserDto,
-                              )),
-                            ),
-                          ],
-                        ),
+                      flex: 8,
+                      child: Column(
+                        children: [
+                          UIHelper.verticalSpaceMedium(),
+                          model.errorMessage != null
+                              ? Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    model.errorMessage,
+                                    style: errorStyleRed,
+                                  ),
+                                )
+                              : Container(),
+                          UIHelper.verticalSpaceSmall(),
+                          UIHelper.verticalSpaceSmall(),
+                          model.state == ViewState.Busy
+                              ? Center(child: CircularProgressIndicator())
+                              : Container(
+                                  child: Center(
+                                      child: UserDetailsContent(
+                                    userDto: model.userDto,
+                                    currentUser: clientUserDto,
+                                  )),
+                                ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
