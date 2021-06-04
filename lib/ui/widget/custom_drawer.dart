@@ -89,7 +89,7 @@ class CustomDrawer extends StatelessWidget {
           ),
           SizedBox(
               width: double.infinity,
-              height: 40,
+              height: 60,
               child: Container(
                 child: FlatButton(
                     color: primaryColor,

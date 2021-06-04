@@ -18,7 +18,6 @@ class HomeView extends StatelessWidget {
 //  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
 //      GlobalKey<RefreshIndicatorState>();
 
-
   HomeView({
     Key key,
   }) : super(key: key);
@@ -76,7 +75,7 @@ class HomeView extends StatelessWidget {
                           ),
                           UIHelper.horizontalSpaceMedium(),
                           Text(
-                            "Live Connect Admin",
+                            "Live Connected Admin",
                             style: titleStyleWhiteLight,
                           ),
                         ],
@@ -102,17 +101,22 @@ class HomeView extends StatelessWidget {
                           children: [
                             model.userCommunityCountDto != null
                                 ? Container(
-                              alignment: Alignment.center,
-                              child: HomeContent(
-                                userCommunityCountDto: model?.userCommunityCountDto,
-                              ),
-                            ) : Container(),
+                                    alignment: Alignment.center,
+                                    child: HomeContent(
+                                      userCommunityCountDto:
+                                          model?.userCommunityCountDto,
+                                    ),
+                                  )
+                                : Container(),
                             model.errorMessage != null
                                 ? Container(
-                              alignment: Alignment.center,
-                              child: Text(model.errorMessage, style: errorStyleRed,),
-                            ): Container(),
-
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      model.errorMessage,
+                                      style: errorStyleRed,
+                                    ),
+                                  )
+                                : Container(),
                             model.state == ViewState.Busy
                                 ? Center(child: CircularProgressIndicator())
                                 : Container()
