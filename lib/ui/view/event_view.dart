@@ -153,7 +153,7 @@ class _EventViewState extends State<EventView> {
                                 ),
                                 Container(
                                   alignment: Alignment.center,
-                                  child: Text('Coming end of May'),
+                                  child: Text('Coming soon'),
                                 )
                               ],
                             ),

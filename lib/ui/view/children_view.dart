@@ -153,7 +153,7 @@ class _ChildrenViewState extends State<ChildrenView> {
                                 ),
                                 Container(
                                   alignment: Alignment.center,
-                                  child: Text('Coming end of May'),
+                                  child: Text('Coming Soon'),
                                 )
                               ],
                             ),

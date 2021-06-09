@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'base_view.dart';
+import 'home_view.dart';
 
 class UsersDetailsView extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -63,18 +64,37 @@ class UsersDetailsView extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ImageWidget(
-                            marginTop: 0,
-                            height: 50,
-                            imageColor: widgetBgColor,
-                            path: 'assets/images/profile.png',
-                          ),
-                          UIHelper.horizontalSpaceMedium(),
-                          Text(
-                            "User Details",
-                            style: titleStyleWhiteLight,
+                          UIHelper.horizontalSpaceSmall(),
+                          BackButton(
+                              color: widgetBgColor,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          HomeView(),
+                                    ));
+                              }),
+                          UIHelper.horizontalSpaceSmall(),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ImageWidget(
+                                  marginTop: 0,
+                                  height: 50,
+                                  imageColor: widgetBgColor,
+                                  path: 'assets/images/live_connected_logo.png',
+                                ),
+                                UIHelper.horizontalSpaceSmall(),
+                                Text(
+                                  "User Details",
+                                  style: titleStyleWhiteLight,
+                                ),
+                                SizedBox(height: 30.0),
+                              ],
+                            ),
                           ),
                         ],
                       ),
