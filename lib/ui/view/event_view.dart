@@ -88,14 +88,7 @@ class _EventViewState extends State<EventView> {
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
                               color: widgetBgColor,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          HomeView(),
-                                    ));
-                              }),
+                              ),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
                             child: Row(

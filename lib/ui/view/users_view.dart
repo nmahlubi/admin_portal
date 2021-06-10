@@ -93,14 +93,7 @@ class _UsersViewState extends State<UsersView> {
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
                               color: widgetBgColor,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          HomeView(),
-                                    ));
-                              }),
+                              ),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
                             child: Row(
@@ -331,7 +324,7 @@ class _UsersViewState extends State<UsersView> {
                                                       alignment:
                                                           Alignment.centerLeft,
                                                       child: Text(
-                                                        "${DateFormat.yMMMd().format(model.usersFilter[index].modified ?? DateTime.now())}",
+                                                        "${DateFormat.yMMMd().format(model.usersFilter[index].created ?? DateTime.now())}",
                                                         style: textStyle,
                                                         maxLines: 1,
                                                         overflow: TextOverflow

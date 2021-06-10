@@ -28,9 +28,11 @@ class HomeView extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async => true,
-      child: BaseView<HomeModel>(onModelReady: (model) {
+      child: BaseView<HomeModel>(
+          onModelReady: (model) {
         model.getAllCountForAdmin();
-      }, builder: (BuildContext context, HomeModel model, Widget child) {
+      },
+          builder: (BuildContext context, HomeModel model, Widget child) {
         return Scaffold(
             key: _scaffoldKey,
             drawer: !UIHelper.isLargeScreen(screenWidth)
@@ -67,16 +69,37 @@ class HomeView extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ImageWidget(
-                            marginTop: 0,
-                            height: 50,
-                            imageColor: widgetBgColor,
-                            path: 'assets/images/live_connected_logo.png',
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ImageWidget(
+                                  marginTop: 0,
+                                  height: 50,
+                                  imageColor: widgetBgColor,
+                                  path: 'assets/images/live_connected_logo.png',
+                                ),
+                                UIHelper.horizontalSpaceMedium(),
+                                Text(
+                                  "Live Connected Admin",
+                                  style: titleStyleWhiteLight,
+                                ),
+                              ],
+                            ),
                           ),
-                          UIHelper.horizontalSpaceMedium(),
-                          Text(
-                            "Live Connected Admin",
-                            style: titleStyleWhiteLight,
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 16),
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                              onTap: () {
+                                //
+                                model.getAllCountForAdmin();
+                              },
+                              child: Text(
+                                "Reload",
+                                style: titleStyleWhiteLight,
+                              ),
+                            ),
                           ),
                         ],
                       ),

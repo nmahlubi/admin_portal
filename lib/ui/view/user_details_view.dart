@@ -27,7 +27,8 @@ class UsersDetailsView extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async => true,
-      child: BaseView<UserModel>(onModelReady: (model) {
+      child: BaseView<UserModel>(
+          onModelReady: (model) {
         model.getUserDetails(clientUserDto.id);
         model.user = user;
       }, builder: (BuildContext context, UserModel model, Widget child) {
@@ -68,14 +69,7 @@ class UsersDetailsView extends StatelessWidget {
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
                               color: widgetBgColor,
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          HomeView(),
-                                    ));
-                              }),
+                              ),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
                             child: Row(

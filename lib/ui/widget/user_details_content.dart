@@ -44,7 +44,7 @@ class UserDetailsContent extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      userDto?.activities != null && userDto.activities.isNotEmpty
+                      userDto?.children != null && userDto.children.isNotEmpty
                           ? Container(
                         height: 350,
                         child: Card(
