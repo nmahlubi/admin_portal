@@ -87,14 +87,15 @@ class HomeView extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 16),
-                            alignment: Alignment.center,
-                            child: GestureDetector(
-                              onTap: () {
-                                //
-                                model.getAllCountForAdmin();
-                              },
+                          GestureDetector(
+                            onTap: () {
+                              //
+                              model.getAllCountForAdmin();
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 16),
+                              alignment: Alignment.center,
+                              color: primaryColor,
                               child: Text(
                                 "Reload",
                                 style: titleStyleWhiteLight,

@@ -90,6 +90,20 @@ class UsersDetailsView extends StatelessWidget {
                               ],
                             ),
                           ),
+                          GestureDetector(
+                            onTap: () {
+                              model.getUserDetails(clientUserDto.id);
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 16),
+                              alignment: Alignment.center,
+                              color: primaryColor,
+                              child: Text(
+                                "Reload",
+                                style: titleStyleWhiteLight,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

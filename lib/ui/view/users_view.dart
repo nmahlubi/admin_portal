@@ -117,14 +117,15 @@ class _UsersViewState extends State<UsersView> {
                               ],
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 16),
-                            alignment: Alignment.center,
-                            child: GestureDetector(
-                              onTap: () {
-                                //
-                                model.getUsers();
-                              },
+                          GestureDetector(
+                            onTap: () {
+                              model.setShowCloseSearch(false);
+                              model.getUsers();
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 16),
+                              alignment: Alignment.center,
+                              color: primaryColor,
                               child: Text(
                                 "Reload",
                                 style: titleStyleWhiteLight,
@@ -227,11 +228,7 @@ class _UsersViewState extends State<UsersView> {
                                     controller: _controller,
                                     alwaysVisibleScrollThumb: true,
                                     backgroundColor: primaryColor,
-                                    child: ListView.separated(
-                                      separatorBuilder: (context, index) =>
-                                          Divider(
-                                        color: Colors.black26,
-                                      ),
+                                    child: ListView.builder(
                                       shrinkWrap: true,
                                       controller: _controller,
                                       physics:
@@ -265,8 +262,8 @@ class _UsersViewState extends State<UsersView> {
                                                       model.usersFilter[index]);
                                             },
                                             child: Container(
-                                              margin: EdgeInsets.all(10.0),
-                                              padding: EdgeInsets.all(10.0),
+                                              padding: EdgeInsets.all(20.0),
+                                              color: index % 2 == 0 ? widgetBgColor : widgetLighterGreyColor,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
