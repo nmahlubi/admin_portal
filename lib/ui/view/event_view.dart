@@ -87,8 +87,8 @@ class _EventViewState extends State<EventView> {
                         children: [
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
-                              color: widgetBgColor,
-                              ),
+                            color: widgetBgColor,
+                          ),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
                             child: Row(
@@ -107,6 +107,17 @@ class _EventViewState extends State<EventView> {
                                 ),
                                 SizedBox(height: 30.0),
                               ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 16),
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Text(
+                                "Reload",
+                                style: titleStyleWhiteLight,
+                              ),
                             ),
                           ),
                         ],

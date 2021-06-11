@@ -92,8 +92,11 @@ class _UsersViewState extends State<UsersView> {
                         children: [
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
-                              color: widgetBgColor,
-                              ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/');
+                            },
+                            color: widgetBgColor,
+                          ),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
                             child: Row(
@@ -112,6 +115,20 @@ class _UsersViewState extends State<UsersView> {
                                 ),
                                 SizedBox(height: 30.0),
                               ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 16),
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                              onTap: () {
+                                //
+                                model.getUsers();
+                              },
+                              child: Text(
+                                "Reload",
+                                style: titleStyleWhiteLight,
+                              ),
                             ),
                           ),
                         ],

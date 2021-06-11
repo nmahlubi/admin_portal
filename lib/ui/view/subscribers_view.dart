@@ -90,7 +90,10 @@ class _SubscribersViewState extends State<SubscribersView> {
                         children: [
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
-                              color: widgetBgColor,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/');
+                            },
+                            color: widgetBgColor,
                           ),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
@@ -105,11 +108,24 @@ class _SubscribersViewState extends State<SubscribersView> {
                                 ),
                                 UIHelper.horizontalSpaceSmall(),
                                 Text(
-                                  "Subscribers",
+                                  "Subscribers List",
                                   style: titleStyleWhiteLight,
                                 ),
                                 SizedBox(height: 30.0),
                               ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 16),
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                              onTap: () {
+                                model.getAllSubscribedUsers();
+                              },
+                              child: Text(
+                                "Reload",
+                                style: titleStyleWhiteLight,
+                              ),
                             ),
                           ),
                         ],

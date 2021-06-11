@@ -87,7 +87,7 @@ class _ChildrenViewState extends State<ChildrenView> {
                         children: [
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
-                              color: widgetBgColor,
+                            color: widgetBgColor,
                           ),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
@@ -107,6 +107,17 @@ class _ChildrenViewState extends State<ChildrenView> {
                                 ),
                                 SizedBox(height: 30.0),
                               ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 16),
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Text(
+                                "Reload",
+                                style: titleStyleWhiteLight,
+                              ),
                             ),
                           ),
                         ],
