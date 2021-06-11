@@ -90,9 +90,6 @@ class _SubscribersViewState extends State<SubscribersView> {
                         children: [
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/');
-                            },
                             color: widgetBgColor,
                           ),
                           UIHelper.horizontalSpaceSmall(),
