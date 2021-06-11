@@ -115,13 +115,15 @@ class _SubscribersViewState extends State<SubscribersView> {
                               ],
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 16),
-                            alignment: Alignment.center,
-                            child: GestureDetector(
-                              onTap: () {
-                                model.getAllSubscribedUsers();
-                              },
+                          GestureDetector(
+                            onTap: () {
+                              model.setShowCloseSearch(false);
+                              model.getAllSubscribedUsers();
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 16),
+                              alignment: Alignment.center,
+                              color: primaryColor,
                               child: Text(
                                 "Reload",
                                 style: titleStyleWhiteLight,
@@ -218,11 +220,7 @@ class _SubscribersViewState extends State<SubscribersView> {
                                     controller: _controller,
                                     alwaysVisibleScrollThumb: true,
                                     backgroundColor: primaryColor,
-                                    child: ListView.separated(
-                                      separatorBuilder: (context, index) =>
-                                          Divider(
-                                        color: Colors.black26,
-                                      ),
+                                    child: ListView.builder(
                                       shrinkWrap: true,
                                       controller: _controller,
                                       // physics:
@@ -256,8 +254,8 @@ class _SubscribersViewState extends State<SubscribersView> {
                                                       model.usersFilter[index]);
                                             },
                                             child: Container(
-                                              margin: EdgeInsets.all(10.0),
-                                              padding: EdgeInsets.all(10.0),
+                                              padding: EdgeInsets.all(20.0),
+                                              color: index % 2 == 0 ? widgetBgColor : widgetLighterGreyColor,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment

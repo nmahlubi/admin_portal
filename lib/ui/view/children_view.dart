@@ -37,14 +37,6 @@ class _ChildrenViewState extends State<ChildrenView> {
     return WillPopScope(
       onWillPop: () async => true,
       child: BaseView<UserModel>(onModelReady: (model) {
-        model.getUsers(initController: () {
-          _controller.addListener(() {
-            if (_controller.position.pixels ==
-                _controller.position.maxScrollExtent) {
-              model.getUsers();
-            }
-          });
-        });
 
         model.user = user;
       }, builder: (BuildContext context, UserModel model, Widget child) {
@@ -109,11 +101,12 @@ class _ChildrenViewState extends State<ChildrenView> {
                               ],
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 16),
-                            alignment: Alignment.center,
-                            child: GestureDetector(
-                              onTap: () {},
+                          GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 16),
+                              alignment: Alignment.center,
+                              color: primaryColor,
                               child: Text(
                                 "Reload",
                                 style: titleStyleWhiteLight,
@@ -151,8 +144,8 @@ class _ChildrenViewState extends State<ChildrenView> {
                                   },
                                   closeSearch: model.showCloseSearch,
                                   pressClose: () {
-                                    model.setShowCloseSearch(false);
-                                    model.getUsers();
+                                    //model.setShowCloseSearch(false);
+                                    //model.getUsers();
                                   },
                                 ),
                                 Container(
