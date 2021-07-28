@@ -52,6 +52,7 @@ class Cards extends StatelessWidget {
                 ],
               ),
               height: 250,
+              width: 300,
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                   border: Border(

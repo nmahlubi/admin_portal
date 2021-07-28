@@ -10,7 +10,6 @@ import 'package:Live_Connected_Admin/ui/widget/user_details_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'base_view.dart';
 import 'home_view.dart';
 
@@ -27,8 +26,7 @@ class UsersDetailsView extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async => true,
-      child: BaseView<UserModel>(
-          onModelReady: (model) {
+      child: BaseView<UserModel>(onModelReady: (model) {
         model.getUserDetails(clientUserDto.id);
         model.user = user;
       }, builder: (BuildContext context, UserModel model, Widget child) {
@@ -68,8 +66,8 @@ class UsersDetailsView extends StatelessWidget {
                         children: [
                           UIHelper.horizontalSpaceSmall(),
                           BackButton(
-                              color: widgetBgColor,
-                              ),
+                            color: widgetBgColor,
+                          ),
                           UIHelper.horizontalSpaceSmall(),
                           Expanded(
                             child: Row(

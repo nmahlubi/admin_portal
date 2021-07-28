@@ -129,6 +129,31 @@ class HomeContent extends StatelessWidget {
               )
             ],
           ),
+          Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, "AdvertView");
+                  },
+                  child: Cards(
+                    image: Image.asset(
+                      'assets/images/shopping-cart.png',
+                      height: 80,
+                      width: 80,
+                      fit: BoxFit.cover,
+                      color: textColorLightBlue,
+                    ),
+                    title: Text(
+                      'Advert',
+                      style: textStyleBlueGreySmaller,
+                    ),
+                  ),
+                ),
+              ),
+              UIHelper.horizontalSpaceSmall(),
+            ],
+          ),
         ],
       ),
     );
