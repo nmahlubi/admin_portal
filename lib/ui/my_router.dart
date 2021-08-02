@@ -29,7 +29,7 @@ class MyRouter {
         return MaterialPageRoute(builder: (_) => EventView());
       case "usersView":
         return MaterialPageRoute(builder: (_) => UsersView());
-      case "advertView":
+      case "AdvertView":
         return MaterialPageRoute(builder: (_) => AdvertView());
       case "userDetailsView":
         var clientUserDto = settings.arguments as ClientUserDto;

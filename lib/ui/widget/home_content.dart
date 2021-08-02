@@ -131,14 +131,16 @@ class HomeContent extends StatelessWidget {
           ),
           Row(
             children: [
-              Expanded(
+              Container(
+                height: 250,
+                width: 550,
                 child: InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, "AdvertView");
                   },
                   child: Cards(
                     image: Image.asset(
-                      'assets/images/shopping-cart.png',
+                      'assets/icons/shopping-cart.png',
                       height: 80,
                       width: 80,
                       fit: BoxFit.cover,

@@ -26,6 +26,8 @@ class Cards extends StatelessWidget {
           elevation: 5,
           child: ClipPath(
             child: Container(
+              height: 250,
+              width: 300,
               child: Column(
                 children: <Widget>[
                   Container(
@@ -51,8 +53,6 @@ class Cards extends StatelessWidget {
                   ),
                 ],
               ),
-              height: 250,
-              width: 300,
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                   border: Border(

@@ -88,7 +88,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 MenuItem(
                   title: "Advert",
-                  imagePath: "assets/images/shopping-cart.png",
+                  imagePath: "assets/icons/shopping-cart.png",
                   color: textColorGrey,
                   press: () {
                     _onClickUsers(context);
