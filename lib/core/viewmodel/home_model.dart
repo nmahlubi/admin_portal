@@ -1,4 +1,5 @@
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
+import 'package:Live_Connected_Admin/core/model/advert.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
 import 'package:Live_Connected_Admin/core/service/authentication_service.dart';
@@ -15,6 +16,7 @@ class HomeModel extends BaseModel {
   String errorMessage;
   List<UserCommunityCountDto> userCommunityCountDtoList = [];
   UserCommunityCountDto userCommunityCountDto;
+  List<Advert> advertList;
 
 //  Future getMyStores() async {
 //    setState(ViewState.Busy);
@@ -35,11 +37,9 @@ class HomeModel extends BaseModel {
     userCommunityCountDto = null;
     userCommunityCountDtoList = [];
     String token = await _authenticationService.getUserToken();
-    _connectedApi.getAllCountForAdmin(
-        token: token
-    ).then((userCommunityDto) {
+    _connectedApi.getAllCountForAdmin(token: token).then((userCommunityDto) {
       print("This reaches here ");
-      if (userCommunityDto != null ) {
+      if (userCommunityDto != null) {
         this.userCommunityCountDto = userCommunityDto;
         setState(ViewState.Idle);
       } else {
@@ -51,6 +51,32 @@ class HomeModel extends BaseModel {
     }).catchError((error) {
       errorMessage = '${error.toString()}';
       setState(ViewState.Idle);
+    });
+  }
+
+  Future getAdvertList() async {
+    setState(ViewState.Busy);
+    errorMessage = null;
+    advertList = [];
+    String currentUserId;
+    String token;
+
+    token = await _authenticationService.getUserToken();
+    _connectedApi.getAdverts(token: token).then((adverts) {
+      if (adverts != null) {
+        advertList = adverts;
+        setState(ViewState.Idle);
+      } else {
+        errorMessage = "Advert not found";
+        Future.delayed(const Duration(seconds: 1)).then((any) {
+          setState(ViewState.Idle);
+        });
+      }
+    }).catchError((error) {
+      errorMessage = '${error.toString()}';
+      Future.delayed(const Duration(seconds: 1)).then((any) {
+        setState(ViewState.Idle);
+      });
     });
   }
 }

@@ -54,7 +54,8 @@ class _UsersViewState extends State<UsersView> {
 
         model.user = user;
       }, builder: (BuildContext context, UserModel model, Widget child) {
-        return Scaffold(
+        return
+          Scaffold(
           key: _scaffoldKey,
           drawer: !UIHelper.isLargeScreen(screenWidth)
               ? Drawer(
@@ -228,7 +229,8 @@ class _UsersViewState extends State<UsersView> {
                                     controller: _controller,
                                     alwaysVisibleScrollThumb: true,
                                     backgroundColor: primaryColor,
-                                    child: ListView.builder(
+                                    child:
+                                    ListView.builder(
                                       shrinkWrap: true,
                                       controller: _controller,
                                       physics:
@@ -261,9 +263,12 @@ class _UsersViewState extends State<UsersView> {
                                                   arguments:
                                                       model.usersFilter[index]);
                                             },
-                                            child: Container(
+                                            child:
+                                            Container(
                                               padding: EdgeInsets.all(20.0),
-                                              color: index % 2 == 0 ? widgetBgColor : widgetLighterGreyColor,
+                                              color: index % 2 == 0
+                                                  ? widgetBgColor
+                                                  : widgetLighterGreyColor,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment

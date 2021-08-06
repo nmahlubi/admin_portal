@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/repository/local_data.dart';
 import 'core/service/authentication_service.dart';
 import 'core/service/connected_api.dart';
+import 'core/viewmodel/advert_model.dart';
 import 'core/viewmodel/home_model.dart';
 import 'core/viewmodel/search_model.dart';
 import 'core/viewmodel/subscribers_model.dart';
@@ -28,6 +29,7 @@ void setupLocator(
   locator.registerLazySingleton(() => FirebaseRepo());
   locator.registerLazySingleton(() => HomeModel());
   locator.registerLazySingleton(() => UserModel());
+  locator.registerLazySingleton(() => AdvertModel());
   locator.registerFactory(() => SearchModel());
   //locator.registerLazySingleton(() => SubscribersView());
   locator.registerLazySingleton(() => LocalDataRepo());

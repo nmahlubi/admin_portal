@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:Live_Connected_Admin/core/model/advert.dart';
+import 'package:Live_Connected_Admin/core/model/category.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/device.dart';
 import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
@@ -59,7 +61,12 @@ class ConnectedApi {
     return requestHeaders;
   }
 
-  Future<List<ClientUserDto>> getAllUsers({String token, bool active = true, int page, int pageSize, String search}) async {
+  Future<List<ClientUserDto>> getAllUsers(
+      {String token,
+      bool active = true,
+      int page,
+      int pageSize,
+      String search}) async {
     Map<String, String> requestHeaders = await getHeaders(authToken: token);
     Map<String, String> queryParameters = {
       'active': "$active",
@@ -67,13 +74,13 @@ class ConnectedApi {
       'pageSize': "$pageSize",
     };
     if (search != null) {
-      queryParameters.addAll({
-        "searchQuery" : search
-      });
+      queryParameters.addAll({"searchQuery": search});
     }
     Uri uri = authorityType == "http"
-        ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAllForAdmin", queryParameters)
-        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAllForAdmin", queryParameters);
+        ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAllForAdmin",
+            queryParameters)
+        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAllForAdmin",
+            queryParameters);
     final response = await client.get(uri, headers: requestHeaders);
     print("response body ${response.body.length}");
     if (response.statusCode == 200 ||
@@ -90,7 +97,12 @@ class ConnectedApi {
     }
   }
 
-  Future<List<ClientUserDto>> getAllSubscribedUsers({String token, bool active = true, int page, int pageSize, String search}) async {
+  Future<List<ClientUserDto>> getAllSubscribedUsers(
+      {String token,
+      bool active = true,
+      int page,
+      int pageSize,
+      String search}) async {
     Map<String, String> requestHeaders = await getHeaders(authToken: token);
     Map<String, String> queryParameters = {
       'active': "$active",
@@ -98,13 +110,17 @@ class ConnectedApi {
       //'pageSize': "$pageSize",
     };
     if (search != null) {
-      queryParameters.addAll({
-        "searchQuery" : search
-      });
+      queryParameters.addAll({"searchQuery": search});
     }
     Uri uri = authorityType == "http"
-        ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAllSubscribedUsersForAdmin", queryParameters)
-        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAllSubscribedUsersForAdmin", queryParameters);
+        ? Uri.https(
+            endpoint,
+            "/api/v1/user/$endpointType/getAllSubscribedUsersForAdmin",
+            queryParameters)
+        : Uri.https(
+            endpoint,
+            "/api/v1/user/$endpointType/getAllSubscribedUsersForAdmin",
+            queryParameters);
     final response = await client.get(uri, headers: requestHeaders);
     print("response body ${response.body.length}");
     if (response.statusCode == 200 ||
@@ -130,15 +146,21 @@ class ConnectedApi {
     Map<String, String> queryParameters = {
       'userId': userId,
     };
-    Uri uri = authorityType == "http" ? Uri.http(endpoint, "/api/v1/activity/$endpointType/getUserCommunityDetails", queryParameters)
-        : Uri.https(endpoint, "/api/v1/activity/$endpointType/getUserCommunityDetails", queryParameters);
+    Uri uri = authorityType == "http"
+        ? Uri.http(
+            endpoint,
+            "/api/v1/activity/$endpointType/getUserCommunityDetails",
+            queryParameters)
+        : Uri.https(
+            endpoint,
+            "/api/v1/activity/$endpointType/getUserCommunityDetails",
+            queryParameters);
     final response = await client.get(uri, headers: requestHeaders);
 
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 203 ||
         response.statusCode == 204) {
-
       return UserDto.fromJson(json.decode(response.body));
     } else if (response.body != null) {
       return Future.error(response.body);
@@ -169,13 +191,19 @@ class ConnectedApi {
     }
   }
 
-  Future<UserCommunityCountDto> getAllCountForAdmin({String token, bool active = true,}) async {
+  Future<UserCommunityCountDto> getAllCountForAdmin({
+    String token,
+    bool active = true,
+  }) async {
     Map<String, String> requestHeaders = await getHeaders(authToken: token);
     Map<String, String> queryParameters = {
       'active': "$active",
     };
-    Uri uri = authorityType == "http" ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAllCountsForAdmin", queryParameters)
-        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAllCountsForAdmin", queryParameters);
+    Uri uri = authorityType == "http"
+        ? Uri.https(endpoint, "/api/v1/user/$endpointType/getAllCountsForAdmin",
+            queryParameters)
+        : Uri.https(endpoint, "/api/v1/user/$endpointType/getAllCountsForAdmin",
+            queryParameters);
     final response = await client.get(uri, headers: requestHeaders);
 
     if (response.statusCode == 200 ||
@@ -184,7 +212,96 @@ class ConnectedApi {
         response.statusCode == 204) {
       print("response body ${response.body.length}");
       return UserCommunityCountDto.fromJson(json.decode(response.body));
+    } else if (response.body != null) {
+      return Future.error(response.body);
+    } else {
+      return Future.error('${response.toString()}');
+    }
+  }
 
+  Future<List<Advert>> getAdverts({String token, bool active = true}) async {
+    Map<String, String> requestHeaders = {
+      "X-Authorization-Firebase": token,
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json",
+    };
+    Map<String, String> queryParameters = {
+      'active': "$active",
+    };
+    Uri uri = authorityType == "http"
+        ? Uri.http(
+            endpoint, "/api/v1/advert/$endpointType/findAll", queryParameters)
+        : Uri.https(
+            endpoint, "/api/v1/advert/$endpointType/findAll", queryParameters);
+    final response = await client.get(uri, headers: requestHeaders);
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      return (json.decode(response.body) as List)
+          .map((data) => Advert.fromJson(data))
+          .toList();
+    } else if (response.body != null) {
+      return Future.error(response.body);
+    } else {
+      return Future.error('${response.toString()}');
+    }
+  }
+
+  Future<bool> likeAdvert(
+    String userId,
+    String advertId,
+  ) async {
+    Map<String, String> requestHeaders = {
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json",
+    };
+    Map<String, String> queryParameters = {
+      'userId': "$userId",
+      'advertId': "advertId",
+    };
+    Uri uri = authorityType == "http"
+        ? Uri.http(endpoint, "/api/v1/advert/$endpointType/$advertId/like")
+        : Uri.https(endpoint, "/api/v1/advert/$endpointType/$advertId/like");
+    final response = await client.post(uri, headers: requestHeaders);
+    print('we are here now');
+    print(response);
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      return response.body == "true";
+    } else if (response.body != null) {
+      return Future.error(response.body);
+    } else {
+      return Future.error('${response.toString()}');
+    }
+  }
+
+  Future<List<Category>> getCategoryById(
+      {String token, String getByUserId, bool active = true}) async {
+    Map<String, String> requestHeaders = {
+      "X-Authorization-Firebase": token,
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json",
+    };
+    Map<String, String> queryParameters = {
+      //'getByUserId': "$getByUserId",
+      'active': "$active",
+    };
+    Uri uri = authorityType == "http"
+        ? Uri.http(endpoint, "/api/v1/category/$endpointType/$queryParameters",
+            queryParameters)
+        : Uri.https(endpoint, "/api/v1/category/$endpointType/$queryParameters",
+            queryParameters);
+    final response = await client.get(uri, headers: requestHeaders);
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      return (json.decode(response.body) as List)
+          .map((data) => Category.fromJson(data))
+          .toList();
     } else if (response.body != null) {
       return Future.error(response.body);
     } else {
