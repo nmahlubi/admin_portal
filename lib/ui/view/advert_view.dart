@@ -164,10 +164,6 @@ class AdvertView extends StatelessWidget {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Date',
-                                          style: textStyleWhite,
-                                        ),
-                                        Text(
                                           'Title',
                                           style: textStyleWhite,
                                         ),
@@ -238,25 +234,10 @@ class AdvertView extends StatelessWidget {
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
-                                                          .spaceBetween,
+                                                          .spaceEvenly,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
                                                   children: [
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Container(
-                                                        height: rowHeight,
-                                                        alignment: Alignment
-                                                            .centerLeft,
-                                                        child: Text(
-                                                          "${model.advertList[index].created}",
-                                                          style: textStyle,
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                    ),
                                                     Expanded(
                                                       flex: 1,
                                                       child: Container(
@@ -278,6 +259,8 @@ class AdvertView extends StatelessWidget {
                                                         height: rowHeight,
                                                         alignment: Alignment
                                                             .centerLeft,
+                                                        margin: EdgeInsets.only(
+                                                            left: 10.0),
                                                         child: Text(
                                                           "${model.advertList[index].emailAddress}",
                                                           style: textStyle,
@@ -291,10 +274,12 @@ class AdvertView extends StatelessWidget {
                                                       flex: 1,
                                                       child: Container(
                                                         height: rowHeight,
-                                                        alignment: Alignment
-                                                            .centerLeft,
+                                                        alignment:
+                                                            Alignment.center,
+                                                        margin: EdgeInsets.only(
+                                                            right: 25.0),
                                                         child: Text(
-                                                          "${model.advertList[index].cellNumber ?? "-"}",
+                                                          "${model.advertList[index].cellNumber}",
                                                           style: textStyle,
                                                           maxLines: 1,
                                                           overflow: TextOverflow
@@ -307,7 +292,9 @@ class AdvertView extends StatelessWidget {
                                                       child: Container(
                                                         height: rowHeight,
                                                         alignment: Alignment
-                                                            .centerLeft,
+                                                            .centerRight,
+                                                        margin: EdgeInsets.only(
+                                                            right: 25.0),
                                                         child: Text(
                                                           "${DateFormat.yMMMd().format(model.advertList[index].created ?? DateTime.now())}",
                                                           style: textStyle,
