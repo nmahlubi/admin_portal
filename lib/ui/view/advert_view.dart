@@ -6,21 +6,25 @@ import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
+import 'package:Live_Connected_Admin/ui/widget/custom_error_message.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
-import 'package:Live_Connected_Admin/ui/widget/search_filter.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'advert_details_view.dart';
 import 'base_view.dart';
 
-class AdvertView extends StatelessWidget {
-  final Advert advert;
-  final Function onClickExplore;
+class AdvertView extends StatefulWidget {
+  const AdvertView({Key key}) : super(key: key);
 
-  AdvertView({Key key, this.advert, this.onClickExplore}) : super(key: key);
+  @override
+  _AdvertViewState createState() => _AdvertViewState();
+}
+
+class _AdvertViewState extends State<AdvertView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _controller = ScrollController();
 
@@ -33,14 +37,8 @@ class AdvertView extends StatelessWidget {
     return WillPopScope(
         onWillPop: () async => true,
         child: BaseView<AdvertModel>(onModelReady: (model) {
-          model.getAdvertList(initController: () {
-            _controller.addListener(() {
-              if (_controller.position.pixels ==
-                  _controller.position.maxScrollExtent) {
-                model.getAdvertList();
-              }
-            });
-          });
+          model.currentUserId = user.id;
+          model.getAdvertList();
         }, builder: (BuildContext context, AdvertModel model, Widget child) {
           return Scaffold(
             key: _scaffoldKey,
@@ -130,7 +128,7 @@ class AdvertView extends StatelessWidget {
                           ? Expanded(
                               flex: 2,
                               child: CustomDrawer(
-                                selected: "Users",
+                                selected: "Advert",
                               ),
                             )
                           : Container(),
@@ -185,6 +183,7 @@ class AdvertView extends StatelessWidget {
                                     ),
                                   ),
                                   UIHelper.verticalSpaceXSmall(),
+                                  UIHelper.verticalSpaceSmall(),
                                   Expanded(
                                     child: DraggableScrollbar.arrows(
                                       controller: _controller,
@@ -220,11 +219,12 @@ class AdvertView extends StatelessWidget {
                                             );
                                           } else {
                                             return GestureDetector(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, "userDetailsView",
+                                              onTap: () async {
+                                                await Navigator.pushNamed(
+                                                    context,
+                                                    "AdvertDetailsView",
                                                     arguments: model
-                                                        .advertList[index]);
+                                                        .advertList[index].id);
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.all(20.0),

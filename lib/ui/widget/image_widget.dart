@@ -9,6 +9,7 @@ class ImageWidget extends StatelessWidget {
   final bool network;
   final double height;
   final Color imageColor;
+  final imageUrl;
 
   const ImageWidget(
       {Key key,
@@ -17,7 +18,10 @@ class ImageWidget extends StatelessWidget {
       this.backgroundColor = Colors.transparent,
       this.path = "assets/images/live_connected_logo.png",
       this.network = false,
-      this.height = 300, this.placeHolder = 'assets/images/image_placeholder.png', this.imageColor})
+      this.imageUrl,
+      this.height = 300,
+      this.placeHolder = 'assets/images/image_placeholder.png',
+      this.imageColor})
       : super(key: key);
 
   @override
@@ -38,7 +42,7 @@ class ImageWidget extends StatelessWidget {
                 path,
                 height: height,
                 fit: BoxFit.scaleDown,
-          color: imageColor ,
+                color: imageColor,
               ),
       ),
     );

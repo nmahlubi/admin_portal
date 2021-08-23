@@ -1,3 +1,4 @@
+import 'package:Live_Connected_Admin/core/model/advert.dart';
 import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
@@ -5,16 +6,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Cards extends StatelessWidget {
+  final Advert advert;
   final Image image;
   var count;
   var title;
-  Cards(
-      {Key key,
-      @required this.userCommunityCountDto,
-      this.count,
-      this.image,
-      this.title})
-      : super(key: key);
+  Cards({
+    Key key,
+    @required this.userCommunityCountDto,
+    this.count,
+    this.image,
+    this.title,
+    this.advert,
+  }) : super(key: key);
 
   final UserCommunityCountDto userCommunityCountDto;
 
