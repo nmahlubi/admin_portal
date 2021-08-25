@@ -130,4 +130,27 @@ class AdvertModel extends BaseModel {
       });
     });
   }
+
+  Future<Advert> postAdvert({Advert advert}) async {
+    setState(ViewState.Busy);
+    errorMessage = null;
+    advert = null;
+    token = await _authenticationService.getUserToken();
+    _connectedApi.postAdvert(token: token, advert: advert).then((advert) {
+      if (advert != null) {
+        this.advert = advert;
+        setState(ViewState.Idle);
+      } else {
+        errorMessage = "advert details not found";
+        Future.delayed(const Duration(seconds: 1)).then((any) {
+          setState(ViewState.Idle);
+        });
+      }
+    }).catchError((error) {
+      errorMessage = '${error.toString()}';
+      Future.delayed(const Duration(seconds: 1)).then((any) {
+        setState(ViewState.Idle);
+      });
+    });
+  }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
+import 'package:Live_Connected_Admin/core/model/advert.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/user_dto.dart';
 import 'package:Live_Connected_Admin/core/repository/local_data.dart';
@@ -30,11 +31,14 @@ class UserModel extends BaseModel {
   ClientUserDto user;
   List<ClientUserDto> userList = [];
   List<ClientUserDto> usersFilter = [];
+  List<Advert> advertList = [];
   UserDto userDto;
   int page = 0;
   int pageSize = 20;
   bool isLoading = false;
   bool showCloseSearch = false;
+  String token;
+  Advert advert;
 
   void setShowCloseSearch(bool show) {
     showCloseSearch = show;
@@ -42,14 +46,18 @@ class UserModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  Future search(String searchTerm) async{
+  Future search(String searchTerm) async {
     setState(ViewState.Busy);
     errorMessage = null;
     userList = [];
     usersFilter = [];
-    _authenticationService.getUserToken()
-        .then((token) {
-      return _connectedAPI.getAllUsers(token: token, page: 0, pageSize: 50,search: searchTerm,);
+    _authenticationService.getUserToken().then((token) {
+      return _connectedAPI.getAllUsers(
+        token: token,
+        page: 0,
+        pageSize: 50,
+        search: searchTerm,
+      );
     }).then((user) {
       if (user != null) {
         this.userList = user;
@@ -67,12 +75,12 @@ class UserModel extends BaseModel {
       setState(ViewState.Idle);
     });
   }
+
   void getUserDetails(String userId) {
     setState(ViewState.Busy);
     errorMessage = null;
     userDto = null;
     _authenticationService.getUserToken().then((token) {
-
       return _connectedAPI.getUserDetails(token: token, userId: userId);
     }).then((userDetails) {
       print("user details ${userDetails.familyMembers}");
@@ -84,23 +92,24 @@ class UserModel extends BaseModel {
     });
   }
 
-
   Future getUsers({Function initController}) async {
-    if(!isLoading) {
+    if (!isLoading) {
       isLoading = true;
     }
-    if(page == 0) {
+    if (page == 0) {
       setState(ViewState.Busy);
       userList = [];
     }
     errorMessage = null;
     String token = await _authenticationService.getUserToken();
-    _connectedAPI.getAllUsers(token: token, page: page, pageSize: pageSize).then((userlist) {
+    _connectedAPI
+        .getAllUsers(token: token, page: page, pageSize: pageSize)
+        .then((userlist) {
       this.userList.addAll(userlist);
       this.usersFilter.addAll(userlist);
       isLoading = true;
       page++;
-      if(initController != null) {
+      if (initController != null) {
         initController();
       }
       setState(ViewState.Idle);
@@ -109,4 +118,19 @@ class UserModel extends BaseModel {
       setState(ViewState.Idle);
     });
   }
+
+  // ignore: missing_return
+  // Future putNewAdvert(String userId) {
+  //   setState(ViewState.Busy);
+  //   errorMessage = null;
+  //   userDto = null;
+  //   _authenticationService.getUserToken().then((token) {
+  //     return _connectedAPI.postAdvert(token: token, advert: advert);
+  //   }).then((advert) {
+  //     setState(ViewState.Idle);
+  //   }).catchError((error) {
+  //     errorMessage = '${error.toString()}';
+  //     setState(ViewState.Idle);
+  //   });
+  // }
 }
