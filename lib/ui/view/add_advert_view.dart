@@ -7,6 +7,8 @@ import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
+import 'package:Live_Connected_Admin/ui/widget/custom_error_message.dart';
+import 'package:Live_Connected_Admin/ui/widget/edit_advert_details.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
 import 'package:Live_Connected_Admin/ui/widget/search_filter.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
@@ -21,6 +23,7 @@ class AddAdvertView extends StatelessWidget {
   final String userId;
   final Advert advert;
   AddAdvertView({Key key, this.advert, this.userId}) : super(key: key);
+  get isEditMode => advert != null;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +34,11 @@ class AddAdvertView extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => true,
       child: BaseView<AdvertModel>(onModelReady: (model) {
-        model.postAdvert();
+        ClientUserDto user = Provider.of<ClientUserDto>(context, listen: false);
+        model.currentUserId = user.id;
+        model.putNewAdvert();
       }, builder: (BuildContext context, AdvertModel model, Widget child) {
+        var constraint;
         return Scaffold(
           // key: _scaffoldKey,
           drawer: !UIHelper.isLargeScreen(screenWidth)
@@ -87,8 +93,10 @@ class AddAdvertView extends StatelessWidget {
                                 ),
                                 UIHelper.horizontalSpaceSmall(),
                                 Text(
-                                  "Children",
-                                  style: titleStyleWhiteLight,
+                                  isEditMode
+                                      ? 'Edit Advert Details'
+                                      : 'Add Advert',
+                                  style: TextStyle(color: textColorWhite),
                                 ),
                                 SizedBox(height: 30.0),
                               ],
@@ -127,20 +135,64 @@ class AddAdvertView extends StatelessWidget {
                       flex: 8,
                       child: model.state == ViewState.Busy
                           ? Center(child: CircularProgressIndicator())
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                UIHelper.verticalSpaceXSmall(),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text('Add the advert screen'),
-                                )
-                              ],
+                          : SingleChildScrollView(
+                              child: IntrinsicHeight(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    UIHelper.verticalSpaceSmall(),
+                                    EditAdvertDetails(
+                                      titleController: model.titleController,
+                                      subtitleController:
+                                          model.subtitleController,
+                                      cellNumberController:
+                                          model.cellNumberController,
+                                      descriptionController:
+                                          model.descriptionController,
+                                    ),
+                                    UIHelper.verticalSpaceMedium(),
+                                    model.errorMessage != null
+                                        ? CustomErrorMessage(model.errorMessage)
+                                        : Container(),
+                                    UIHelper.verticalSpaceSmall(),
+                                    model.state == ViewState.Busy
+                                        ? CircularProgressIndicator()
+                                        : SizedBox(
+                                            width: 400,
+                                            height: 50,
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 30.0),
+                                              child: FlatButton(
+                                                  color: primaryColor,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24)),
+                                                  child: Text(
+                                                    isEditMode
+                                                        ? "Update"
+                                                        : "Save",
+                                                    style: TextStyle(
+                                                        color: textColorWhite,
+                                                        fontSize: 20),
+                                                  ),
+                                                  onPressed: () {
+                                                    isEditMode
+                                                        ? model.updateAdvert(
+                                                            advert)
+                                                        : model.addAdvert();
+                                                  }),
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                              ),
                             ),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         );

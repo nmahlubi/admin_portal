@@ -388,11 +388,16 @@ class ConnectedApi {
     }
   }
 
-  Future<Advert> postAdvert({String token, Advert advert}) async {
+  Future<Advert> putNewAdvert(
+      {String token, String userId, Advert advert}) async {
     Map<String, String> requestHeaders = {
       "X-Authorization-Firebase": token,
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.acceptHeader: "application/json",
+    };
+    Map<String, String> queryParameters;
+    queryParameters = {
+      'userId': "$userId",
     };
     Uri uri = Uri.https(endpoint, "/api/v1/advert/$endpointType/update");
     final response = await client.put(uri,
