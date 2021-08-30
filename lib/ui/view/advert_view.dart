@@ -152,9 +152,10 @@ class _AdvertViewState extends State<AdvertView> {
                                       : Container(),
                                   UIHelper.verticalSpaceXSmall(),
                                   Align(
-                                      alignment: Alignment.centerRight,
-                                      child: FlatButton(
-                                        child: Text('Add Advert'),
+                                      alignment: Alignment.bottomRight,
+                                      child: FloatingActionButton(
+                                        backgroundColor: primaryColor,
+                                        child: Icon(Icons.add),
                                         onPressed: () {
                                           Navigator.push(
                                               context,

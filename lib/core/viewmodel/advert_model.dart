@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 import 'package:Live_Connected_Admin/core/model/advert.dart';
 import 'package:Live_Connected_Admin/core/model/category.dart';
@@ -29,6 +31,7 @@ class AdvertModel extends BaseModel {
   List<Advert> advertList = [];
   List<Category> categoryList;
   String currentUserId;
+  Function onComplete;
   String token;
   int pageSize = 20;
   bool isLoading = false;
@@ -174,65 +177,78 @@ class AdvertModel extends BaseModel {
     });
   }
 
-  Future<Advert> updateAdvert(Advert advert) async {
+  void updateAdvertDetails(Advert advert) {
     setState(ViewState.Busy);
     errorMessage = null;
-    advert = null;
-    token = await _authenticationService.getUserToken();
-    _connectedApi.putNewAdvert(token: token, advert: advert).then((advert) {
-      if (advert != null) {
-        this.advert = advert;
+    String validationError = CoreHelpers.validateAdvertDetails(
+        titleController.text, subtitleController.text, ownChildController.text);
+    if (validationError != null) {
+      errorMessage = validationError;
+      setState(ViewState.Idle);
+    } else {
+      advert.title = titleController.text;
+      advert.subtitle = subtitleController.text;
+      advert.emailAddress = emailAddressController.text;
+      advert.cellNumber = cellNumberController.text;
+
+      _authenticationService.getUserToken().then((token) {
+        return _connectedApi.updateAdvert(
+            token: token, advert: advert, userId: currentUserId);
+      }).then((savedVehicle) {
         setState(ViewState.Idle);
-      } else {
-        errorMessage = "advert details not found";
-        Future.delayed(const Duration(seconds: 1)).then((any) {
-          setState(ViewState.Idle);
-        });
-      }
-    }).catchError((error) {
-      errorMessage = '${error.toString()}';
-      Future.delayed(const Duration(seconds: 1)).then((any) {
+        onComplete();
+      }).catchError((error) {
+        errorMessage = '${error.toString()}';
         setState(ViewState.Idle);
       });
+    }
+  }
+
+  void deleteAdvert({String advertId}) {
+    setState(ViewState.Busy);
+    errorMessage = null;
+    _authenticationService.getUserToken().then((token) {
+      return _connectedApi.deleteAdvert(
+          token: token, advertId: advertId, userId: currentUserId);
+    }).then((success) {
+      setState(ViewState.Idle);
+      getAdvertById(advertId);
+    }).catchError((error) {
+      errorMessage = '${error.toString()}';
+      setState(ViewState.Idle);
     });
   }
 
-  void addAdvert({bool runOnComplete = true}) {
-    setState(ViewState.Busy);
-    errorMessage = null;
-
-    // String validationError = CoreHelpers.validateChildDetails(firstNameController.text,
-    //     lastNameController.text, ownChildController.text);
-    // if (validationError != null) {
-    //   errorMessage = validationError;
-    //   setState(ViewState.Idle);
-    // } else {
-    //   ChildDto childDto = ChildDto.newInstance(firstName: firstNameController.text,
-    //     lastName: lastNameController.text, emailAddress: emailController.text,
-    //     cellNumber: cellNumberController.text, ownChild: ownChildController.text == "true",
-    //   );
-    //   if(dobController.text.isNotEmpty) {
-    //     childDto.dob = responseDateFormat.parse(dobController.text);
-    //   }
-    //   if(allergiesController.text.isNotEmpty) {
-    //     childDto.allergies = allergiesController.text.split(",");
-    //   }
-    //   _authenticationService.getUserToken().then((token) {
-    //     return _connectedApi.addChild(
-    //         token: token, child: childDto, userId: currentUserId);
-    //   }).then((savedVehicle) {
-    //     onBoardingChildAdded = true;
-    //     childrenAdded += 1;
-    //     setState(ViewState.Idle);
-    //     if(runOnComplete) {
-    //       onComplete();
-    //     } else {
-    //       init();
-    //     }
-    //   }).catchError((error) {
-    //     errorMessage = '${error.toString()}';
-    //     setState(ViewState.Idle);
-    //   });
-    // }
-  }
+  // void addAdvert({bool runOnComplete = true}) {
+  //   setState(ViewState.Busy);
+  //   errorMessage = null;
+  //
+  //   String validationError = CoreHelpers.validateAdvertDetails(
+  //       titleController.text, subtitleController.text, ownChildController.text);
+  //   if (validationError != null) {
+  //     errorMessage = validationError;
+  //     setState(ViewState.Idle);
+  //   } else {
+  //     Advert advert = Advert.newInstance(
+  //       title: titleController.text,
+  //       subtitle: subtitleController.text,
+  //       emailAddress: emailAddressController.text,
+  //       cellNumber: cellNumberController.text,
+  //     );
+  //     _authenticationService.getUserToken().then((token) {
+  //       return _connectedApi.putNewAdvert(
+  //           token: token, advert: advert, userId: currentUserId);
+  //     }).then((savedVehicle) {
+  //       setState(ViewState.Idle);
+  //       if (runOnComplete) {
+  //         onComplete();
+  //       } else {
+  //         init();
+  //       }
+  //     }).catchError((error) {
+  //       errorMessage = '${error.toString()}';
+  //       setState(ViewState.Idle);
+  //     });
+  //   }
+  // }
 }

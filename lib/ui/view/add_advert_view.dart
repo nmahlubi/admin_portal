@@ -23,6 +23,7 @@ class AddAdvertView extends StatelessWidget {
   final String userId;
   final Advert advert;
   AddAdvertView({Key key, this.advert, this.userId}) : super(key: key);
+
   get isEditMode => advert != null;
 
   @override
@@ -37,6 +38,7 @@ class AddAdvertView extends StatelessWidget {
         ClientUserDto user = Provider.of<ClientUserDto>(context, listen: false);
         model.currentUserId = user.id;
         model.putNewAdvert();
+        model.init(advert: advert);
       }, builder: (BuildContext context, AdvertModel model, Widget child) {
         var constraint;
         return Scaffold(
@@ -94,8 +96,8 @@ class AddAdvertView extends StatelessWidget {
                                 UIHelper.horizontalSpaceSmall(),
                                 Text(
                                   isEditMode
-                                      ? 'Edit Advert Details'
-                                      : 'Add Advert',
+                                      ? 'Edit advert Details'
+                                      : 'Add new advert',
                                   style: TextStyle(color: textColorWhite),
                                 ),
                                 SizedBox(height: 30.0),
@@ -127,7 +129,7 @@ class AddAdvertView extends StatelessWidget {
                         ? Expanded(
                             flex: 2,
                             child: CustomDrawer(
-                              selected: "Children",
+                              selected: "Advert",
                             ),
                           )
                         : Container(),
@@ -163,8 +165,8 @@ class AddAdvertView extends StatelessWidget {
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 30.0),
-                                              child: FlatButton(
-                                                  color: primaryColor,
+                                              child: FloatingActionButton(
+                                                  backgroundColor: primaryColor,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -179,9 +181,10 @@ class AddAdvertView extends StatelessWidget {
                                                   ),
                                                   onPressed: () {
                                                     isEditMode
-                                                        ? model.updateAdvert(
-                                                            advert)
-                                                        : model.addAdvert();
+                                                        ? model
+                                                            .updateAdvertDetails(
+                                                                advert)
+                                                        : model.putNewAdvert();
                                                   }),
                                             ),
                                           ),

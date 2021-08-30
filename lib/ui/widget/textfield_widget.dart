@@ -26,7 +26,7 @@ class TextFieldWidget extends StatelessWidget {
           width: 500,
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Company Title',
+              hintText: hintText,
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
               fillColor: Colors.white70,

@@ -9,39 +9,55 @@ class AdvertItem extends StatelessWidget {
   final Advert advert;
   final Function onClickExplore;
   final ImageWidget;
+  final Function(String) deleteAdvert;
+  final Function(Advert) updateAdvertDetails;
+  final Function(Advert) viewAdvert;
 
-  AdvertItem({Key key, this.advert, this.onClickExplore, this.ImageWidget})
+  AdvertItem(
+      {Key key,
+      this.advert,
+      this.onClickExplore,
+      this.ImageWidget,
+      this.deleteAdvert,
+      this.updateAdvertDetails,
+      this.viewAdvert})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      elevation: 4,
+      child: ListTile(
+        leading: Row(
+          children: <Widget>[
+            IconButton(
+              color: primaryColor,
+              icon: ImageIcon(
+                AssetImage("assets/icons/edit.png"),
+                size: 30,
+              ),
+              tooltip: 'Edit',
+              onPressed: () {
+                updateAdvertDetails(advert);
+              },
+            ),
+            IconButton(
+              color: primaryColor,
+              icon: ImageIcon(
+                AssetImage("assets/icons/delete.png"),
+                size: 30,
+              ),
+              tooltip: 'Delete',
+              onPressed: () {
+                deleteAdvert(advert.id);
+              },
+            ),
+          ],
         ),
-        elevation: 4,
-        child: ListTile(
-          title: Align(
-            alignment: Alignment.center,
-            child: Text(
-              "${advert?.title}",
-              style: entryStyles,
-            ),
-          ),
-          subtitle: Text("${advert?.category}"),
-          trailing: CircleAvatar(
-            radius: 50.0,
-            child: CachedNetworkImage(
-              imageUrl:
-                  advert.iconUrl.path != null && advert.iconUrl.path.isNotEmpty
-                      ? advert.iconUrl.path
-                      : 'asset/images/image_placeholder.png',
-              placeholder: (context, url) =>
-                  Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            ),
-            //backgroundColor: Colors.orange,
-          ),
-        ));
+      ),
+    );
   }
 }
