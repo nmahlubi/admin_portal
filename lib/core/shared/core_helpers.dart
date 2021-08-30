@@ -282,4 +282,19 @@ class CoreHelpers {
     DateTime date2 = DateTime(now.year, now.month, now.day, now.hour, now.minute + 30, now.second);
     return date.isBefore(date2);
   }
+
+  static String validateAdvertDetails(
+      String firstName, String lastName, String isOwnChild) {
+    String errorMessage;
+    if (firstName.isEmpty) {
+      errorMessage = "Please enter the advert title";
+    } else if (lastName.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (isOwnChild.isEmpty) {
+      errorMessage = "Please select the tick box to continue";
+    }
+
+    return errorMessage;
+  }
+
 }

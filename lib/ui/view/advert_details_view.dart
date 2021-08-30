@@ -128,15 +128,13 @@ class _AdvertDetailsViewState extends State<AdvertDetailsView> {
                         ? Expanded(
                             flex: 2,
                             child: CustomDrawer(
-                              selected: "User",
+                              selected: "advert",
                             ),
                           )
                         : Container(),
                     Expanded(
                       flex: 8,
                       child: ListView(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           UIHelper.verticalSpaceMedium(),
                           model.errorMessage != null
@@ -148,6 +146,7 @@ class _AdvertDetailsViewState extends State<AdvertDetailsView> {
                                   ),
                                 )
                               : Container(),
+                          UIHelper.verticalSpaceSmall(),
                           UIHelper.verticalSpaceSmall(),
                           model.state == ViewState.Busy
                               ? Center(child: CircularProgressIndicator())

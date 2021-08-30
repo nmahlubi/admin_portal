@@ -1,3 +1,5 @@
+import 'package:Live_Connected_Admin/core/model/advert.dart';
+import 'package:Live_Connected_Admin/core/viewmodel/advert_model.dart';
 import 'package:Live_Connected_Admin/ui/view/advert_view.dart';
 import 'package:Live_Connected_Admin/ui/view/children_view.dart';
 import 'package:Live_Connected_Admin/ui/view/event_view.dart';
@@ -13,12 +15,15 @@ import '../../locator.dart';
 import '../shared/app_colors.dart';
 import '../shared/text_styles.dart';
 import '../shared/ui_helpers.dart';
+import 'advert_item.dart';
 import 'menu_item.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String selected;
 
-  const CustomDrawer({Key key, this.selected}) : super(key: key);
+  CustomDrawer({Key key, this.selected}) : super(key: key);
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -150,10 +155,60 @@ class CustomDrawer extends StatelessWidget {
         context, 'Children', (Route<dynamic> route) => false);
   }
 
+  _onClickAdvert(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+        context, 'Advert', (Route<dynamic> route) => false);
+  }
+
   _onClickLogout(BuildContext context) async {
     SharedPreferences sharedPreferences = locator<SharedPreferences>();
     await sharedPreferences.remove(CoreHelpers.savedUserKey);
     Navigator.pushNamedAndRemoveUntil(
         context, 'login', (Route<dynamic> route) => false);
+  }
+
+  Widget getChildrenUi(
+      List<Advert> adverts, BuildContext context, AdvertModel model, Key key) {
+    return RefreshIndicator(
+      key: key,
+      onRefresh: () {
+        // return model.getAdvertById();
+      },
+      child: ListView.separated(
+        itemCount: adverts.length,
+        itemBuilder: (context, index) => AdvertItem(
+            advert: adverts[index],
+            deleteAdvert: (id) {
+              UIHelper.showDialogTwoActions(
+                  context,
+                  "Delete Child",
+                  Text("Are you sure you wish to delete?"),
+                  () {
+                    model.deleteAdvert(advertId: id);
+                  },
+                  "Yes",
+                  () {
+                    print("Not deleting the child I guess");
+                  },
+                  "No");
+            },
+            updateAdvertDetails: (advert) async {
+              await Navigator.of(context)
+                  .pushNamed("addChild", arguments: advert);
+              print("Return From forward");
+              _refreshIndicatorKey.currentState.show();
+            },
+            viewAdvert: (child) async {
+              await Navigator.of(context)
+                  .pushNamed("addChild", arguments: child);
+              print("Return From forward");
+              _refreshIndicatorKey.currentState.show();
+            }),
+        separatorBuilder: (context, index) => Divider(
+          color: Colors.black54,
+          height: 0.5,
+        ),
+      ),
+    );
   }
 }

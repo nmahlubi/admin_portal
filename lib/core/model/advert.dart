@@ -64,6 +64,17 @@ class Advert {
     this.modified =
         modified != null ? responseDateFormat.parse(modified) : null;
   }
+  Advert.newInstance(
+  {
+  this.title,
+  this.subtitle,
+  this.category,
+  this.carouselImage,
+  this.description,
+  this.emailAddress,
+  this.cellNumber
+  }
+      );
 
   Advert.fromJson(Map<String, dynamic> json) {
     id = json["id"];

@@ -387,4 +387,84 @@ class ConnectedApi {
       return Future.error('${response.toString()}');
     }
   }
+
+  Future<Advert> putNewAdvert(
+      {String token, String userId, Advert advert}) async {
+    Map<String, String> requestHeaders = {
+      "X-Authorization-Firebase": token,
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json",
+    };
+    Map<String, String> queryParameters;
+    queryParameters = {
+      'userId': "$userId",
+    };
+    Uri uri = Uri.https(
+        endpoint, "/api/v1/advert/$endpointType/new", queryParameters);
+    final response = await client.put(uri,
+        headers: requestHeaders, body: json.encode(advert.toJson()));
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      return Advert.fromJson(json.decode(response.body));
+    } else if (response.body != null) {
+      return Future.error(json.encode(response.toString()));
+    } else {
+      return Future.error('${response.toString()}');
+    }
+  }
+
+  Future<Advert> updateAdvert(
+      {String token, String userId, Advert advert}) async {
+    Map<String, String> requestHeaders = {
+      "X-Authorization-Firebase": token,
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json",
+    };
+    Map<String, String> queryParameters;
+    queryParameters = {
+      'userId': "$userId",
+    };
+    Uri uri = Uri.https(
+        endpoint, "/api/v1/advert/$endpointType/update", queryParameters);
+    final response = await client.put(uri,
+        headers: requestHeaders, body: json.encode(advert.toJson()));
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      return Advert.fromJson(json.decode(response.body));
+    } else if (response.body != null) {
+      return Future.error(json.encode(response.toString()));
+    } else {
+      return Future.error('${response.toString()}');
+    }
+  }
+
+  Future<bool> deleteAdvert(
+      {String token, String advertId, String userId}) async {
+    Map<String, String> requestHeaders = {
+      "X-Authorization-Firebase": token,
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json",
+    };
+    Map<String, String> queryParameters = {
+      'userId': "$userId",
+    };
+    Uri uri = authorityType == "http"
+        ? Uri.http(endpoint, "/api/v1/family/$endpointType/", queryParameters)
+        : Uri.https(endpoint, "/api/v1/family/$endpointType/", queryParameters);
+    final response = await client.delete(uri, headers: requestHeaders);
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 203 ||
+        response.statusCode == 204) {
+      return true;
+    } else if (response.body != null) {
+      return Future.error(response.body);
+    } else {
+      return Future.error('${response.toString()}');
+    }
+  }
 }

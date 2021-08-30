@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'add_advert_view.dart';
 import 'advert_details_view.dart';
 import 'base_view.dart';
 
@@ -149,6 +150,20 @@ class _AdvertViewState extends State<AdvertView> {
                                           ),
                                         )
                                       : Container(),
+                                  UIHelper.verticalSpaceXSmall(),
+                                  Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: FloatingActionButton(
+                                        backgroundColor: primaryColor,
+                                        child: Icon(Icons.add),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AddAdvertView()));
+                                        },
+                                      )),
                                   UIHelper.verticalSpaceXSmall(),
                                   Container(
                                     height: 50,

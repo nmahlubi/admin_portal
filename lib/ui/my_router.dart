@@ -1,6 +1,7 @@
 import 'package:Live_Connected_Admin/core/model/advert.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
+import 'package:Live_Connected_Admin/ui/view/add_advert_view.dart';
 import 'package:Live_Connected_Admin/ui/view/advert_details_view.dart';
 import 'package:Live_Connected_Admin/ui/view/advert_view.dart';
 import 'package:Live_Connected_Admin/ui/view/children_view.dart';
@@ -34,7 +35,9 @@ class MyRouter {
         return MaterialPageRoute(builder: (_) => UsersView());
       case "AdvertView":
         return MaterialPageRoute(builder: (_) => AdvertView());
-
+      case "AddAdvertView":
+        var userId = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) => AddAdvertView(userId: userId));
       case "AdvertDetailsView":
         var advertId = settings.arguments as String;
         return MaterialPageRoute(
