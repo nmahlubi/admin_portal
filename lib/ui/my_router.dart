@@ -1,10 +1,14 @@
+import 'package:Live_Connected_Admin/core/model/advert.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
 import 'package:Live_Connected_Admin/core/model/user_community_count_dto.dart';
+import 'package:Live_Connected_Admin/ui/view/advert_details_view.dart';
+import 'package:Live_Connected_Admin/ui/view/advert_view.dart';
 import 'package:Live_Connected_Admin/ui/view/children_view.dart';
 import 'package:Live_Connected_Admin/ui/view/event_view.dart';
 import 'package:Live_Connected_Admin/ui/view/subscribers_view.dart';
 import 'package:Live_Connected_Admin/ui/view/user_details_view.dart';
 import 'package:Live_Connected_Admin/ui/view/users_view.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Live_Connected_Admin/ui/view/home_view.dart';
@@ -28,6 +32,13 @@ class MyRouter {
         return MaterialPageRoute(builder: (_) => EventView());
       case "usersView":
         return MaterialPageRoute(builder: (_) => UsersView());
+      case "AdvertView":
+        return MaterialPageRoute(builder: (_) => AdvertView());
+
+      case "AdvertDetailsView":
+        var advertId = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (_) => AdvertDetailsView(advertId: advertId));
       case "userDetailsView":
         var clientUserDto = settings.arguments as ClientUserDto;
         return MaterialPageRoute(

@@ -109,3 +109,5 @@ const headerStylesBlack = TextStyle(
     fontSize: 20.0, color: Colors.black54, fontWeight: FontWeight.bold);
 const titleStylesWhiteLight =
     TextStyle(fontSize: 20.0, fontWeight: FontWeight.w400, color: Colors.white);
+const entryStyles = TextStyle(fontSize: 18.0, color: Color(0xFF1565C0));
+const entryStyles2 = TextStyle(fontSize: 24.0, color: Color(0xFF1565C0));

@@ -252,7 +252,9 @@ class _SubscribersViewState extends State<SubscribersView> {
                                             },
                                             child: Container(
                                               padding: EdgeInsets.all(20.0),
-                                              color: index % 2 == 0 ? widgetBgColor : widgetLighterGreyColor,
+                                              color: index % 2 == 0
+                                                  ? widgetBgColor
+                                                  : widgetLighterGreyColor,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment

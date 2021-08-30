@@ -1,37 +1,52 @@
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
+import 'package:Live_Connected_Admin/core/model/advert.dart';
 import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
+import 'package:Live_Connected_Admin/core/viewmodel/advert_model.dart';
 import 'package:Live_Connected_Admin/core/viewmodel/user_model.dart';
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
 import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
+import 'package:Live_Connected_Admin/ui/widget/advert_card.dart';
+import 'package:Live_Connected_Admin/ui/widget/advert_card_details.dart';
+import 'package:Live_Connected_Admin/ui/widget/advert_item.dart';
+import 'package:Live_Connected_Admin/ui/widget/card_widget.dart';
+import 'package:Live_Connected_Admin/ui/widget/cards.dart';
 import 'package:Live_Connected_Admin/ui/widget/custom_drawer.dart';
+import 'package:Live_Connected_Admin/ui/widget/custom_error_message.dart';
+import 'package:Live_Connected_Admin/ui/widget/detailed_advert_item.dart';
 import 'package:Live_Connected_Admin/ui/widget/image_widget.dart';
-import 'package:Live_Connected_Admin/ui/widget/user_details_content.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+
 import 'base_view.dart';
-import 'home_view.dart';
 
-class UsersDetailsView extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  // final String userId;
-  final ClientUserDto clientUserDto;
+class AdvertDetailsView extends StatefulWidget {
+  final String advertId;
+  final Advert advert;
+  final Image image;
 
-  UsersDetailsView({Key key, this.clientUserDto}) : super(key: key);
+  AdvertDetailsView({Key key, this.advertId, this.advert, this.image})
+      : super(key: key);
 
+  @override
+  _AdvertDetailsViewState createState() => _AdvertDetailsViewState();
+}
+
+class _AdvertDetailsViewState extends State<AdvertDetailsView> {
   @override
   Widget build(BuildContext context) {
     ClientUserDto user = Provider.of<ClientUserDto>(context);
     double screenWidth = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async => true,
-      child: BaseView<UserModel>(onModelReady: (model) {
-        model.getUserDetails(clientUserDto.id);
-        model.user = user;
-      }, builder: (BuildContext context, UserModel model, Widget child) {
+      child: BaseView<AdvertModel>(onModelReady: (model) {
+        model.getAdvertById(widget.advertId);
+        model.getAdvertList();
+      }, builder: (BuildContext context, AdvertModel model, Widget child) {
         return Scaffold(
-          key: _scaffoldKey,
           drawer: !UIHelper.isLargeScreen(screenWidth)
               ? Drawer(
                   child: CustomDrawer(
@@ -81,7 +96,7 @@ class UsersDetailsView extends StatelessWidget {
                                 ),
                                 UIHelper.horizontalSpaceSmall(),
                                 Text(
-                                  "User Details",
+                                  "Advert Details",
                                   style: titleStyleWhiteLight,
                                 ),
                                 SizedBox(height: 30.0),
@@ -89,9 +104,7 @@ class UsersDetailsView extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              model.getUserDetails(clientUserDto.id);
-                            },
+                            onTap: () {},
                             child: Container(
                               margin: EdgeInsets.symmetric(horizontal: 16),
                               alignment: Alignment.center,
@@ -121,7 +134,9 @@ class UsersDetailsView extends StatelessWidget {
                         : Container(),
                     Expanded(
                       flex: 8,
-                      child: Column(
+                      child: ListView(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           UIHelper.verticalSpaceMedium(),
                           model.errorMessage != null
@@ -134,22 +149,78 @@ class UsersDetailsView extends StatelessWidget {
                                 )
                               : Container(),
                           UIHelper.verticalSpaceSmall(),
+                          model.state == ViewState.Busy
+                              ? Center(child: CircularProgressIndicator())
+                              : model.advertList != null &&
+                                      model.advertList.isNotEmpty
+                                  ? Container(
+                                      height: 500,
+                                      width: double.infinity,
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.fill,
+                                        height: 300.0,
+                                        width: 600.0,
+                                        imageUrl: model.advert.mainImageUrl
+                                                        .path !=
+                                                    null &&
+                                                model.advert.mainImageUrl.path
+                                                    .isNotEmpty
+                                            ? model.advert.mainImageUrl.path
+                                            : 'asset/images/image_placeholder.png',
+                                        placeholder: (context, url) => Center(
+                                            child: CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                    )
+                                  : Container(),
+                          UIHelper.verticalSpaceSmall(),
+                          model.errorMessage != null
+                              ? Center(
+                                  child: CustomErrorMessage(
+                                    model.errorMessage,
+                                  ),
+                                )
+                              : Container(),
+                          model.state == ViewState.Busy
+                              ? Center(child: CircularProgressIndicator())
+                              : Container(),
+                          AdvertCard(
+                            ImageWidget: CachedNetworkImage(
+                              imageUrl: model.advert.iconUrl.path != null &&
+                                      model.advert.iconUrl.path.isNotEmpty
+                                  ? model.advert.iconUrl.path
+                                  : 'asset/images/image_placeholder.png',
+                              placeholder: (context, url) =>
+                                  Center(child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                            title: Text(
+                              "${model.advert.title}",
+                              style: headerStylesBlack,
+                            ),
+                            subTitle: Text("${model.advert.subtitle}"),
+                            description: Text("${model.advert.description}",
+                                style: textStyle),
+                          ),
+                          UIHelper.verticalSpaceSmall(),
                           UIHelper.verticalSpaceSmall(),
                           model.state == ViewState.Busy
                               ? Center(child: CircularProgressIndicator())
-                              : Container(
-                                  child: Center(
-                                      child: UserDetailsContent(
-                                    userDto: model.userDto,
-                                    currentUser: clientUserDto,
-                                  )),
-                                ),
+                              : Container(),
+                          Expanded(
+                            child: AdvertCardDetails(
+                              advert: model.advert,
+                            ),
+                          ),
+                          UIHelper.verticalSpaceSmall(),
                         ],
                       ),
-                    ),
+                    )
                   ],
                 ),
-              )
+              ),
             ],
           ),
         );

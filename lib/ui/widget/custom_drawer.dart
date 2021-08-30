@@ -1,3 +1,4 @@
+import 'package:Live_Connected_Admin/ui/view/advert_view.dart';
 import 'package:Live_Connected_Admin/ui/view/children_view.dart';
 import 'package:Live_Connected_Admin/ui/view/event_view.dart';
 import 'package:Live_Connected_Admin/ui/view/subscribers_view.dart';
@@ -84,6 +85,17 @@ class CustomDrawer extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => EventView()));
                   },
                   selected: selected == "Events",
+                ),
+                MenuItem(
+                  title: "Advert",
+                  imagePath: "assets/icons/shopping-cart.png",
+                  color: textColorGrey,
+                  press: () {
+                    _onClickUsers(context);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AdvertView()));
+                  },
+                  selected: selected == "Advert",
                 ),
               ],
             ),

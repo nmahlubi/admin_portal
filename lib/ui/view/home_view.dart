@@ -15,8 +15,8 @@ import 'base_view.dart';
 
 class HomeView extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-//  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-//      GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   HomeView({
     Key key,
@@ -28,11 +28,9 @@ class HomeView extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async => true,
-      child: BaseView<HomeModel>(
-          onModelReady: (model) {
+      child: BaseView<HomeModel>(onModelReady: (model) {
         model.getAllCountForAdmin();
-      },
-          builder: (BuildContext context, HomeModel model, Widget child) {
+      }, builder: (BuildContext context, HomeModel model, Widget child) {
         return Scaffold(
             key: _scaffoldKey,
             drawer: !UIHelper.isLargeScreen(screenWidth)
