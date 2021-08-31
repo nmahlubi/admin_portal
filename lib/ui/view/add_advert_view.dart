@@ -177,18 +177,47 @@ class AddAdvertView extends StatelessWidget {
                                         model.addToCarouselController,
                                   ),
                                   UIHelper.verticalSpaceSmall(),
-                                  Container(
-                                    alignment: Alignment.bottomRight,
-                                    width: 400,
-                                    height: 100,
-                                    margin: EdgeInsets.all(40),
-                                    child: FlatButton(
-                                      child: Text('Add Advert'),
-                                      color: textColorLightBlue,
-                                      textColor: Colors.white,
-                                      onPressed: () {},
-                                    ),
-                                  ),
+                                  // Container(
+                                  //   alignment: Alignment.bottomRight,
+                                  //   width: 400,
+                                  //   height: 100,
+                                  //   margin: EdgeInsets.all(40),
+                                  //   child: FlatButton(
+                                  //     child: Text('Add Advert'),
+                                  //     color: textColorLightBlue,
+                                  //     textColor: Colors.white,
+                                  //     onPressed: () {},
+                                  //   ),
+                                  // ),
+                                  // SizedBox(
+                                  //         width: 400,
+                                  //         height: 50,
+                                  //         child: Padding(
+                                  //           padding: EdgeInsets.symmetric(
+                                  //               horizontal: 30.0),
+                                  //           child: FloatingActionButton(
+                                  //               backgroundColor: primaryColor,
+                                  //               shape: RoundedRectangleBorder(
+                                  //                   borderRadius:
+                                  //                       BorderRadius.circular(
+                                  //                           24)),
+                                  //               child: Text(
+                                  //                 isEditMode
+                                  //                     ? "Update"
+                                  //                     : "Save",
+                                  //                 style: TextStyle(
+                                  //                     color: textColorWhite,
+                                  //                     fontSize: 20),
+                                  //               ),
+                                  //               onPressed: () {
+                                  //                 isEditMode
+                                  //                     ? model
+                                  //                         .updateAdvertDetails(
+                                  //                             advert)
+                                  //                     : model.addAdvert();
+                                  //               }),
+                                  //         ),
+                                  //       ),
                                 ],
                               ),
                             ),

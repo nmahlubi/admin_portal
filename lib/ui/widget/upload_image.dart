@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class UploadImage extends StatelessWidget {
   final Function ImageButton;
-  final text;
+  final String text;
   final textColor;
   final path;
   final Color color;
@@ -21,9 +21,12 @@ class UploadImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Container(
+        width: 200,
+        height: 50,
         child: FlatButton(
+          child: Text(text),
           color: color,
-          child: text,
+          textColor: color,
           onPressed: () {},
         ),
       ),

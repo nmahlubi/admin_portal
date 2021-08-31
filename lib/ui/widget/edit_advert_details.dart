@@ -1,4 +1,5 @@
 import 'package:Live_Connected_Admin/ui/shared/app_colors.dart';
+import 'package:Live_Connected_Admin/ui/shared/text_styles.dart';
 import 'package:Live_Connected_Admin/ui/shared/ui_helpers.dart';
 import 'package:Live_Connected_Admin/ui/widget/plain_text_field.dart';
 import 'package:Live_Connected_Admin/ui/widget/upload_image.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'cell_text_field.dart';
+import 'check_listtile.dart';
 import 'email_text_field.dart';
 import 'input_date_field.dart';
 import 'labelled_check_box_widget.dart';
@@ -76,13 +78,11 @@ class _EditAdvertDetailsState extends State<EditAdvertDetails> {
   DateTime selectedDate;
   String selectedGender;
 
-  bool _value = false;
+  bool value = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         UIHelper.verticalSpaceXSmall(),
         Align(
@@ -203,50 +203,86 @@ class _EditAdvertDetailsState extends State<EditAdvertDetails> {
             )
           ],
         ),
-        UIHelper.verticalSpaceXSmall(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        UIHelper.verticalSpaceMediumLarge(),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-                child: UploadImage(
-              text: 'upload',
-              color: primaryColor,
-              textColor: Colors.white,
-              ImageButton: () {},
-            )),
-            Container(
-              width: 200,
-              height: 50,
-              margin: EdgeInsets.all(40),
-              child: FlatButton(
-                child: Text('Upload MainImage'),
-                color: primaryColor,
-                textColor: Colors.white,
-                onPressed: () {},
-              ),
-            ),
-            Container(
-              width: 200,
-              height: 50,
-              margin: EdgeInsets.all(40),
-              child: FlatButton(
-                child: Text('Upload AddToCarousel'),
-                color: primaryColor,
-                textColor: Colors.white,
-                onPressed: () {},
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 200,
+                  height: 50,
+                  child: FlatButton(
+                    child: Text('Upload Banner'),
+                    color: primaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {},
+                  ),
+                ),
+                Container(
+                  width: 200,
+                  height: 50,
+                  child: FlatButton(
+                    child: Text('Upload IconUrl'),
+                    color: primaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {},
+                  ),
+                ),
+                Container(
+                  width: 200,
+                  height: 50,
+                  child: FlatButton(
+                    child: Text('Upload MainImage'),
+                    color: primaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {},
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        UIHelper.verticalSpaceXSmall(),
-        CheckboxListTile(
-          controlAffinity: ListTileControlAffinity.leading,
-          title: Text('Add To Carousel'),
-          value: _value,
-          onChanged: (value) {
-            setState(() {});
-          },
+        UIHelper.verticalSpaceMediumLarge(),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 100,
+              width: 900,
+              child: CheckboxListTile(
+                controlAffinity: ListTileControlAffinity.leading,
+                title: Text('Please add to carouselImage'),
+                value: value,
+                onChanged: (value) {
+                  setState(() {
+                    value = value;
+                  });
+                },
+              ),
+            ),
+            Container(
+                height: 100,
+                width: 850,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 70,
+                      width: 200,
+                      child: FlatButton(
+                        child: Text('Add Advert'),
+                        color: primaryColor,
+                        textColor: Colors.white,
+                        onPressed: () {},
+                      ),
+                    )
+                  ],
+                )),
+          ],
         ),
+        UIHelper.verticalSpaceMediumLarge(),
       ],
     );
   }
