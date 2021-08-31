@@ -16,13 +16,13 @@ class CoreHelpers {
     try {
       initializeDateFormatting('en', null);
       initializeDateFormatting('en_US,', null);
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       print("Error: ${error.toString()}");
     }
   }
 
   static String getDeviceType() {
-    if(kIsWeb) {
+    if (kIsWeb) {
       return "WEB";
     } else if (Platform.isIOS) {
       return "IOS";
@@ -76,11 +76,8 @@ class CoreHelpers {
     return errorMessage;
   }
 
-  static String validateAdditionalLoginInfo(
-      String firstNameText,
-      String lastNameText,
-      String emailText,
-      String cellNumberText) {
+  static String validateAdditionalLoginInfo(String firstNameText,
+      String lastNameText, String emailText, String cellNumberText) {
     String errorMessage;
     String cellValidationError = validateMobile(cellNumberText);
     bool emailValid = RegExp(
@@ -99,10 +96,11 @@ class CoreHelpers {
 
     return errorMessage;
   }
+
   static String validateMilestoneDetails(
-      String titleText,
-      String descriptionText,
-      ) {
+    String titleText,
+    String descriptionText,
+  ) {
     String errorMessage;
 
     if (titleText.isEmpty) {
@@ -113,6 +111,7 @@ class CoreHelpers {
 
     return errorMessage;
   }
+
   static String validatePersonalDetails(
     String firstNameText,
     String lastNameText,
@@ -205,7 +204,6 @@ class CoreHelpers {
     }
   }
 
-
   static String getFrequencyTypeEnum(String frequencyDescription) {
     switch (frequencyDescription) {
       case "Once Off":
@@ -236,7 +234,8 @@ class CoreHelpers {
     }
   }
 
-  static String getMonthlyRepeatOptionTypeEnum(String monthlyRepeatOptionDescription) {
+  static String getMonthlyRepeatOptionTypeEnum(
+      String monthlyRepeatOptionDescription) {
     switch (monthlyRepeatOptionDescription) {
       case "On the week day":
         return "WEEK_DAY";
@@ -255,7 +254,8 @@ class CoreHelpers {
 
   static bool isPastDate(DateTime date) {
     DateTime now = DateTime.now();
-    return DateTime(now.year, now.month, now.day).isAfter(DateTime(date.year, date.month, date.day));
+    return DateTime(now.year, now.month, now.day)
+        .isAfter(DateTime(date.year, date.month, date.day));
   }
 
   static bool isTomorrow(DateTime date) {
@@ -279,22 +279,73 @@ class CoreHelpers {
 
   static bool startsInNext30Minutes(DateTime date) {
     DateTime now = DateTime.now();
-    DateTime date2 = DateTime(now.year, now.month, now.day, now.hour, now.minute + 30, now.second);
+    DateTime date2 = DateTime(
+        now.year, now.month, now.day, now.hour, now.minute + 30, now.second);
     return date.isBefore(date2);
   }
 
   static String validateAdvertDetails(
-      String firstName, String lastName, String isOwnChild) {
+    String title,
+    String subTitle,
+    String cellNumber,
+    String category,
+    String text,
+    String facebookLink,
+    String buttonText,
+    String id,
+    String website,
+    String twitterLink,
+    String iconUrl,
+    String carouselImage,
+    String mainImageUrl,
+    String created,
+    String likes,
+    String modified,
+    String active,
+    String owner,
+    String addToCarousel,
+    String alertList,
+    String views,
+  ) {
     String errorMessage;
-    if (firstName.isEmpty) {
+    if (title.isEmpty) {
       errorMessage = "Please enter the advert title";
-    } else if (lastName.isEmpty) {
+    } else if (subTitle.isEmpty) {
       errorMessage = "Please enter the advert subtitle";
-    } else if (isOwnChild.isEmpty) {
-      errorMessage = "Please select the tick box to continue";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (subTitle.isEmpty) {
+      errorMessage = "Please enter the advert subtitle";
+    } else if (cellNumber.isNotEmpty) {
+      errorMessage = "Please enter the advert cellNumber";
+    } else if (category.isNotEmpty) {
+      errorMessage = "Please enter the advert category";
     }
 
     return errorMessage;
   }
-
 }

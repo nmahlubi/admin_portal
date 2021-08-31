@@ -147,7 +147,6 @@ class _AdvertDetailsViewState extends State<AdvertDetailsView> {
                                 )
                               : Container(),
                           UIHelper.verticalSpaceSmall(),
-                          UIHelper.verticalSpaceSmall(),
                           model.state == ViewState.Busy
                               ? Center(child: CircularProgressIndicator())
                               : model.advertList != null &&

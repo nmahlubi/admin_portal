@@ -388,8 +388,7 @@ class ConnectedApi {
     }
   }
 
-  Future<Advert> putNewAdvert(
-      {String token, String userId, Advert advert}) async {
+  Future<Advert> addAdvert({String token, String userId, Advert advert}) async {
     Map<String, String> requestHeaders = {
       "X-Authorization-Firebase": token,
       HttpHeaders.contentTypeHeader: "application/json",

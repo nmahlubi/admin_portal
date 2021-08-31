@@ -2,7 +2,10 @@ import 'dart:html';
 
 import 'package:Live_Connected_Admin/core/enums/viewstate.dart';
 import 'package:Live_Connected_Admin/core/model/advert.dart';
+import 'package:Live_Connected_Admin/core/model/alert.dart';
 import 'package:Live_Connected_Admin/core/model/category.dart';
+import 'package:Live_Connected_Admin/core/model/client_user_dto.dart';
+import 'package:Live_Connected_Admin/core/model/file_dto.dart';
 import 'package:Live_Connected_Admin/core/repository/advert_repo.dart';
 import 'package:Live_Connected_Admin/core/service/authentication_service.dart';
 import 'package:Live_Connected_Admin/core/service/connected_api.dart';
@@ -22,9 +25,26 @@ class AdvertModel extends BaseModel {
   final TextEditingController emailAddressController = TextEditingController();
   final TextEditingController cellNumberController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController allergiesController = TextEditingController();
-  final TextEditingController ownChildController =
-      TextEditingController(text: "false");
+  final TextEditingController categoryController = TextEditingController();
+  final TextEditingController subcategoryController = TextEditingController();
+  final TextEditingController ownerController = TextEditingController();
+  final TextEditingController carouselImageController = TextEditingController();
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController mainImageUrlController = TextEditingController();
+  final TextEditingController createdController = TextEditingController();
+  final TextEditingController likesController = TextEditingController();
+  final TextEditingController modifiedController = TextEditingController();
+  final TextEditingController activeController = TextEditingController();
+  final TextEditingController backgroundController = TextEditingController();
+  final TextEditingController facebookLinkController = TextEditingController();
+  final TextEditingController buttonTextController = TextEditingController();
+  final TextEditingController addToCarouselController = TextEditingController();
+  final TextEditingController alertListController = TextEditingController();
+  final TextEditingController viewsController = TextEditingController();
+  final TextEditingController websiteController = TextEditingController();
+  final TextEditingController twitterLinkController = TextEditingController();
+  final TextEditingController iconUrlController = TextEditingController();
+  final TextEditingController subCategoryController = TextEditingController();
 
   String errorMessage;
   List<Advert> localCarouselItems;
@@ -43,6 +63,28 @@ class AdvertModel extends BaseModel {
     emailAddressController.text = advert?.emailAddress ?? "";
     cellNumberController.text = advert?.cellNumber ?? "";
     descriptionController.text = advert?.description ?? "";
+    categoryController.text = advert?.category ?? "";
+    ownerController.text = advert?.owner ?? "";
+    emailAddressController.text = advert?.emailAddress ?? "";
+    cellNumberController.text = advert?.cellNumber ?? "";
+    descriptionController.text = advert?.description ?? "";
+    carouselImageController.text = advert?.carouselImage ?? "";
+    idController.text = advert?.id ?? "";
+    mainImageUrlController.text = advert?.mainImageUrl ?? "";
+    createdController.text = advert?.created ?? "";
+    likesController.text = advert?.likes ?? "";
+    modifiedController.text = advert?.modified ?? "";
+    activeController.text = advert?.active ?? "";
+    backgroundController.text = advert?.background ?? "";
+    facebookLinkController.text = advert?.facebookLink ?? "";
+    buttonTextController.text = advert?.buttonText ?? "";
+    addToCarouselController.text = advert?.addToCarousel ?? "";
+    alertListController.text = advert?.alertList ?? "";
+    viewsController.text = advert?.views ?? "";
+    websiteController.text = advert?.website ?? "";
+    twitterLinkController.text = advert?.twitterLink ?? "";
+    iconUrlController.text = advert?.iconUrl ?? "";
+    subCategoryController.text = advert?.subCategory ?? "";
   }
 
   Future getLocalData() async {
@@ -154,34 +196,57 @@ class AdvertModel extends BaseModel {
     });
   }
 
-  Future<Advert> putNewAdvert({Advert advert}) async {
-    setState(ViewState.Busy);
-    errorMessage = null;
-    advert = null;
-    token = await _authenticationService.getUserToken();
-    _connectedApi.putNewAdvert(token: token, advert: advert).then((advert) {
-      if (advert != null) {
-        this.advert = advert;
-        setState(ViewState.Idle);
-      } else {
-        errorMessage = "advert details not found";
-        Future.delayed(const Duration(seconds: 1)).then((any) {
-          setState(ViewState.Idle);
-        });
-      }
-    }).catchError((error) {
-      errorMessage = '${error.toString()}';
-      Future.delayed(const Duration(seconds: 1)).then((any) {
-        setState(ViewState.Idle);
-      });
-    });
-  }
+  // Future<Advert> putNewAdvert({String userId, Advert advert}) async {
+  //   setState(ViewState.Busy);
+  //   errorMessage = null;
+  //   advert = null;
+  //   token = await _authenticationService.getUserToken();
+  //   _connectedApi
+  //       .putNewAdvert(token: token, advert: advert, userId: currentUserId)
+  //       .then((advert) {
+  //     if (advert != null) {
+  //       this.advert = advert;
+  //       setState(ViewState.Idle);
+  //     } else {
+  //       errorMessage = "advert details not found";
+  //       Future.delayed(const Duration(seconds: 1)).then((any) {
+  //         setState(ViewState.Idle);
+  //       });
+  //     }
+  //   }).catchError((error) {
+  //     errorMessage = '${error.toString()}';
+  //     Future.delayed(const Duration(seconds: 1)).then((any) {
+  //       setState(ViewState.Idle);
+  //     });
+  //   });
+  // }
 
   void updateAdvertDetails(Advert advert) {
     setState(ViewState.Busy);
     errorMessage = null;
     String validationError = CoreHelpers.validateAdvertDetails(
-        titleController.text, subtitleController.text, ownChildController.text);
+      titleController.text,
+      subtitleController.text,
+      emailAddressController.text,
+      cellNumberController.text,
+      backgroundController.text,
+      facebookLinkController.text,
+      buttonTextController.text,
+      idController.text,
+      websiteController.text,
+      twitterLinkController.text,
+      iconUrlController.text,
+      carouselImageController.text,
+      mainImageUrlController.text,
+      createdController.text,
+      likesController.text,
+      modifiedController.text,
+      activeController.text,
+      ownerController.text,
+      addToCarouselController.text,
+      alertListController.text,
+      viewsController.text,
+    );
     if (validationError != null) {
       errorMessage = validationError;
       setState(ViewState.Idle);
@@ -190,6 +255,25 @@ class AdvertModel extends BaseModel {
       advert.subtitle = subtitleController.text;
       advert.emailAddress = emailAddressController.text;
       advert.cellNumber = cellNumberController.text;
+      advert.background = backgroundController.text;
+      advert.facebookLink = facebookLinkController.text;
+      advert.buttonText = buttonTextController.text;
+      advert.id = idController.text;
+      advert.website = websiteController.text;
+      advert.twitterLink = twitterLinkController.text;
+      advert.iconUrl = iconUrlController.text as FileDto;
+      advert.carouselImage = carouselImageController.text as FileDto;
+      advert.mainImageUrl = mainImageUrlController.text as FileDto;
+      advert.created = createdController.text as DateTime;
+      advert.likes = likesController.text as List<String>;
+      advert.modified = modifiedController.text as DateTime;
+      advert.active = activeController.text as bool;
+      advert.owner = ownerController.text as ClientUserDto;
+      advert.addToCarousel = addToCarouselController.text as bool;
+      advert.alertList = alertListController.text as List<Alert>;
+      advert.views = viewsController.text as List<String>;
+      // advert.subCategory = subCategoryController.text ;
+      // advert.category = categoryController.text ;
 
       _authenticationService.getUserToken().then((token) {
         return _connectedApi.updateAdvert(
@@ -219,36 +303,59 @@ class AdvertModel extends BaseModel {
     });
   }
 
-  // void addAdvert({bool runOnComplete = true}) {
-  //   setState(ViewState.Busy);
-  //   errorMessage = null;
-  //
-  //   String validationError = CoreHelpers.validateAdvertDetails(
-  //       titleController.text, subtitleController.text, ownChildController.text);
-  //   if (validationError != null) {
-  //     errorMessage = validationError;
-  //     setState(ViewState.Idle);
-  //   } else {
-  //     Advert advert = Advert.newInstance(
-  //       title: titleController.text,
-  //       subtitle: subtitleController.text,
-  //       emailAddress: emailAddressController.text,
-  //       cellNumber: cellNumberController.text,
-  //     );
-  //     _authenticationService.getUserToken().then((token) {
-  //       return _connectedApi.putNewAdvert(
-  //           token: token, advert: advert, userId: currentUserId);
-  //     }).then((savedVehicle) {
-  //       setState(ViewState.Idle);
-  //       if (runOnComplete) {
-  //         onComplete();
-  //       } else {
-  //         init();
-  //       }
-  //     }).catchError((error) {
-  //       errorMessage = '${error.toString()}';
-  //       setState(ViewState.Idle);
-  //     });
-  //   }
-  // }
+  void addAdvert({String userId, bool runOnComplete = true}) {
+    setState(ViewState.Busy);
+    errorMessage = null;
+
+
+    String validationError = CoreHelpers.validateAdvertDetails(
+      titleController.text,
+      subtitleController.text,
+      emailAddressController.text,
+      cellNumberController.text,
+      descriptionController.text,
+      categoryController.text,
+      backgroundController.text,
+      facebookLinkController.text,
+      buttonTextController.text,
+      idController.text,
+      websiteController.text,
+      subCategoryController.text,
+      twitterLinkController.text,
+      iconUrlController.text,
+      mainImageUrlController.text,
+     createdController.text,
+     likesController.text,
+     modifiedController.text,
+     activeController.text,
+     ownerController.text ,
+     addToCarouselController.text,
+    );
+
+    if (validationError != null) {
+      errorMessage = validationError;
+      setState(ViewState.Idle);
+    } else {
+      Advert advert = Advert.newInstance(
+        title: titleController.text,
+        subtitle: subtitleController.text,
+        emailAddress: emailAddressController.text,
+        cellNumber: cellNumberController.text,
+      );
+      _authenticationService.getUserToken().then((token) {
+        return _connectedApi.addAdvert(
+            token: token, advert: advert, userId: currentUserId);
+      }).then((savedVehicle) {
+        setState(ViewState.Idle);
+        if (runOnComplete) {
+          onComplete();
+        } else {
+          init();
+        }
+      }).catchError((error) {
+        errorMessage = '${error.toString()}';
+        setState(ViewState.Idle);
+      });
+    }
+  }
 }

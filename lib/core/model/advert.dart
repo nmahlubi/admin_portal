@@ -23,7 +23,7 @@ class Advert {
   String twitterLink;
   DateTime created;
   DateTime modified;
-  bool active;
+  bool active = true;
   bool addToCarousel;
   String background;
   List<String> likes;
@@ -65,16 +65,13 @@ class Advert {
         modified != null ? responseDateFormat.parse(modified) : null;
   }
   Advert.newInstance(
-  {
-  this.title,
-  this.subtitle,
-  this.category,
-  this.carouselImage,
-  this.description,
-  this.emailAddress,
-  this.cellNumber
-  }
-      );
+      {this.title,
+      this.subtitle,
+      this.category,
+      this.carouselImage,
+      this.description,
+      this.emailAddress,
+      this.cellNumber});
 
   Advert.fromJson(Map<String, dynamic> json) {
     id = json["id"];

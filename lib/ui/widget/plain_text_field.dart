@@ -106,50 +106,66 @@ class PlainTextField extends StatelessWidget {
                         color: color,
                         borderRadius: borderRadiusPresent ? borderRadius : null,
                       ),
-                      child: TextFormField(
-                        maxLines: 1,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(100)
-                        ],
-                        keyboardType: textInputType,
-                        textCapitalization: capitalizeWords
-                            ? TextCapitalization.words
-                            : TextCapitalization.sentences,
-                        autofocus: false,
-                        enabled: enabled,
-                        onTap: onClickField,
+                      child: TextField(
                         decoration: InputDecoration(
-                          hintText: customHint || topHint ? null : hint,
-                          labelText: customHint || topHint ? null : hint,
-                          icon: showPrefixIcon
-                              ? Icon(
-                                  Icons.text_fields,
-                                  color: primaryColor,
-                                )
-                              : null,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: horizontalContentPadding,
-                              vertical: 4),
-                          border: !boarder
-                              ? InputBorder.none
-                              : OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: widgetGreyColor, width: 3),
-                                  borderRadius: borderRadiusPresent
-                                      ? borderRadius
-                                      : null),
-                          focusedBorder: !boarder
-                              ? InputBorder.none
-                              : OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: primaryColor, width: 3),
-                                  borderRadius: borderRadiusPresent
-                                      ? borderRadius
-                                      : null),
+                          labelText: hint,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 0.5, color: primaryColor),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          // focusedBorder: OutlineInputBorder(
+                          //   borderSide:
+                          //       BorderSide(width: 3, color: textColorGrey),
+                          //   borderRadius: BorderRadius.circular(30),
+                          // ),
                         ),
-                        controller: controller,
-                        onChanged: onTextChange,
                       ),
+
+                      // TextFormField(
+                      //   maxLines: 1,
+                      //   inputFormatters: [
+                      //     LengthLimitingTextInputFormatter(100)
+                      //   ],
+                      //   keyboardType: textInputType,
+                      //   textCapitalization: capitalizeWords
+                      //       ? TextCapitalization.words
+                      //       : TextCapitalization.sentences,
+                      //   autofocus: false,
+                      //   enabled: enabled,
+                      //   onTap: onClickField,
+                      //   decoration: InputDecoration(
+                      //     hintText: customHint || topHint ? null : hint,
+                      //     labelText: customHint || topHint ? null : hint,
+                      //     icon: showPrefixIcon
+                      //         ? Icon(
+                      //             Icons.text_fields,
+                      //             color: primaryColor,
+                      //           )
+                      //         : null,
+                      //     contentPadding: EdgeInsets.symmetric(
+                      //         horizontal: horizontalContentPadding,
+                      //         vertical: 4),
+                      //     border: !boarder
+                      //         ? InputBorder.none
+                      //         : OutlineInputBorder(
+                      //             borderSide: BorderSide(
+                      //                 color: widgetGreyColor, width: 3),
+                      //             borderRadius: borderRadiusPresent
+                      //                 ? borderRadius
+                      //                 : null),
+                      //     focusedBorder: !boarder
+                      //         ? InputBorder.none
+                      //         : OutlineInputBorder(
+                      //             borderSide:
+                      //                 BorderSide(color: primaryColor, width: 3),
+                      //             borderRadius: borderRadiusPresent
+                      //                 ? borderRadius
+                      //                 : null),
+                      //   ),
+                      //   controller: controller,
+                      //   onChanged: onTextChange,
+                      // ),
                     ),
                   ],
                 ),

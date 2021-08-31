@@ -37,7 +37,7 @@ class AddAdvertView extends StatelessWidget {
       child: BaseView<AdvertModel>(onModelReady: (model) {
         ClientUserDto user = Provider.of<ClientUserDto>(context, listen: false);
         model.currentUserId = user.id;
-        model.putNewAdvert();
+        model.addAdvert();
         model.init(advert: advert);
       }, builder: (BuildContext context, AdvertModel model, Widget child) {
         var constraint;
@@ -95,10 +95,8 @@ class AddAdvertView extends StatelessWidget {
                                 ),
                                 UIHelper.horizontalSpaceSmall(),
                                 Text(
-                                  isEditMode
-                                      ? 'Edit advert Details'
-                                      : 'Add new advert',
-                                  style: TextStyle(color: textColorWhite),
+                                  'Add new advert',
+                                  style: titleStyleWhiteLight,
                                 ),
                                 SizedBox(height: 30.0),
                               ],
@@ -138,58 +136,60 @@ class AddAdvertView extends StatelessWidget {
                       child: model.state == ViewState.Busy
                           ? Center(child: CircularProgressIndicator())
                           : SingleChildScrollView(
-                              child: IntrinsicHeight(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-                                    UIHelper.verticalSpaceSmall(),
-                                    EditAdvertDetails(
-                                      titleController: model.titleController,
-                                      subtitleController:
-                                          model.subtitleController,
-                                      cellNumberController:
-                                          model.cellNumberController,
-                                      descriptionController:
-                                          model.descriptionController,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  UIHelper.verticalSpaceSmall(),
+                                  EditAdvertDetails(
+                                    titleController: model.titleController,
+                                    subtitleController:
+                                        model.subtitleController,
+                                    cellNumberController:
+                                        model.cellNumberController,
+                                    descriptionController:
+                                        model.descriptionController,
+                                    emailAddressController:
+                                        model.emailAddressController,
+                                    categoryController:
+                                        model.categoryController,
+                                    backgroundController:
+                                        model.backgroundController,
+                                    facebookLinkController:
+                                        model.facebookLinkController,
+                                    buttonTextController:
+                                        model.buttonTextController,
+                                    idController: model.idController,
+                                    websiteController: model.websiteController,
+                                    subCategoryController:
+                                        model.subCategoryController,
+                                    twitterLinkController:
+                                        model.twitterLinkController,
+                                    iconUrlController: model.iconUrlController,
+                                    mainImageUrlController:
+                                        model.mainImageUrlController,
+                                    createdController: model.createdController,
+                                    likesController: model.likesController,
+                                    modifiedController:
+                                        model.modifiedController,
+                                    activeController: model.activeController,
+                                    ownerController: model.ownerController,
+                                    addToCarouselController:
+                                        model.addToCarouselController,
+                                  ),
+                                  UIHelper.verticalSpaceSmall(),
+                                  Container(
+                                    alignment: Alignment.bottomRight,
+                                    width: 400,
+                                    height: 100,
+                                    margin: EdgeInsets.all(40),
+                                    child: FlatButton(
+                                      child: Text('Add Advert'),
+                                      color: textColorLightBlue,
+                                      textColor: Colors.white,
+                                      onPressed: () {},
                                     ),
-                                    UIHelper.verticalSpaceMedium(),
-                                    model.errorMessage != null
-                                        ? CustomErrorMessage(model.errorMessage)
-                                        : Container(),
-                                    UIHelper.verticalSpaceSmall(),
-                                    model.state == ViewState.Busy
-                                        ? CircularProgressIndicator()
-                                        : SizedBox(
-                                            width: 400,
-                                            height: 50,
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 30.0),
-                                              child: FloatingActionButton(
-                                                  backgroundColor: primaryColor,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              24)),
-                                                  child: Text(
-                                                    isEditMode
-                                                        ? "Update"
-                                                        : "Save",
-                                                    style: TextStyle(
-                                                        color: textColorWhite,
-                                                        fontSize: 20),
-                                                  ),
-                                                  onPressed: () {
-                                                    isEditMode
-                                                        ? model
-                                                            .updateAdvertDetails(
-                                                                advert)
-                                                        : model.putNewAdvert();
-                                                  }),
-                                            ),
-                                          ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                     ),

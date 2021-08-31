@@ -20,10 +20,12 @@ import 'menu_item.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String selected;
+  final Advert advert;
 
-  CustomDrawer({Key key, this.selected}) : super(key: key);
+  CustomDrawer({Key key, this.selected, this.advert}) : super(key: key);
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -194,13 +196,13 @@ class CustomDrawer extends StatelessWidget {
             },
             updateAdvertDetails: (advert) async {
               await Navigator.of(context)
-                  .pushNamed("addChild", arguments: advert);
+                  .pushNamed("AddAdvertView", arguments: advert);
               print("Return From forward");
               _refreshIndicatorKey.currentState.show();
             },
             viewAdvert: (child) async {
               await Navigator.of(context)
-                  .pushNamed("addChild", arguments: child);
+                  .pushNamed("AddAdvertView", arguments: advert);
               print("Return From forward");
               _refreshIndicatorKey.currentState.show();
             }),
